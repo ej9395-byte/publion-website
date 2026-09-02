@@ -1,84 +1,103 @@
-# 코덱스 배포 프롬프트
+# 코덱스 배포 프롬프트 — Vercel
 
-아래 블록을 통째로 복사해 코덱스에 붙여넣으세요.
+갱신 2026-09-02
 
-사전 조건
-- `gh auth status` 가 로그인 상태
-- Vercel 계정 (로그인은 프롬프트 안에서 안내합니다)
+깃허브는 이미 끝났습니다. 저장소가 공개 상태로 올라가 있습니다.
+남은 것은 Vercel 연결뿐입니다.
 
----
+**사전 조건** — 터미널에서 `gh auth status`가 로그인 상태일 것. Vercel 로그인은 프롬프트 안에서 안내합니다.
 
-퍼블리온 출판사 홈페이지를 GitHub 에 올리고 Vercel 에 배포해줘.
+아래 코드 블록을 **통째로 복사해** 코덱스에 붙여넣으세요.
+
+```
+퍼블리온 출판사 홈페이지를 Vercel 에 배포해줘.
 
 작업 디렉터리: ~/workspace/퍼블리온
 
-저장소 성격
-- 빌드 도구가 없는 정적 사이트다. 프레임워크도 번들러도 없다.
-- 46개 주소가 이미 HTML 파일로 있다 (index.html, books/, book/1~41/, journal/, about/, authors/).
-- .gitignore 와 vercel.json 은 이미 있다. 새로 만들거나 고치지 마라.
-- 저장소에 들어갈 것은 파일 122개, 약 6.9MB 다.
+── 현재 상태 (이미 끝난 것) ─────────────────────────
+- GitHub 공개 저장소: https://github.com/gamsungsecretary-glitch/publion-website
+- main 브랜치에 전부 푸시됨. origin 과 발산 없음
+- vercel.json 있음 (캐시 헤더 + 보안 헤더 + trailingSlash)
+- .gitignore 있음
 
-순서
+── 저장소 성격 ─────────────────────────────────────
+- 빌드 도구가 없는 순수 정적 사이트다. 프레임워크도 번들러도 package.json 도 없다
+- 46개 주소가 이미 HTML 파일로 존재한다
+  index.html, books/, book/1~41/, journal/, about/, authors/
+- 따라서 Vercel 빌드 명령은 없어야 한다. Output Directory 도 루트다
 
-1) git 초기화 + 첫 커밋
-   - 브랜치 main, 커밋 메시지 "퍼블리온 홈페이지 초기 배포"
-   - 커밋 전에 git status --short 로 assets/img/_bg 와 *.pdf 가 빠졌는지 확인.
-     들어가 있으면 멈추고 알려줘.
+── 반드시 지킬 것 ──────────────────────────────────
+1. 파일을 고치지 마라. vercel.json, .gitignore, HTML, CSS, JS 전부 읽기만 해라
+   설정이 잘못됐다고 판단되면 고치지 말고 나에게 말해라
+2. 프로덕션 배포(--prod)를 내 확인 없이 하지 마라
+   프리뷰 배포까지만 하고 주소를 알려줘라
+3. 도메인을 사거나 연결하지 마라. publion.co.kr 을 붙이지 마라
+   Vercel 이 도메인 구매를 권해도 거절해라
+4. 저장소를 새로 만들지 마라. 이미 있는 저장소에 연결만 해라
 
-2) GitHub 비공개 저장소 생성 + 푸시
-   gh repo create publion-website --private --source . --remote origin --push
+── 할 일 ──────────────────────────────────────────
+1. Vercel CLI 확인. 없으면 설치 방법만 알려주고 멈춰라
+     which vercel || npm i -g vercel
+2. Vercel 로그인 상태 확인 (vercel whoami)
+   로그인이 안 돼 있으면 `vercel login` 안내하고 멈춰라
+3. 위 GitHub 저장소를 Vercel 프로젝트로 연결
+   - Framework Preset: Other (또는 No Framework)
+   - Build Command: 비움
+   - Output Directory: 비움 (루트)
+   - Install Command: 비움
+   - Root Directory: 비움 (저장소 루트)
+4. 프리뷰 배포 1회 실행
+5. 배포된 주소로 아래를 확인하고 결과를 표로 보고해라
 
-3) Vercel 프리뷰 배포
-   - vercel CLI 없으면 npm i -g vercel
-   - vercel login 이 필요하면 안내만 하고 멈춰라. 내가 직접 로그인한다.
-   - 프로젝트 이름 publion / Framework Preset 은 Other /
-     Build Command 비움 / Output Directory 는 저장소 루트
-   - vercel 로 프리뷰만 배포하고 URL 을 알려줘.
+── 배포 후 확인 항목 ───────────────────────────────
+각 항목을 실제로 요청해서 상태 코드를 확인해라. 추측하지 마라.
 
-4) 프리뷰 URL 로 검증하고 표로 보고
-   - / /books/ /book/23/ /journal/ /about/ /authors/ 가 모두 200 인가
-   - /robots.txt 200, /sitemap.xml 200 이고 <loc> 이 46개인가
-   - /assets/img/covers/cover-23.jpg 가 200 인가
-   - curl 로 /book/23/ 를 받아 태그를 걷어낸 본문이 1,000자 이상인가
-     (자바스크립트를 실행하지 않는 AI 크롤러가 보는 내용이다. 기준값 1,159자)
+  a) /                          200 이고 CSS 가 실제로 적용되는가
+  b) /assets/css/styles.css     200
+  c) /assets/js/app.js          200
+  d) /assets/img/covers/cover-41.jpg   200
+  e) /book/41/                  200
+  f) /books/  /journal/  /about/  /authors/   전부 200
+  g) /sitemap.xml               200, 46개 <loc>
+  h) /robots.txt                200
+  i) 없는 주소 (/zzz/)          404
 
-5) 내가 확인하고 좋다고 하면 그때 vercel --prod 로 운영 배포
-   끝나면 GitHub 주소와 운영 URL 을 알려줘.
-   그리고 assets/js/views.js 의 SITE.origin 이 https://publion.co.kr 로
-   박혀 있으니 실제 도메인으로 바꾸고 node build/prerender.mjs 를 다시 돌려야
-   canonical 과 sitemap 이 맞는다는 것도 다시 알려줘.
+  CSS 적용 여부는 파일 200 만으로 판단하지 마라.
+  페이지를 열어 배경이 흰색이고 링크가 기본 파란색이 아닌지 눈으로 확인해라.
 
-하지 말 것
-- 파일 내용을 고치지 마라. 배포만 해라.
-- 내 확인 없이 운영 배포하지 마라.
-- 도메인을 사거나 연결하지 마라.
+── 알아둘 것 ──────────────────────────────────────
+- HTML 안의 자산 경로는 루트 기준 절대경로(/assets/...)다.
+  Vercel 은 루트에서 서빙하므로 그대로 맞는다. 하위 경로 서빙에서는 깨진다
+- HTML 의 canonical 과 sitemap 은 https://publion.co.kr 을 가리킨다.
+  아직 연결되지 않은 도메인이다. 지금은 그대로 두고 고치지 마라.
+  Vercel 프리뷰 배포에는 noindex 가 붙으므로 색인 문제는 없다
+- 한글 파일명이 저장소에 있다. 배포에서 빠지지 않는지 확인해라
+
+── 보고 형식 ──────────────────────────────────────
+- 프리뷰 주소
+- 위 a~i 확인 결과를 표로. 실패한 항목은 원인까지
+- 프로덕션 배포를 진행할지 나에게 물어보고 멈춰라
+```
 
 ---
 
-## 배포 후
+## 참고 — 깃허브 페이지 미리보기는 깨져 있습니다
 
-### 1. 도메인 반영
+`https://gamsungsecretary-glitch.github.io/publion-website/` 는 **스타일이 전혀 적용되지 않습니다.**
 
-`assets/js/views.js` 의 `SITE.origin` 이 `https://publion.co.kr` 로 박혀 있습니다.
+원인은 경로입니다. HTML 이 자산을 `/assets/css/styles.css` 처럼 루트 기준으로 부르는데,
+깃허브 페이지는 사이트를 `/publion-website/` 하위에서 서빙합니다.
+그래서 브라우저가 `github.io/assets/...` 를 찾고 404 를 받습니다.
 
-```bash
-# SITE.origin 을 실제 주소로 고친 뒤
-node build/prerender.mjs
-git add -A && git commit -m "배포 도메인 반영" && git push
-```
+측정한 값입니다.
 
-### 2. 크롤러 접근 확인
+| 확인 | 결과 |
+|---|---|
+| `/publion-website/assets/css/styles.css` | 200 (파일은 있음) |
+| `/assets/css/styles.css` (실제 요청 주소) | 404 |
+| 브라우저에서 적용된 CSS 규칙 수 | 0 |
+| 로드된 이미지 | 0 |
 
-CDN 이나 방화벽이 특정 크롤러만 조용히 막는 경우가 있습니다.
-robots.txt 에는 흔적이 남지 않으므로 실제 응답을 봐야 합니다.
-
-```bash
-SITE=https://실제도메인
-for UA in GPTBot OAI-SearchBot ChatGPT-User ClaudeBot Claude-SearchBot \
-          Claude-User Googlebot PerplexityBot CCBot Chrome; do
-  printf "%-18s " "$UA"
-  curl -s -o /dev/null -w "%{http_code} %{size_download}B\n" -A "$UA/1.0" "$SITE/"
-done
-```
-
-응답 코드나 크기가 다른 크롤러가 있으면 그것이 발견 사항입니다.
+**Vercel 은 루트에서 서빙하므로 이 문제가 없습니다.** 배포하면 그대로 정상입니다.
+깃허브 페이지를 계속 쓰려면 `BASE_PATH=/publion-website` 로 다시 빌드해야 하는데,
+그 산출물은 Vercel 에서 깨집니다. 둘 중 하나만 골라야 합니다.
