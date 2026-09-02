@@ -25,8 +25,17 @@ export const SITE = {
   email: 'publion2030@gmail.com',
   tel: '010-3207-0033',
   ceo: '박선영',
-  founded: '2020-02-26',
-  regNo: '제2022-000096호',
+  founded: '2020-02-26',          // 출판등록일
+  regNo: '제2022-000096호',        // 출판등록번호
+  // 사업자등록번호는 하나온 진단컨설팅 보고서(문서 확인)에서 가져왔고
+  // bizno.net 이 상호·대표·개업일까지 같게 확인해 줬습니다.
+  // 개업일 2020-04-01 은 위 출판등록일(2020-02-26)과 별개 항목입니다.
+  bizNo: '867-78-00208',
+  // 주소는 대표 확인값입니다. 온라인 기업명부(bizno·사람인)에는
+  // 서울 영등포 주소가 남아 있는데 옛 소재지입니다.
+  // 컨설팅 문서의 팩스 032-232-6300 도 인천 지역번호로 이쪽과 맞습니다.
+  // 시·군·구까지만 씁니다.
+  address: '인천광역시 남동구',
   catalogPdf: 'https://drive.google.com/file/d/14xDhg0Z7kjXStwnNtX0qU1RH-K25IBED/view',
 };
 
@@ -790,6 +799,12 @@ function footerHTML() {
         </div>
       </div>
       ${cols}
+    </div>
+    <div class="footer__biz">
+      <span>상호 ${esc(SITE.name)}</span>
+      <span>대표 ${esc(SITE.ceo)}</span>
+      <span>사업자등록번호 ${esc(SITE.bizNo)}</span>
+      <span>${esc(SITE.address)}</span>
     </div>
     <div class="footer__bottom">
       <span>© 2026 퍼블리온 Publion</span>

@@ -1029,6 +1029,18 @@ button {
 .footer__links { display: flex; flex-direction: column; gap: 11px; font-size: 13px; }
 .footer__links button { cursor: pointer; }
 .footer__links button:hover { color: var(--c-bg); }
+/* 사업자 정보. 법으로 밝혀야 하는 값이라 눈에 띌 필요는 없지만
+   찾으면 반드시 있어야 합니다. 저작권 줄 바로 위에 둡니다. */
+.footer__biz {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  padding-top: 24px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--c-faint);
+}
+
 .footer__bottom {
   display: flex;
   justify-content: space-between;
@@ -1036,7 +1048,7 @@ button {
   font-size: 11px;
   letter-spacing: .1em;
   text-transform: uppercase;
-  padding-top: 24px;
+  padding-top: 14px;
 }
 
 
