@@ -11,7 +11,6 @@
 
 import { BOOKS, HERO, SUBJECTS } from './data.js';
 import * as V from './views.js';
-import './image-slot.js';
 
 const HERO_INTERVAL = 7000;
 const NEWSLETTER_KEY = 'publion.newsletter';

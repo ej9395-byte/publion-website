@@ -80,9 +80,27 @@ export function booksHref(subject, sort) {
 
 /* ── 조각 ───────────────────────────────────────────────────── */
 
-const slot = (id, fit, placeholder, src, eager) =>
-  `<image-slot id="${esc(id)}" fit="${fit}" placeholder="${esc(placeholder)}"` +
-  (src ? ` src="${esc(src)}"` : '') + (eager ? ' eager' : '') + `></image-slot>`;
+/* 이미지 자리.
+ * 예전에는 <image-slot> 커스텀 요소를 찍고 자바스크립트가 <img> 를 만들었습니다.
+ * 두 가지가 잘못됐습니다.
+ *   1. 클릭하면 파일 선택 창이 떴습니다. 표지를 눌러도 상세로 넘어가지 않았습니다.
+ *   2. 자바스크립트를 실행하지 않는 크롤러에게는 이미지가 아예 없었습니다.
+ * 이제 서버에서 <img> 를 그대로 찍습니다. 클릭은 감싸는 <a> 가 받습니다.
+ */
+const slot = (id, fit, placeholder, src, eager) => {
+  const alt = esc(placeholder);
+  if (!src) {
+    return `<span class="image-slot" data-slot="${esc(id)}">` +
+           `<span class="image-slot__empty">${alt}</span></span>`;
+  }
+  return `<span class="image-slot" data-slot="${esc(id)}">` +
+    `<img class="image-slot__img" src="${esc(src)}" alt="${alt}"` +
+    ` style="object-fit:${fit}"` +
+    (eager
+      ? ' loading="eager" decoding="sync" fetchpriority="high"'
+      : ' loading="lazy" decoding="async"') +
+    `></span>`;
+};
 
 const coverSlot = (b, placeholder) => slot(b.slotId, 'contain', placeholder || b.title, b.cover);
 
