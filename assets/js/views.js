@@ -93,7 +93,10 @@ const slot = (id, fit, placeholder, src, eager) => {
     return `<span class="image-slot" data-slot="${esc(id)}">` +
            `<span class="image-slot__empty">${alt}</span></span>`;
   }
-  return `<span class="image-slot" data-slot="${esc(id)}">` +
+  // fit=contain 은 표지입니다. 3:4 칸에 맞추면 판형이 다른 표지마다
+  // 회색 여백이 남으므로, 높이만 맞추고 너비는 표지 원래 비율을 따릅니다.
+  const cls = fit === 'contain' ? 'image-slot image-slot--fit' : 'image-slot';
+  return `<span class="${cls}" data-slot="${esc(id)}">` +
     `<img class="image-slot__img" src="${esc(src)}" alt="${alt}"` +
     ` style="object-fit:${fit}"` +
     (eager

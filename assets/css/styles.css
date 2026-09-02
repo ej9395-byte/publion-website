@@ -399,12 +399,10 @@ button {
 .card { cursor: pointer; display: block; width: 100%; }
 .card__cover {
   position: relative;
-  aspect-ratio: 3 / 4;
+  aspect-ratio: 3 / 4;   /* 줄 높이를 맞추는 용도로만 씁니다 */
   margin-bottom: 16px;
-  border: 1px solid var(--c-rule);
-  background: var(--c-imgbg);
 }
-.card__cover--soft { border-color: rgba(17, 17, 17, .1); }
+.card__cover--soft { }
 .card__title {
   font-family: var(--f-title);
   font-size: 17px;
@@ -765,8 +763,6 @@ button {
   width: 100%;
   max-width: 380px;
   aspect-ratio: 3 / 4;
-  border: 1px solid rgba(17, 17, 17, .1);
-  background: var(--c-bg);
 }
 .detail__info {
   padding: 76px var(--pad-x) 76px 64px;
@@ -1215,6 +1211,25 @@ button {
   background: var(--c-imgbg);
 }
 .image-slot__img { width: 100%; height: 100%; display: block; }
+
+/* 표지 — 칸을 채우지 않고 원래 판형대로 둡니다.
+   높이만 칸에 맞추므로 한 줄의 표지들이 같은 높이로 섭니다.
+   판형이 다르면 너비가 달라지는데, 그게 실제 책의 모습입니다. */
+.image-slot--fit {
+  position: absolute;
+  inset: 0;
+  background: none;
+  overflow: visible;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.image-slot--fit .image-slot__img {
+  width: auto;
+  height: 100%;
+  max-width: 100%;
+  border: 1px solid rgba(17, 17, 17, .12);
+}
 .image-slot__empty {
   position: absolute;
   inset: 0;
