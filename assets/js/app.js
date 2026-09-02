@@ -38,7 +38,10 @@ function readViewFromDom() {
 
 function viewFromUrl(url) {
   const u = new URL(url, location.origin);
-  const path = u.pathname.replace(/\/+$/, '') || '/';
+  // 하위 경로에 배포된 경우 기준 경로를 떼고 판별합니다.
+  let raw = u.pathname;
+  if (V.BASE && raw.startsWith(V.BASE)) raw = raw.slice(V.BASE.length) || '/';
+  const path = raw.replace(/\/+$/, '') || '/';
   if (path === '/books') {
     const s = u.searchParams.get('subject');
     const o = u.searchParams.get('sort');

@@ -29,8 +29,17 @@ export const SITE = {
 };
 
 export const SORTS = ['신간순', '가나다순', '가격순'];
-export const COVER_DIR = '/assets/img/covers';
-export const BANNER_DIR = '/assets/img/banners';
+
+/* 기준 경로 — 사이트가 도메인 루트가 아니라 하위 경로에 놓일 때 씁니다.
+   (예: GitHub Pages 의 /publion-website/)
+   브라우저는 head 에 심어둔 window.__BASE__ 를, 빌드는 BASE_PATH 환경변수를 읽습니다.
+   비어 있으면 지금까지와 똑같이 루트 기준으로 동작합니다. */
+export const BASE =
+  (typeof window !== 'undefined' && window.__BASE__) ||
+  (typeof process !== 'undefined' && process.env && process.env.BASE_PATH) || '';
+
+export const COVER_DIR = BASE + '/assets/img/covers';
+export const BANNER_DIR = BASE + '/assets/img/banners';
 
 /* ── 문자열 도구 ────────────────────────────────────────────── */
 
@@ -54,17 +63,17 @@ export const decorate = (b) => ({
 
 /* ── 주소 ───────────────────────────────────────────────────── */
 
-export const homeHref = () => '/';
-export const aboutHref = () => '/about/';
-export const authorsHref = () => '/authors/';
-export const journalHref = () => '/journal/';
-export const bookHref = (id) => `/book/${id}/`;
+export const homeHref = () => BASE + '/';
+export const aboutHref = () => BASE + '/about/';
+export const authorsHref = () => BASE + '/authors/';
+export const journalHref = () => BASE + '/journal/';
+export const bookHref = (id) => `${BASE}/book/${id}/`;
 
 export function booksHref(subject, sort) {
   const q = [];
   if (subject && subject !== '전체') q.push('subject=' + encodeURIComponent(subject));
   if (sort && sort !== '신간순') q.push('sort=' + encodeURIComponent(sort));
-  return '/books/' + (q.length ? '?' + q.join('&') : '');
+  return BASE + '/books/' + (q.length ? '?' + q.join('&') : '');
 }
 
 /* ── 조각 ───────────────────────────────────────────────────── */
@@ -174,7 +183,7 @@ function headerHTML(view) {
   <header class="header" id="site-header">
     <div class="header__bar">
       <div class="header__left"><button type="button">검색 Search</button></div>
-      <a class="header__brand" href="/" aria-label="퍼블리온 홈">
+      <a class="header__brand" href="${BASE}/" aria-label="퍼블리온 홈">
         <svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-hidden="true">
           <path d="${LOGO_PATH}" fill="#111111"></path>
         </svg>
@@ -408,7 +417,7 @@ function booksHTML(view) {
 
   return `
   <main class="books">
-    <nav class="t-crumb" aria-label="위치"><a href="/">홈</a> / 도서</nav>
+    <nav class="t-crumb" aria-label="위치"><a href="${BASE}/">홈</a> / 도서</nav>
     <h1 class="t-h1-page">도서 <span class="t-en">Books</span></h1>
     <div class="books__count">${sorted.length}종 · ${esc(subject)} · ${esc(sort)}</div>
     <div class="books__toolbar">
@@ -601,7 +610,7 @@ function journalHTML() {
   ];
   return `
   <main class="journal-page">
-    <nav class="t-crumb" aria-label="위치"><a href="/">홈</a> / 저널</nav>
+    <nav class="t-crumb" aria-label="위치"><a href="${BASE}/">홈</a> / 저널</nav>
     <h1 class="t-h1-page">저널 <span class="t-en">Journal</span></h1>
     <p class="journal-page__lead">퍼블리온이 블로그에 올린 글 ${POSTS.length}편입니다. 제목을 누르면 해당 글로 이동합니다.</p>
 
@@ -641,7 +650,7 @@ function authorsHTML() {
     </a>`).join('');
   return `
   <main class="authors">
-    <nav class="t-crumb" aria-label="위치"><a href="/">홈</a> / 저자</nav>
+    <nav class="t-crumb" aria-label="위치"><a href="${BASE}/">홈</a> / 저자</nav>
     <h1 class="t-h1-page">저자 <span class="t-en">Authors</span></h1>
     <div class="grid-authors">${cards}</div>
   </main>`;

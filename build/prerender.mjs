@@ -19,6 +19,7 @@ const { INTROS } = await import(join(ROOT, 'assets/js/intros.js'));
 
 const { SITE, esc, meta, pageHTML, authorList } = V;
 const BUILT = new Date().toISOString().slice(0, 10);
+const BASE = process.env.BASE_PATH || '';   // 예: /publion-website
 
 /* ── 구조화 데이터 ──────────────────────────────────────────────
    검색 결과에 실제로 렌더링되는 기능과 데이터 정합을 위해 넣습니다.
@@ -156,14 +157,14 @@ function document_(view) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Archivo:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/assets/css/styles.css">
+<link rel="stylesheet" href="${BASE}/assets/css/styles.css">
 
 <script type="application/ld+json">${jsonLdFor(view)}</script>
 </head>
 <body>
-<a class="u-skip" href="#main-content">본문으로 건너뛰기</a>
+<script>window.__BASE__=${JSON.stringify(BASE)};</script>\n<a class="u-skip" href="#main-content">본문으로 건너뛰기</a>
 <div id="app" data-page="${esc(view.page)}"${view.page === 'detail' ? ` data-book="${view.bookId}"` : ''}${view.page === 'books' ? ` data-subject="${esc(view.subject)}" data-sort="${esc(view.sort)}"` : ''}>${pageHTML(view)}</div>
-<script type="module" src="/assets/js/app.js"></script>
+<script type="module" src="${BASE}/assets/js/app.js"></script>
 </body>
 </html>
 `;
