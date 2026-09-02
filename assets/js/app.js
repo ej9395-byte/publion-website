@@ -13,16 +13,16 @@ import { BOOKS, HERO, SUBJECTS } from './data.js';
 import * as V from './views.js';
 
 const HERO_INTERVAL = 7000;
-const NEWSLETTER_KEY = 'publion.newsletter';
+
+/* 예전 구독 양식이 방문자 브라우저에 이메일을 남겼습니다.
+   이제 쓰지 않으므로 다음 방문 때 지웁니다. 남의 기기에 받아 둔 개인정보를
+   그냥 두지 않습니다. 키가 없으면 아무 일도 하지 않습니다. */
+try { localStorage.removeItem('publion.newsletter'); } catch (e) {}
 
 /* ── 상태 ───────────────────────────────────────────────────── */
 
 const state = {
   view: readViewFromDom(),
-  subs: loadSubs(),
-  email: '',
-  subMsg: '',
-  subOk: false,
 };
 
 function readViewFromDom() {
@@ -57,62 +57,6 @@ function viewFromUrl(url) {
   if (path === '/journal') return { page: 'journal' };
   if (path === '/authors') return { page: 'authors' };
   return { page: 'home', heroIndex: 0 };
-}
-
-/* ── 뉴스레터 ───────────────────────────────────────────────── */
-
-function loadSubs() {
-  try { return JSON.parse(localStorage.getItem(NEWSLETTER_KEY) || '[]'); }
-  catch (e) { return []; }
-}
-
-function saveSubs(list) {
-  state.subs = list;
-  try { localStorage.setItem(NEWSLETTER_KEY, JSON.stringify(list)); } catch (e) {}
-}
-
-function subscribe() {
-  const v = (state.email || '').trim();
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
-    state.subMsg = '이메일 주소를 확인해 주세요.';
-    state.subOk = false;
-  } else if (state.subs.some((x) => x.email.toLowerCase() === v.toLowerCase())) {
-    state.subMsg = '이미 구독 중인 주소입니다.';
-    state.subOk = false;
-    state.email = '';
-  } else {
-    saveSubs(state.subs.concat([{ email: v, at: new Date().toISOString().slice(0, 10) }]));
-    state.email = '';
-    state.subMsg = '구독 신청이 접수됐습니다. 첫 뉴스레터를 보내드립니다.';
-    state.subOk = true;
-  }
-  renderNewsletter();
-}
-
-function downloadSubs() {
-  if (!state.subs.length) return;
-  const csv = 'email,subscribed_at\n' + state.subs.map((x) => x.email + ',' + x.at).join('\n');
-  const url = URL.createObjectURL(new Blob(['﻿' + csv], { type: 'text/csv;charset=utf-8' }));
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'publion-newsletter.csv';
-  a.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
-
-function renderNewsletter() {
-  const mount = document.getElementById('newsletter-mount');
-  if (!mount) return;
-  mount.innerHTML = V.newsletterHTML({
-    email: state.email, subMsg: state.subMsg, subOk: state.subOk, subsCount: state.subs.length,
-  });
-  const input = document.getElementById('newsletter-email');
-  if (input) {
-    input.addEventListener('input', (ev) => { state.email = ev.target.value; });
-    input.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') subscribe(); });
-  }
-  document.getElementById('newsletter-submit')?.addEventListener('click', subscribe);
-  document.getElementById('newsletter-csv')?.addEventListener('click', downloadSubs);
 }
 
 /* ── 히어로 ─────────────────────────────────────────────────── */
@@ -175,7 +119,7 @@ function render(scrollTop = true) {
   document.querySelector('link[rel="canonical"]')?.setAttribute('href', V.SITE.origin + m.path);
 
   wireHeader();
-  if (view.page === 'home') { renderHero(); renderNewsletter(); }
+  if (view.page === 'home') renderHero();
   startHero();
   if (scrollTop) window.scrollTo(0, 0);
 }
@@ -184,7 +128,6 @@ function navigate(href, push = true) {
   const url = new URL(href, location.origin);
   if (url.origin !== location.origin) { location.href = href; return; }
   state.view = viewFromUrl(url);
-  state.subMsg = '';
   if (push) history.pushState(null, '', url.pathname + url.search);
   render();
 }
@@ -240,5 +183,5 @@ document.addEventListener('keydown', (ev) => {
 
 /* 미리 찍힌 HTML 위에 동작만 얹습니다. 다시 그리지 않습니다. */
 wireHeader();
-if (state.view.page === 'home') { renderHero(); renderNewsletter(); }
+if (state.view.page === 'home') renderHero();
 startHero();

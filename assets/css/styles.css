@@ -630,48 +630,28 @@ button {
   max-width: 460px;
   text-wrap: pretty;
 }
-.newsletter__field { display: flex; border-bottom: 1px solid var(--c-line-ink); }
-.newsletter__input {
-  flex: 1;
-  background: transparent;
-  border: 0;
-  outline: none;
+/* 준비 중 안내. 입력 양식이 없으므로 필드·버튼 규칙도 없습니다.
+   발송 서비스를 붙일 때 양식과 함께 되살리면 됩니다. */
+.newsletter__soon {
+  font-family: var(--f-title);
+  font-size: 30px;
+  font-weight: 600;
   color: var(--c-bg);
-  font-family: 'Archivo', sans-serif;
-  font-size: 15px;
-  padding: 14px 0;
+  margin: 0;
 }
-.newsletter__submit {
-  background: transparent;
-  border: 0;
-  color: var(--c-bg);
-  font-family: 'Archivo', sans-serif;
-  font-size: 12px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  cursor: pointer;
-  padding: 14px 0;
-}
-.newsletter__submit:hover { color: var(--c-accent-lt); }
-.newsletter__foot {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-  margin-top: 14px;
-  font-size: 12px;
+.newsletter__soon .t-en { color: var(--c-on-ink); }
+.newsletter__aside {
+  margin: 14px 0 0;
+  font-size: 13px;
   line-height: 1.7;
+  color: var(--c-on-ink);
 }
-.newsletter__msg { color: var(--c-on-ink); }
-.newsletter__msg[data-ok="true"] { color: var(--c-accent-lt); }
-.newsletter__csv {
-  color: var(--c-faint);
-  white-space: nowrap;
-  cursor: pointer;
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.newsletter__aside a {
+  color: var(--c-bg);
+  border-bottom: 1px solid var(--c-line-ink);
+  padding-bottom: 2px;
 }
-.newsletter__csv:hover { color: var(--c-bg); }
+.newsletter__aside a:hover { border-bottom-color: var(--c-bg); }
 
 /* ── 도서 목록 ──────────────────────────────────────────────── */
 .books { padding: 52px var(--pad-x) 84px; }
@@ -1374,7 +1354,6 @@ button {
   .footer__links span { display: inline-flex; align-items: center; min-height: 40px; }
   .footer__social a { min-height: 40px; display: inline-flex; align-items: center; }
   .hero__dot { height: 4px; }
-  .newsletter__csv { min-height: 40px; display: inline-flex; align-items: center; }
 
   /* ── 3. 도서 목록 도구 막대 ────────────────────────────────── */
 
@@ -1506,8 +1485,6 @@ button {
   .catalog__btn { display: block; text-align: center; }
 
   /* 뉴스레터 입력란 — 라벨과 버튼이 좁아 눌리지 않습니다. */
-  .newsletter__submit { padding: 14px 0 14px 14px; }
-  .newsletter__foot { flex-direction: column; align-items: flex-start; gap: 8px; }
 
   /* 도서 상세 구매 블록 */
   .detail__buy-item { padding: 14px 18px; min-height: 48px; display: inline-flex; align-items: center; }

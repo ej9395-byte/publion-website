@@ -276,26 +276,25 @@ export function heroHTML(heroIndex) {
   </section>`;
 }
 
-export function newsletterHTML(view) {
-  const countLabel = view.subsCount ? `구독자 ${view.subsCount}명 · CSV 내려받기` : '';
+/* 뉴스레터 — 준비 중.
+ *
+ * 입력 양식을 걷어냈습니다. 발송 서비스에 연결되기 전까지는 주소를 받아도
+ * 출판사에 닿지 않는데, 화면에는 접수됐다고 나왔습니다. 지키지 못할 약속을
+ * 하느니 받지 않는 편이 낫습니다.
+ *
+ * 발송 서비스(스티비·메일침프 등)를 붙일 때 이 함수를 다시 양식으로 되돌리고
+ * 그쪽 폼 action 을 연결하면 됩니다. localStorage 는 쓰지 않습니다.
+ */
+export function newsletterHTML() {
   return `
   <section class="newsletter">
     <div>
-      <h2 class="newsletter__title">뉴스레터 구독</h2>
-      <p class="newsletter__text">매달 신간 소식과 저자의 글, 편집자가 고른 문장을 보내드립니다.</p>
+      <h2 class="newsletter__title">뉴스레터</h2>
+      <p class="newsletter__text">신간 소식과 편집자가 고른 문장을 전하는 뉴스레터를 준비하고 있습니다.</p>
     </div>
     <div>
-      <div class="newsletter__field">
-        <label class="u-sr-only" for="newsletter-email">이메일 주소</label>
-        <input class="newsletter__input" id="newsletter-email" type="email"
-               placeholder="이메일 주소 Email address" value="${esc(view.email || '')}">
-        <button type="button" class="newsletter__submit" id="newsletter-submit">구독 Subscribe</button>
-      </div>
-      <div class="newsletter__foot">
-        <span class="newsletter__msg" data-ok="${Boolean(view.subOk)}" role="status">${esc(view.subMsg || '')}</span>
-        <button type="button" class="newsletter__csv" id="newsletter-csv"
-                ${countLabel ? '' : 'hidden'}>${esc(countLabel)}</button>
-      </div>
+      <p class="newsletter__soon">준비 중 <span class="t-en">Coming soon</span></p>
+      <p class="newsletter__aside">그동안의 소식은 <a href="${SITE.blog}" target="_blank" rel="noopener">네이버 블로그</a>에서 보실 수 있습니다.</p>
     </div>
   </section>`;
 }
