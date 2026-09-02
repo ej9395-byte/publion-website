@@ -412,7 +412,6 @@ button {
   font-weight: 600;
 }
 .card__byline { font-size: 12px; color: var(--c-muted); margin-top: 6px; }
-.card__price  { font-size: 12px; margin-top: 8px; }
 
 .grid-new {
   display: grid;
@@ -749,7 +748,6 @@ button {
   margin-top: 4px;
 }
 .book__byline { font-size: 13px; color: var(--c-muted); margin-top: 8px; }
-.book__price  { font-size: 13px; margin-top: 6px; }
 .book__award {
   font-size: 11px;
   line-height: 1.6;
@@ -828,33 +826,30 @@ button {
   margin: 0 0 32px;
   text-wrap: pretty;
 }
-.detail__price { font-family: var(--f-title); font-size: 28px; margin-bottom: 22px; }
-.detail__buy {
-  display: inline-block;
+/* 구매는 표지 옆에 둡니다. 서점으로 넘기는 것이 이 화면의 마지막 일이라
+   본문 아래가 아니라 첫 화면에서 바로 보이게 했습니다.
+   스마트스토어는 여기서 빼고 머리말·꼬리말 링크로만 남깁니다. */
+.detail__buy-block { margin-top: 26px; }
+.detail__buy-label {
+  font-size: 11px;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--c-accent);
+  margin-bottom: 12px;
+}
+.detail__buy-list { display: flex; flex-wrap: wrap; gap: 9px; }
+.detail__buy-item {
+  border: 1px solid var(--c-ink);
+  padding: 13px 22px;
+  font-size: 12px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.detail__buy-item:hover {
   background: var(--c-ink);
   color: var(--c-bg);
-  padding: 17px 34px;
-  font-size: 12px;
-  letter-spacing: .14em;
-  text-transform: uppercase;
-  align-self: flex-start;
 }
-.detail__buy:hover { background: var(--c-accent); color: var(--c-bg); }
-.detail__retailers {
-  display: flex;
-  gap: 20px;
-  margin-top: 20px;
-  font-size: 12px;
-  letter-spacing: .06em;
-  color: var(--c-muted);
-  flex-wrap: wrap;
-}
-.detail__retailers a {
-  color: var(--c-ink);
-  border-bottom: 1px solid var(--c-rule);
-  padding-bottom: 2px;
-}
-.detail__retailers a:hover { border-bottom-color: var(--c-accent); }
 
 .detail__body {
   display: grid;
@@ -900,7 +895,6 @@ button {
   gap: 28px;
 }
 .related__cover { margin-bottom: 14px; }
-.related__price { font-size: 12px; color: var(--c-muted); margin-top: 5px; }
 
 /* ── 출판사 소개 ────────────────────────────────────────────── */
 .about__lead {
@@ -1069,43 +1063,6 @@ button {
   padding-top: 24px;
 }
 
-/* ── 구매하기 (도서 상세, 책 소개 아래) ─────────────────────────
-   SOP 6장 버튼 규칙: 한 화면에 기본 버튼은 하나.
-   스마트스토어만 먹 바탕이고 나머지 서점은 테두리만 씁니다.
-   ───────────────────────────────────────────────────────────── */
-.buy { margin-top: 38px; padding-top: 30px; border-top: 1px solid var(--c-rule); }
-.buy__title {
-  font-family: var(--f-title);
-  font-size: 20px;
-  font-weight: 600;
-  margin: 0 0 18px;
-}
-.buy__list { display: flex; flex-direction: column; gap: 9px; }
-.buy__item {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 16px;
-  padding: 15px 20px;
-  border: 1px solid var(--c-rule);
-  color: var(--c-ink);
-}
-.buy__item:hover { border-color: var(--c-ink); color: var(--c-ink); }
-.buy__item--own {
-  background: var(--c-ink);
-  color: var(--c-bg);
-  border-color: var(--c-ink);
-}
-.buy__item--own:hover { background: var(--c-accent); border-color: var(--c-accent); color: var(--c-bg); }
-.buy__name { font-size: 14px; letter-spacing: .02em; }
-.buy__note {
-  font-size: 11px;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--c-muted);
-  white-space: nowrap;
-}
-.buy__item--own .buy__note { color: var(--c-on-ink); }
 
 /* ── 이 책의 이야기 (도서 상세) ─────────────────────────────── */
 .story {
@@ -1416,7 +1373,6 @@ button {
   .footer__links a,
   .footer__links span { display: inline-flex; align-items: center; min-height: 40px; }
   .footer__social a { min-height: 40px; display: inline-flex; align-items: center; }
-  .detail__retailers a { min-height: 40px; display: inline-flex; align-items: center; }
   .hero__dot { height: 4px; }
   .newsletter__csv { min-height: 40px; display: inline-flex; align-items: center; }
 
@@ -1554,7 +1510,7 @@ button {
   .newsletter__foot { flex-direction: column; align-items: flex-start; gap: 8px; }
 
   /* 도서 상세 구매 블록 */
-  .buy__item { padding: 14px 16px; min-height: 52px; }
+  .detail__buy-item { padding: 14px 18px; min-height: 48px; display: inline-flex; align-items: center; }
   .buy__name { font-size: 13px; }
 
   /* 저널 그룹 머리 */

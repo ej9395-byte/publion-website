@@ -30,7 +30,7 @@ export const SITE = {
   catalogPdf: 'https://drive.google.com/file/d/14xDhg0Z7kjXStwnNtX0qU1RH-K25IBED/view',
 };
 
-export const SORTS = ['신간순', '가나다순', '가격순'];
+export const SORTS = ['신간순', '가나다순'];
 
 /* 기준 경로 — 사이트가 도메인 루트가 아니라 하위 경로에 놓일 때 씁니다.
    (예: GitHub Pages 의 /publion-website/)
@@ -307,7 +307,6 @@ const cardHTML = (b) => `
     <div class="card__cover">${coverSlot(b)}</div>
     <div class="card__title">${esc(b.title)}</div>
     <div class="card__byline">${esc(b.byline)}</div>
-    <div class="card__price">${esc(b.priceLabel)}</div>
   </a>`;
 
 function homeHTML(view) {
@@ -443,7 +442,6 @@ function booksHTML(view) {
       <div class="book__title">${esc(b.title)}</div>
       ${b.en ? `<div class="book__en">${esc(b.en)}</div>` : ''}
       <div class="book__byline">${esc(b.byline)}</div>
-      <div class="book__price">${esc(b.priceLabel)}</div>
       ${b.award ? `<div class="book__award">${esc(b.award)}</div>` : ''}
     </a>`).join('');
 
@@ -534,7 +532,6 @@ function detailHTML(view) {
     { k: '옮긴이',   v: raw.trans || '—' },
     { k: '발행일',   v: raw.date + ' · 퍼블리온' },
     { k: 'ISBN',     v: raw.isbn || '—' },
-    { k: '정가',     v: money(raw.price) },
     { k: '수상·선정', v: raw.award || '—' },
   ];
   const press = PRESS[String(raw.id)] || [];
@@ -557,8 +554,13 @@ function detailHTML(view) {
         ${book.en ? `<div class="detail__en">${esc(book.en)}</div>` : ''}
         <div class="detail__byline">${esc(book.byline)}</div>
         <p class="detail__blurb">${esc(book.blurb)}</p>
-        <div class="detail__price">${esc(book.priceLabel)}</div>
-        <a class="detail__buy" href="${SITE.store}" target="_blank" rel="noopener">스마트스토어에서 구매</a>
+        <div class="detail__buy-block">
+          <div class="detail__buy-label">구매하기 <span class="t-en">Where to buy</span></div>
+          <div class="detail__buy-list">
+            ${retailersFor(raw).map((r) => `
+              <a class="detail__buy-item" href="${r.href}" target="_blank" rel="noopener">${esc(r.label)}</a>`).join('')}
+          </div>
+        </div>
       </div>
     </section>
 
@@ -566,21 +568,6 @@ function detailHTML(view) {
       <div>
         <h2 class="detail__sublabel">책 소개 About this book</h2>
         <p class="detail__prose">${esc(intro)}</p>
-
-        <div class="buy">
-          <h3 class="buy__title">구매하기 <span class="t-en">Where to buy</span></h3>
-          <div class="buy__list">
-            <a class="buy__item buy__item--own" href="${SITE.store}" target="_blank" rel="noopener">
-              <span class="buy__name">퍼블리온 스마트스토어</span>
-              <span class="buy__note">출판사 직영</span>
-            </a>
-            ${retailersFor(raw).map((r) => `
-              <a class="buy__item" href="${r.href}" target="_blank" rel="noopener">
-                <span class="buy__name">${esc(r.label)}</span>
-                <span class="buy__note">${esc(book.priceLabel)}</span>
-              </a>`).join('')}
-          </div>
-        </div>
       </div>
       <div>
         <h2 class="detail__sublabel">사양 Specifications</h2>
@@ -600,7 +587,6 @@ function detailHTML(view) {
           <a class="card" href="${b.href}">
             <div class="card__cover card__cover--soft related__cover">${coverSlot(b)}</div>
             <div class="card__title">${esc(b.title)}</div>
-            <div class="related__price">${esc(b.priceLabel)}</div>
           </a>`).join('')}
       </div>
     </section>
