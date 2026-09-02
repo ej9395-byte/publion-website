@@ -97,12 +97,15 @@ const slot = (id, fit, placeholder, src, eager) => {
     `<img class="image-slot__img" src="${esc(src)}" alt="${alt}"` +
     ` style="object-fit:${fit}"` +
     (eager
-      ? ' loading="eager" decoding="sync" fetchpriority="high"'
+      ? ' loading="eager" decoding="async" fetchpriority="high"'
       : ' loading="lazy" decoding="async"') +
     `></span>`;
 };
 
-const coverSlot = (b, placeholder) => slot(b.slotId, 'contain', placeholder || b.title, b.cover);
+/* eager 는 첫 화면에 보이는 표지에만 붙입니다.
+ * 지연 로딩이면 회색 자리가 잠깐 비쳤다가 그림이 들어옵니다. */
+const coverSlot = (b, placeholder, eager) =>
+  slot(b.slotId, 'contain', placeholder || b.title, b.cover, eager);
 
 const LOGO_PATH = 'M2 3.5 L11 3.5 L17 9 L23 3.5 L32 3.5 L32 22.5 L23 22.5 L17 17 L11 22.5 L2 22.5 Z';
 
@@ -432,9 +435,10 @@ function booksHTML(view) {
   const sorts = SORTS.map((x) => `
     <a class="sort" href="${booksHref(subject, x)}" aria-pressed="${x === sort}">${esc(x)}</a>`).join('');
 
-  const grid = sorted.map(decorate).map((b) => `
+  // .grid-books 는 4열이므로 첫 줄은 앞 4장입니다.
+  const grid = sorted.map(decorate).map((b, i) => `
     <a class="book" href="${b.href}">
-      <div class="card__cover card__cover--soft">${coverSlot(b)}</div>
+      <div class="card__cover card__cover--soft">${coverSlot(b, null, i < 4)}</div>
       <div class="book__subject">${esc(b.subject)}</div>
       <div class="book__title">${esc(b.title)}</div>
       ${b.en ? `<div class="book__en">${esc(b.en)}</div>` : ''}
@@ -545,7 +549,7 @@ function detailHTML(view) {
 
     <section class="detail__hero">
       <div class="detail__cover-wrap">
-        <div class="detail__cover">${coverSlot(book, book.title + ' 표지')}</div>
+        <div class="detail__cover">${coverSlot(book, book.title + ' 표지', true)}</div>
       </div>
       <div class="detail__info">
         <div class="detail__subject">${esc(raw.subject)}</div>
