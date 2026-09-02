@@ -9,6 +9,8 @@
 import { BOOKS, SUBJECTS, HERO, SERIES } from './data.js';
 import { INTROS } from './intros.js';
 import { POSTS, POSTS_BY_BOOK } from './posts.js';
+import { NOTES } from './notes.js';
+import { VIDEOS, PRESS, YOUTUBE_CHANNEL } from './media.js';
 
 export const SITE = {
   name: '퍼블리온',
@@ -166,9 +168,17 @@ export function retailersFor(book) {
 
 function headerHTML(view) {
   const currentIndex = NAV_ITEMS.findIndex((n) => n.match === view.page);
+  // 좁은 화면에서는 영문 병기를 숨깁니다. 그래서 영문만 따로 감쌉니다.
+  // '도서 Books' → 도서 + <span>Books</span>
+  const splitLabel = (label) => {
+    const m = /^(.*?)\s+([A-Za-z][A-Za-z ]*)$/.exec(label);
+    return m
+      ? `${esc(m[1])} <span class="nav__en">${esc(m[2])}</span>`
+      : esc(label);
+  };
   const nav = NAV_ITEMS.map((n, i) => `
     <a class="nav__item" href="${n.href}" data-nav="${i}"${n.external ? ' target="_blank" rel="noopener"' : ''}
-       ${i === currentIndex ? 'aria-current="page"' : ''}>${esc(n.label)}</a>`).join('');
+       ${i === currentIndex ? 'aria-current="page"' : ''}>${splitLabel(n.label)}</a>`).join('');
 
   return `
   <div class="topbar">
@@ -428,6 +438,46 @@ function booksHTML(view) {
   </main>`;
 }
 
+/* 편집자·대표의 말 — 왜 이 책을 펴냈는지. */
+function noteHTML(bookId) {
+  const note = NOTES[bookId];
+  if (!note) return '';
+  return `
+    <section class="note">
+      <div class="note__inner">
+        <h2 class="note__head">편집자·대표의 말 <span class="t-en">Why we published this</span></h2>
+        <p class="note__body">${esc(note)}</p>
+      </div>
+    </section>`;
+}
+
+/* 영상 — 유튜브를 바로 불러오지 않고 섬네일만 먼저 보여줍니다.
+   누르면 그때 재생기를 붙입니다. 페이지를 열 때마다 유튜브를 부르지 않기 위해서입니다. */
+function videoHTML(bookId, title) {
+  const list = VIDEOS[String(bookId)] || [];
+  if (!list.length) return '';
+  return `
+    <section class="video">
+      <div class="video__head">
+        <h2 class="t-h2" style="font-size:24px">영상 <span class="t-en">Watch</span></h2>
+        <a class="link-underline" href="${YOUTUBE_CHANNEL}" target="_blank" rel="noopener">채널 가기 YouTube</a>
+      </div>
+      <div class="video__grid">
+        ${list.map((v) => `
+          <button type="button" class="video__item" data-video="${esc(v.id)}"
+                  aria-label="${esc(v.title)} 재생">
+            <span class="video__thumb">
+              <img src="https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg"
+                   alt="" loading="lazy" decoding="async">
+              <span class="video__play" aria-hidden="true">▶</span>
+            </span>
+            <span class="video__title">${esc(v.title)}</span>
+            <span class="video__date">${esc(v.date)}</span>
+          </button>`).join('')}
+      </div>
+    </section>`;
+}
+
 /* 이 책을 다룬 글 — 블로그 글을 도서 상세에 붙입니다. */
 function storyHTML(bookId) {
   const hrefs = POSTS_BY_BOOK[String(bookId)] || [];
@@ -465,6 +515,8 @@ function detailHTML(view) {
     { k: '정가',     v: money(raw.price) },
     { k: '수상·선정', v: raw.award || '—' },
   ];
+  const press = PRESS[String(raw.id)] || [];
+  if (press.length) specs.push({ k: '미디어·기관 추천', v: press.join(' · ') });
   const related = BOOKS.filter((b) => b.subject === raw.subject && b.id !== raw.id).slice(0, 4).map(decorate);
 
   return `
@@ -515,6 +567,8 @@ function detailHTML(view) {
       </div>
     </section>
 
+    ${noteHTML(raw.id)}
+    ${videoHTML(raw.id, book.title)}
     ${storyHTML(raw.id)}
 
     <section class="detail__related">

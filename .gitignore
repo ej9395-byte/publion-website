@@ -9,3 +9,5 @@ publion/
 
 .DS_Store
 node_modules/
+*.xls
+*.xlsx

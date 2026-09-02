@@ -206,6 +206,21 @@ document.addEventListener('click', (ev) => {
     return;
   }
 
+  /* 영상 섬네일을 누르면 그 자리에 재생기를 붙입니다.
+     쿠키를 남기지 않는 주소를 쓰고, 누르기 전에는 유튜브를 부르지 않습니다. */
+  const vid = ev.target.closest('[data-video]');
+  if (vid) {
+    const id = vid.dataset.video;
+    const frame = document.createElement('div');
+    frame.className = 'video__player';
+    frame.innerHTML =
+      '<iframe src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(id) +
+      '?autoplay=1&rel=0" title="퍼블리온 영상" frameborder="0" allowfullscreen ' +
+      'allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"></iframe>';
+    vid.replaceWith(frame);
+    return;
+  }
+
   const a = ev.target.closest('a[href]');
   if (!a || a.target === '_blank' || a.hasAttribute('download')) return;
   const url = new URL(a.getAttribute('href'), location.href);
