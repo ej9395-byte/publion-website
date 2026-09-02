@@ -11,6 +11,7 @@ import { INTROS } from './intros.js';
 import { POSTS, POSTS_BY_BOOK } from './posts.js';
 import { NOTES } from './notes.js';
 import { VIDEOS, PRESS, YOUTUBE_CHANNEL } from './media.js';
+import { TOC, AUTHOR_BIO } from './contents.js';
 
 export const SITE = {
   name: '퍼블리온',
@@ -492,6 +493,51 @@ function booksHTML(view) {
   </main>`;
 }
 
+/* 목차 — 길이가 제각각이라 12줄이 넘으면 접습니다.
+   details 를 쓰므로 자바스크립트 없이도 펼쳐집니다. */
+function tocHTML(bookId) {
+  const raw = TOC[String(bookId)];
+  if (!raw) return '';
+  const lines = raw.split('\n').filter(Boolean);
+  const list = (arr) => arr.map((l) => `<li>${esc(l)}</li>`).join('');
+  const head = lines.slice(0, 12);
+  const rest = lines.slice(12);
+  return `
+    <section class="toc">
+      <h2 class="detail__sublabel">목차 <span class="t-en">Contents</span></h2>
+      <ol class="toc__list">${list(head)}</ol>
+      ${rest.length ? `
+        <details class="toc__more">
+          <summary>나머지 ${rest.length}줄 더 보기</summary>
+          <ol class="toc__list" start="13">${list(rest)}</ol>
+        </details>` : ''}
+    </section>`;
+}
+
+/* 저자 소개 — 지은이·옮긴이가 여럿이면 예스24 원문이 이미 나눠 놓았습니다.
+   '저 :' '역 :' 로 시작하는 줄을 사람 단위 구분으로 씁니다. */
+function authorHTML(bookId) {
+  const raw = AUTHOR_BIO[String(bookId)];
+  if (!raw) return '';
+  const people = [];
+  for (const line of raw.split('\n')) {
+    if (/^(저|역|글|그림|사진|감수|편)\s*:/.test(line)) people.push({ name: line, body: [] });
+    else if (people.length) people[people.length - 1].body.push(line);
+  }
+  const blocks = people.length
+    ? people.map((p) => `
+        <div class="author-bio__one">
+          <div class="author-bio__name">${esc(p.name)}</div>
+          <p class="author-bio__text">${esc(p.body.join(' '))}</p>
+        </div>`).join('')
+    : `<p class="author-bio__text">${esc(raw.replace(/\n/g, ' '))}</p>`;
+  return `
+    <section class="author-bio">
+      <h2 class="detail__sublabel">저자 소개 <span class="t-en">About the author</span></h2>
+      ${blocks}
+    </section>`;
+}
+
 /* 편집자·대표의 말 — 왜 이 책을 펴냈는지. */
 function noteHTML(bookId) {
   const note = NOTES[bookId];
@@ -610,6 +656,11 @@ function detailHTML(view) {
           <div class="spec"><span class="spec__k">${esc(row.k)}</span><span>${esc(row.v)}</span></div>`).join('')}
       </div>
     </section>
+
+    <div class="detail__cols">
+      ${tocHTML(raw.id)}
+      ${authorHTML(raw.id)}
+    </div>
 
     ${noteHTML(raw.id)}
     ${videoHTML(raw.id, book.title)}
