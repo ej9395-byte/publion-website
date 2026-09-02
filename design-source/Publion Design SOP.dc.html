@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Archivo:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<script src="./doc-page.js"></script>
+<style>
+doc-page:not(:defined){visibility:hidden}
+body{margin:0;font-family:'Archivo','Noto Sans KR','Apple SD Gothic Neo',system-ui,sans-serif;color:#111111}
+a{color:#9E2B1F}
+a:hover{color:#111111}
+</style>
+</helmet>
+
+<doc-page margin="0.8in">
+
+  <div style="border-bottom:2px solid #111111;padding-bottom:18px;margin-bottom:34px">
+    <div style="font-size:9pt;letter-spacing:.22em;text-transform:uppercase;color:#9E2B1F;margin-bottom:10px">퍼블리온 홈페이지 · Design SOP</div>
+    <h1 style="font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-size:26pt;font-weight:700;letter-spacing:-.02em;line-height:1.3;margin:0 0 10px">디자인 운영 기준</h1>
+    <div style="font-size:10pt;color:#6B6B68;line-height:1.7">v1.1 · 2026년 9월 · 대상 파일 <span style="font-family:ui-monospace,monospace">Publion.dc.html</span><br>이 문서는 현재 시안에 실제로 적용된 값만 적습니다. 시안이 바뀌면 이 문서도 함께 고칩니다.</div>
+  </div>
+
+  <div style="break-inside:avoid;border-left:0;border:1px solid #111111;padding:14px 18px;margin-bottom:28px">
+    <div style="font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:8px">v1.1 에서 바뀐 것</div>
+    <div style="font-size:10pt;line-height:1.9;color:#3F3F3D">제목용 한글 서체를 <strong>명조에서 고딕으로</strong> 바꿨습니다(2026-09-02). Noto Serif KR → Noto Sans KR. 영문은 Archivo 그대로입니다. 3장이 이 변경을 반영한 값이고, 굵기와 자간도 함께 조정했습니다.</div>
+  </div>
+
+  <h2 style="font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-size:15pt;font-weight:600;margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid #E2E2DE">1. 원칙</h2>
+  <p style="font-size:10.5pt;line-height:1.85;color:#3F3F3D;margin:0 0 10px">책 표지가 화면에서 가장 강한 색이어야 합니다. 인터페이스는 흰 바탕, 검정 활자, 얇은 괘선으로만 이루어지고, 강조색은 한 가지만 씁니다. 표지가 들어오면 인터페이스는 뒤로 물러납니다.</p>
+  <p style="font-size:10.5pt;line-height:1.85;color:#3F3F3D;margin:0 0 24px">여백이 구분선입니다. 박스를 그리거나 배경을 깔아 영역을 나누지 않고, 섹션 사이 1px 괘선과 넉넉한 상하 여백으로 나눕니다.</p>
+
+  <h2 style="font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-size:15pt;font-weight:600;margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid #E2E2DE">2. 색</h2>
+  <table style="width:100%;border-collapse:collapse;font-size:9.5pt;margin-bottom:14px">
+    <thead>
+      <tr style="border-bottom:1px solid #111111">
+        <th style="text-align:left;padding:8px 0;width:88px">값</th>
+        <th style="text-align:left;padding:8px 0;width:120px">이름</th>
+        <th style="text-align:left;padding:8px 0">쓰는 곳</th>
+      </tr>
+    </thead>
+    <tbody>
+      <sc-for list="{{ colors }}" as="c" hint-placeholder-count="9">
+        <tr style="border-bottom:1px solid #E2E2DE">
+          <td style="padding:8px 0">
+            <span style="display:inline-flex;align-items:center;gap:7px">
+              <span style="width:13px;height:13px;border:1px solid #E2E2DE;background:{{ c.hex }}"></span>
+              <span style="font-family:ui-monospace,monospace;font-size:8.5pt">{{ c.hex }}</span>
+            </span>
+          </td>
+          <td style="padding:8px 0;color:#6B6B68">{{ c.name }}</td>
+          <td style="padding:8px 0;color:#3F3F3D">{{ c.use }}</td>
+        </tr>
+      </sc-for>
+    </tbody>
+  </table>
+  <p style="font-size:9.5pt;line-height:1.8;color:#6B6B68;margin:0 0 24px">강조색 #9E2B1F는 분류 라벨, 활성 상태, 링크 hover에만 씁니다. 버튼 바탕이나 큰 면적에는 쓰지 않습니다. 새 색을 추가하지 않습니다.</p>
+
+  <h2 style="font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-size:15pt;font-weight:600;margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid #E2E2DE">3. 서체</h2>
+  <p style="font-size:10.5pt;line-height:1.85;color:#3F3F3D;margin:0 0 12px">두 벌만 씁니다. <strong>Noto Sans KR</strong>(300·400·500·700)은 제목과 도서명, <strong>Archivo</strong>(400·500·600)는 그 외 전부. 영문 부제는 Archivo 이탤릭.</p>
+  <p style="font-size:10.5pt;line-height:1.85;color:#3F3F3D;margin:0 0 12px">한글 폴백은 <span style="font-family:ui-monospace,monospace;font-size:9pt">Apple SD Gothic Neo</span> → <span style="font-family:ui-monospace,monospace;font-size:9pt">Malgun Gothic</span> 순입니다. 구글 폰트가 뜨지 않아도 같은 계열로 떨어집니다.</p>
+  <table style="width:100%;border-collapse:collapse;font-size:9.5pt;margin-bottom:14px">
+    <thead>
+      <tr style="border-bottom:1px solid #111111">
+        <th style="text-align:left;padding:8px 0;width:150px">용도</th>
+        <th style="text-align:left;padding:8px 0;width:150px">서체 / 굵기</th>
+        <th style="text-align:left;padding:8px 0">크기 · 자간 · 행간</th>
+      </tr>
+    </thead>
+    <tbody>
+      <sc-for list="{{ type }}" as="t" hint-placeholder-count="8">
+        <tr style="border-bottom:1px solid #E2E2DE">
+          <td style="padding:8px 0">{{ t.use }}</td>
+          <td style="padding:8px 0;color:#6B6B68">{{ t.face }}</td>
+          <td style="padding:8px 0;font-family:ui-monospace,monospace;font-size:8.5pt;color:#3F3F3D">{{ t.spec }}</td>
+        </tr>
+      </sc-for>
+    </tbody>
+  </table>
+  <p style="font-size:9.5pt;line-height:1.8;color:#6B6B68;margin:0 0 10px">라벨류(분류·날짜·버튼·내비)는 전부 대문자 + 넓은 자간입니다. 본문에는 대문자 변형을 쓰지 않습니다.</p>
+  <div style="break-inside:avoid;border:1px solid #111111;padding:16px 18px;margin-bottom:14px">
+    <div style="font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:10px">고딕으로 바꾸면서 지켜야 할 두 가지</div>
+    <div style="font-size:10pt;line-height:1.9;color:#3F3F3D"><strong>큰 제목에 자간 -0.02em.</strong> 고딕은 명조보다 획이 굵어 보여 46px 이상에서 글자가 서로 밀어냅니다. 히어로·페이지 제목·도서 상세 제목에 적용합니다. 30px 섹션 제목에는 넣지 않습니다.<br><br><strong>이탤릭에는 합성 차단.</strong> Noto Sans KR에는 이탤릭 자획이 없어서 <span style="font-family:ui-monospace,monospace;font-size:9pt">font-style:italic</span>만 걸면 브라우저가 한글을 억지로 기울입니다. 이탤릭을 쓰는 자리마다 <span style="font-family:ui-monospace,monospace;font-size:9pt">font-synthesis-style:none</span>을 함께 넣어, 영문만 기울고 한글은 곧게 서게 합니다.</div>
+  </div>
+  <p style="font-size:9.5pt;line-height:1.8;color:#6B6B68;margin:0 0 24px">한글 제목에는 자간을 넓히지 않습니다. 좁히는 것만 위 규칙대로 씁니다.</p>
+
+  <h2 style="font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-size:15pt;font-weight:600;margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid #E2E2DE">4. 레이아웃</h2>
+  <ul style="font-size:10.5pt;line-height:1.9;color:#3F3F3D;margin:0 0 14px;padding-left:18px">
+    <li>좌우 여백 32px. 풀블리드 섹션(히어로·피처·프로모)만 예외.</li>
+    <li>일반 섹션 상하 여백 78px, 섹션 사이 1px #E2E2DE 괘선.</li>
+    <li>히어로 배너 높이 620px 고정.</li>
+    <li>2단 섹션의 각 칸에 <span style="font-family:ui-monospace,monospace;font-size:9pt">min-width:0</span>, 그리드 트랙에 <span style="font-family:ui-monospace,monospace;font-size:9pt">minmax()</span> 하한. 이미지가 칸을 밀어내는 것을 막습니다.</li>
+    <li>이미지 칸 높이는 <span style="font-family:ui-monospace,monospace;font-size:9pt">aspect-ratio</span>로 정합니다. <span style="font-family:ui-monospace,monospace;font-size:9pt">min-height</span>로 잡지 않습니다.</li>
+    <li>모든 반복 배치는 flex/grid + gap. 여백을 요소별 margin으로 만들지 않습니다.</li>
+  </ul>
+  <table style="width:100%;border-collapse:collapse;font-size:9.5pt;margin-bottom:24px">
+    <thead>
+      <tr style="border-bottom:1px solid #111111">
+        <th style="text-align:left;padding:8px 0;width:190px">그리드</th>
+        <th style="text-align:left;padding:8px 0;width:90px">열</th>
+        <th style="text-align:left;padding:8px 0;width:90px">간격</th>
+        <th style="text-align:left;padding:8px 0">이미지 비율</th>
+      </tr>
+    </thead>
+    <tbody>
+      <sc-for list="{{ grids }}" as="g" hint-placeholder-count="6">
+        <tr style="border-bottom:1px solid #E2E2DE">
+          <td style="padding:8px 0">{{ g.name }}</td>
+          <td style="padding:8px 0;font-family:ui-monospace,monospace;font-size:8.5pt">{{ g.cols }}</td>
+          <td style="padding:8px 0;font-family:ui-monospace,monospace;font-size:8.5pt">{{ g.gap }}</td>
+          <td style="padding:8px 0;font-family:ui-monospace,monospace;font-size:8.5pt;color:#3F3F3D">{{ g.ratio }}</td>
+        </tr>
+      </sc-for>
+    </tbody>
+  </table>
+
+  <h2 style="font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-size:15pt;font-weight:600;margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid #E2E2DE">5. 홈 화면 순서</h2>
+  <p style="font-size:10.5pt;line-height:1.85;color:#3F3F3D;margin:0 0 10px">순서를 바꾸지 않습니다. 섹션을 추가할 때는 아래 리듬(넓은 이미지 → 상품 격자 → 넓은 이미지 → 격자)을 깨지 않는 자리에 넣습니다.</p>
+  <ol style="font-size:10.5pt;line-height:1.9;color:#3F3F3D;margin:0 0 24px;padding-left:20px">
+    <li>히어로 배너 — 3장 자동 전환(7초), 좌하단 인디케이터, 우하단 이동 버튼</li>
+    <li>신간 New Releases — 5단</li>
+    <li>피처 기사 — 검정 텍스트 패널 + 이미지 2단</li>
+    <li>분야별 탐색 — 4타일</li>
+    <li>시리즈 — 3타일 (연회색 바탕)</li>
+    <li>문학 · 해외 판권 프로모 — 2×2 교차 배치</li>
+    <li>저널 — 3단, 분류 라벨 + 날짜</li>
+    <li>뉴스레터 — 검정 띠</li>
+    <li>푸터</li>
+  </ol>
+
+  <h2 style="font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-size:15pt;font-weight:600;margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid #E2E2DE">6. 컴포넌트 규칙</h2>
+  <sc-for list="{{ components }}" as="c" hint-placeholder-count="7">
+    <div style="break-inside:avoid;padding:12px 0;border-bottom:1px solid #E2E2DE">
+      <div style="font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-size:11.5pt;font-weight:600;margin-bottom:6px">{{ c.name }}</div>
+      <div style="font-size:10pt;line-height:1.8;color:#3F3F3D">{{ c.rule }}</div>
+    </div>
+  </sc-for>
+  <div style="height:24px"></div>
+
+  <h2 style="font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-size:15pt;font-weight:600;margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid #E2E2DE">7. 이미지</h2>
+  <p style="font-size:10.5pt;line-height:1.85;color:#3F3F3D;margin:0 0 10px">모든 이미지 자리는 드래그앤드롭 슬롯입니다. 슬롯마다 고유 ID가 있고, 같은 ID는 같은 이미지를 공유합니다. 표지를 한 번 넣으면 홈·목록·상세·관련도서에 모두 반영됩니다.</p>
+  <table style="width:100%;border-collapse:collapse;font-size:9.5pt;margin-bottom:12px">
+    <thead>
+      <tr style="border-bottom:1px solid #111111">
+        <th style="text-align:left;padding:8px 0;width:190px">ID 형식</th>
+        <th style="text-align:left;padding:8px 0;width:100px">맞춤</th>
+        <th style="text-align:left;padding:8px 0">내용</th>
+      </tr>
+    </thead>
+    <tbody>
+      <sc-for list="{{ slots }}" as="s" hint-placeholder-count="7">
+        <tr style="border-bottom:1px solid #E2E2DE">
+          <td style="padding:8px 0;font-family:ui-monospace,monospace;font-size:8.5pt">{{ s.id }}</td>
+          <td style="padding:8px 0;color:#6B6B68">{{ s.fit }}</td>
+          <td style="padding:8px 0;color:#3F3F3D">{{ s.what }}</td>
+        </tr>
+      </sc-for>
+    </tbody>
+  </table>
+  <p style="font-size:9.5pt;line-height:1.8;color:#6B6B68;margin:0 0 24px">표지는 <span style="font-family:ui-monospace,monospace;font-size:9pt">contain</span>(잘리지 않게), 배너·타일은 <span style="font-family:ui-monospace,monospace;font-size:9pt">cover</span>(꽉 차게). 표지 원본은 배경 없는 정면 이미지로, 짧은 변 1200px 이상 권장.</p>
+
+  <h2 style="font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-size:15pt;font-weight:600;margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid #E2E2DE">8. 글쓰기</h2>
+  <ul style="font-size:10.5pt;line-height:1.9;color:#3F3F3D;margin:0 0 12px;padding-left:18px">
+    <li>제목은 한글 + 영문 병기. 형식은 <span style="font-family:ui-monospace,monospace;font-size:9pt">도서 Books</span>처럼 한글 뒤에 영문, 영문은 회색.</li>
+    <li>분류 라벨은 <span style="font-family:ui-monospace,monospace;font-size:9pt">경제경영 Business</span> 형식으로 통일.</li>
+    <li>책 소개는 서점 상세페이지 문안을 그대로 옮기지 않습니다. 홈페이지용으로 다시 씁니다.</li>
+    <li>사실만 씁니다. 수상·선정·판매 실적은 확인된 것만.</li>
+    <li>느낌표, 이모지, 감탄사를 쓰지 않습니다.</li>
+  </ul>
+  <div style="break-inside:avoid;border:1px solid #111111;padding:16px 18px;margin-bottom:24px">
+    <div style="font-size:9pt;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:10px">쓰지 않는 것</div>
+    <div style="font-size:10pt;line-height:1.9;color:#3F3F3D">그라데이션 배경 · 둥근 모서리 카드 · 왼쪽 컬러 보더 박스 · 그림자 · 이모지 · 아이콘 장식 · 의미 없는 숫자와 통계 · 채도 높은 강조색 남발 · "혁신적인", "특별한" 같은 빈 수식어 · 이유 없는 애니메이션</div>
+  </div>
+
+  <h2 style="font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-size:15pt;font-weight:600;margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid #E2E2DE">9. 신간 추가 절차</h2>
+  <ol style="font-size:10.5pt;line-height:1.9;color:#3F3F3D;margin:0 0 24px;padding-left:20px">
+    <li>도서 데이터에 항목 추가 — 제목, 부제, 지은이, 옮긴이, 분야, 정가, 출간 연·월.</li>
+    <li>표지 슬롯 <span style="font-family:ui-monospace,monospace;font-size:9pt">cover-{번호}</span>에 표지 이미지를 끌어다 놓기.</li>
+    <li>신간 5단은 출간일 기준 자동 정렬이므로 별도 작업 없음.</li>
+    <li>히어로에 올릴 책이면 배너 이미지를 따로 준비(가로 긴 판형, 왼쪽 40%는 텍스트가 덮음).</li>
+    <li>분야가 새로 생기면 분야 타일이 4개를 넘지 않는지 확인. 넘으면 열 수를 조정.</li>
+  </ol>
+
+  <h2 style="font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;font-size:15pt;font-weight:600;margin:0 0 12px;padding-bottom:7px;border-bottom:1px solid #E2E2DE">10. 남은 항목</h2>
+  <ul style="font-size:10.5pt;line-height:1.9;color:#3F3F3D;margin:0;padding-left:18px">
+    <li>도서별 소개 본문 — 전 종 미작성</li>
+    <li>저널 기사 3건 — 제목만 있고 본문 없음</li>
+    <li>표지·배너 이미지 원본</li>
+    <li>영문판 — 범위 미확정(전체 미러 / 판권 중심 축약본)</li>
+    <li>뉴스레터 발송 — 현재는 수집·CSV 내보내기까지. 발송 서비스 연결은 구축 단계</li>
+    <li>모바일 레이아웃 — 미적용</li>
+  </ul>
+
+</doc-page>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals(){
+    return {
+      colors: [
+        {hex:"#FFFFFF", name:"바탕", use:"페이지 기본 배경"},
+        {hex:"#111111", name:"먹", use:"제목·본문·버튼 바탕·검정 패널"},
+        {hex:"#9E2B1F", name:"강조", use:"분류 라벨, 활성 상태, hover"},
+        {hex:"#3F3F3D", name:"본문", use:"단락 텍스트"},
+        {hex:"#6B6B68", name:"보조", use:"저자명, 영문 부제, 설명"},
+        {hex:"#8C8C88", name:"흐림", use:"날짜, 비활성 라벨"},
+        {hex:"#E2E2DE", name:"괘선", use:"섹션 구분선, 테두리"},
+        {hex:"#F4F4F2", name:"연회색", use:"시리즈 섹션 바탕"},
+        {hex:"#EEEEEC", name:"이미지 바탕", use:"이미지 자리 빈 상태"},
+        {hex:"#B4B4AE", name:"먹 위 보조", use:"검정 패널 안의 설명 텍스트"}
+      ],
+      type: [
+        {use:"히어로 제목", face:"Noto Sans KR 700", spec:"52px / -.02em / 1.22"},
+        {use:"페이지 제목", face:"Noto Sans KR 700", spec:"52px / -.02em"},
+        {use:"섹션 제목", face:"Noto Sans KR 600", spec:"30px / 자간 없음"},
+        {use:"도서 상세 제목", face:"Noto Sans KR 700", spec:"46px / -.02em / 1.25"},
+        {use:"도서명(격자)", face:"Noto Sans KR 600", spec:"17–19px / 1.4"},
+        {use:"영문 부제", face:"Archivo italic 400", spec:"14–22px / #6B6B68 / 합성 차단"},
+        {use:"본문", face:"Archivo 400", spec:"15–16px / 1.8–1.85"},
+        {use:"분류 라벨·날짜", face:"Archivo 400", spec:"11px / .14–.22em / 대문자"},
+        {use:"내비게이션", face:"Archivo 400", spec:"13px / .08em / 대문자"},
+        {use:"버튼", face:"Archivo 400", spec:"12px / .16em / 대문자 / 패딩 16×34"}
+      ],
+      grids: [
+        {name:"신간 New Releases", cols:"5", gap:"28px", ratio:"3:4 (표지)"},
+        {name:"도서 목록", cols:"4", gap:"46 / 28px", ratio:"3:4 (표지)"},
+        {name:"분야별 탐색", cols:"4", gap:"24px", ratio:"4:3"},
+        {name:"시리즈", cols:"3", gap:"28px", ratio:"4:5"},
+        {name:"저널", cols:"3", gap:"32px", ratio:"16:10"},
+        {name:"관련 도서", cols:"4", gap:"28px", ratio:"3:4 (표지)"},
+        {name:"저자", cols:"4", gap:"1px 괘선", ratio:"원형 80px"}
+      ],
+      components: [
+        {name:"상단 안내 띠", rule:"검정 바탕에 배송 안내와 KO/EN 전환. 11px 대문자. 프로모션 문구를 늘리지 않습니다."},
+        {name:"헤더", rule:"로고 가운데, 좌측 검색, 우측 계정·장바구니. 스크롤 시 고정. 메뉴는 로고 아래 한 줄."},
+        {name:"메가메뉴", rule:"분야 / 시리즈 / 서비스 3열 + 오른쪽 이미지 카드 2장. 마우스를 올리면 열리고 헤더 밖으로 나가면 닫힙니다. 링크는 열당 4–5개를 넘기지 않습니다."},
+        {name:"히어로 배너", rule:"배경 이미지 위 좌측에 흰 반투명 텍스트 판(투명도 .94). 분류 라벨 · 제목 · 두 줄 설명 · 버튼 하나. 설명은 두 줄을 넘기지 않습니다."},
+        {name:"도서 카드", rule:"표지 · 도서명 · 지은이 · 정가 순. 표지에는 글자를 얹지 않습니다. 카드 전체가 클릭 영역."},
+        {name:"필터 · 정렬", rule:"활성 필터는 검정 바탕에 흰 글씨, 비활성은 테두리만. 정렬은 활성 항목만 강조색. 목록 상단에 고정됩니다."},
+        {name:"버튼", rule:"기본은 검정 바탕 흰 글씨, hover에 강조색 바탕. 보조는 검정 테두리에 투명 바탕. 한 화면에 기본 버튼은 하나."},
+        {name:"뉴스레터", rule:"검정 띠. 밑줄 하나짜리 입력란. 구독 후 안내 문구를 같은 자리에 보여줍니다. 팝업을 띄우지 않습니다."},
+        {name:"푸터", rule:"검정 바탕. 로고·연락처 + 링크 3열. 하단에 저작권과 정책 링크 한 줄."}
+      ],
+      slots: [
+        {id:"cover-{도서번호}", fit:"contain", what:"도서 표지. 전 화면 공유"},
+        {id:"hero-1 · 2 · 3", fit:"cover", what:"히어로 배너 3장"},
+        {id:"subject-1 … 4", fit:"cover", what:"분야 타일"},
+        {id:"series-1 · 2 · 3", fit:"cover", what:"시리즈 타일"},
+        {id:"journal-1 · 2 · 3", fit:"cover", what:"저널 기사 썸네일"},
+        {id:"feature-main", fit:"cover", what:"피처 기사 대표 이미지"},
+        {id:"promo-literature / promo-rights", fit:"cover", what:"문학 · 해외 판권 프로모"},
+        {id:"mega-card-1", fit:"cover", what:"메가메뉴 컬렉션 카드"}
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>
