@@ -736,7 +736,10 @@ export function meta(view) {
     return {
       title: `${b.title} · ${b.author} — 퍼블리온`,
       description: intro.slice(0, 155),
-      path: bookHref(b.id),
+      // path 는 사이트 기준 경로입니다. 기준 경로(BASE)를 붙이지 않습니다.
+      // 파일이 놓이는 자리와 canonical 주소를 정하는 값이라, 여기에 BASE 를 넣으면
+      // 정적 파일이 한 단계 더 깊은 폴더에 만들어집니다.
+      path: `/book/${b.id}/`,
       image: `${COVER_DIR}/cover-${b.id}.jpg`,
     };
   }
