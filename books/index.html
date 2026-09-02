@@ -38,7 +38,7 @@
 
   <header class="header" id="site-header">
     <div class="header__bar">
-      <div class="header__left"><button type="button">검색 Search</button></div>
+      <div class="header__left"><a href="/books/#book-search">검색 Search</a></div>
       <a class="header__brand" href="/" aria-label="퍼블리온 홈">
         <svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-hidden="true">
           <path d="M2 3.5 L11 3.5 L17 9 L23 3.5 L32 3.5 L32 22.5 L23 22.5 L17 17 L11 22.5 L2 22.5 Z" fill="#111111"></path>
@@ -49,7 +49,6 @@
         </div>
       </a>
       <div class="header__right">
-        <button type="button">계정 Account</button>
         <a href="https://smartstore.naver.com/publion" target="_blank" rel="noopener">스마트스토어 Store</a>
       </div>
     </div>
@@ -70,6 +69,14 @@
     <nav class="t-crumb" aria-label="위치"><a href="/">홈</a> / 도서</nav>
     <h1 class="t-h1-page">도서 <span class="t-en">Books</span></h1>
     <div class="books__count">41종 · 전체 · 신간순</div>
+    
+    <form class="search" id="book-search" role="search" action="/books/" method="get">
+      <label class="u-sr-only" for="book-search-input">도서 검색</label>
+      <input class="search__input" id="book-search-input" name="q" type="search"
+             value="" placeholder="제목 · 지은이 · 분야 Search" autocomplete="off">
+      <button class="search__go" type="submit">검색 Search</button>
+      
+    </form>
     <div class="books__toolbar">
       <div class="chips">
     <a class="chip" href="/books/" aria-pressed="true">전체</a>
@@ -436,7 +443,7 @@
     <div>
       <div class="footer__coltitle">출판사 About</div>
       <div class="footer__links">
-        <a href="/about/">소개</a><a href="/about/">투고 안내</a><a href="/about/">판권 문의</a><span>채용</span>
+        <a href="/about/">소개</a><a href="/about/">투고 안내</a><a href="/about/">판권 문의</a>
       </div>
     </div>
     <div>
@@ -448,7 +455,11 @@
     </div>
     <div class="footer__bottom">
       <span>© 2026 퍼블리온 Publion</span>
-      <span>개인정보처리방침 · 이용약관 · Instagram · YouTube</span>
+      <span>
+        <a href="/privacy/">개인정보처리방침</a> ·
+        <a href="https://instagram.com/publion_book" target="_blank" rel="noopener">Instagram</a> ·
+        <a href="https://www.youtube.com/channel/UCiAnjLlaS08ncxTel_Pd3EQ" target="_blank" rel="noopener">YouTube</a>
+      </span>
     </div>
   </footer></div>
 <script type="module" src="/assets/js/app.js"></script>

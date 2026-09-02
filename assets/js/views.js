@@ -213,7 +213,7 @@ function headerHTML(view) {
 
   <header class="header" id="site-header">
     <div class="header__bar">
-      <div class="header__left"><button type="button">검색 Search</button></div>
+      <div class="header__left"><a href="${booksHref('전체')}#book-search">검색 Search</a></div>
       <a class="header__brand" href="${BASE}/" aria-label="퍼블리온 홈">
         <svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-hidden="true">
           <path d="${LOGO_PATH}" fill="#111111"></path>
@@ -224,7 +224,6 @@ function headerHTML(view) {
         </div>
       </a>
       <div class="header__right">
-        <button type="button">계정 Account</button>
         <a href="${SITE.store}" target="_blank" rel="noopener">스마트스토어 Store</a>
       </div>
     </div>
@@ -416,17 +415,38 @@ function homeHTML(view) {
   </main>`;
 }
 
-export function filterBooks(subject, sort) {
-  const filtered = BOOKS.filter((b) => subject === '전체' || b.subject === subject);
+/* 41종이라 서버 없이 앞에서 거릅니다.
+   제목·부제·지은이·옮긴이·분야를 훑고, 띄어쓰기는 무시합니다. */
+const squash = (t) => (t || '').toLowerCase().replace(/\s+/g, '');
+
+export function matchesQuery(b, q) {
+  if (!q) return true;
+  const needle = squash(q);
+  return [b.title, b.sub, b.author, b.trans, b.subject]
+    .some((f) => squash(f).includes(needle));
+}
+
+export function filterBooks(subject, sort, q) {
+  const filtered = BOOKS.filter((b) =>
+    (subject === '전체' || b.subject === subject) && matchesQuery(b, q));
   return filtered.slice().sort((a, b) =>
-    sort === '신간순'   ? b.date.localeCompare(a.date) :
-    sort === '가나다순' ? a.title.localeCompare(b.title, 'ko') :
-    (a.price || 999999) - (b.price || 999999));
+    sort === '신간순' ? b.date.localeCompare(a.date)
+                      : a.title.localeCompare(b.title, 'ko'));
 }
 
 function booksHTML(view) {
   const { subject, sort } = view;
-  const sorted = filterBooks(subject, sort);
+  const sorted = filterBooks(subject, sort, view.q);
+
+  const q = view.q || '';
+  const search = `
+    <form class="search" id="book-search" role="search" action="${booksHref('전체')}" method="get">
+      <label class="u-sr-only" for="book-search-input">도서 검색</label>
+      <input class="search__input" id="book-search-input" name="q" type="search"
+             value="${esc(q)}" placeholder="제목 · 지은이 · 분야 Search" autocomplete="off">
+      <button class="search__go" type="submit">검색 Search</button>
+      ${q ? `<a class="search__clear" href="${booksHref(subject, sort)}">지우기 Clear</a>` : ''}
+    </form>`;
 
   const chips = ['전체'].concat(SUBJECTS).map((x) => `
     <a class="chip" href="${booksHref(x, sort)}" aria-pressed="${x === subject}">${esc(x)}</a>`).join('');
@@ -448,12 +468,15 @@ function booksHTML(view) {
   <main class="books">
     <nav class="t-crumb" aria-label="위치"><a href="${BASE}/">홈</a> / 도서</nav>
     <h1 class="t-h1-page">도서 <span class="t-en">Books</span></h1>
-    <div class="books__count">${sorted.length}종 · ${esc(subject)} · ${esc(sort)}</div>
+    <div class="books__count">${sorted.length}종 · ${esc(subject)}${q ? ` · "${esc(q)}"` : ''} · ${esc(sort)}</div>
+    ${search}
     <div class="books__toolbar">
       <div class="chips">${chips}</div>
       <div class="sorts"><span>정렬</span>${sorts}</div>
     </div>
-    <div class="grid-books">${grid}</div>
+    ${sorted.length
+      ? `<div class="grid-books">${grid}</div>`
+      : `<p class="books__empty">찾는 책이 없습니다. 다른 낱말로 찾아보시거나 <a href="${booksHref('전체')}">전체 목록</a>을 보세요.</p>`}
   </main>`;
 }
 
@@ -727,7 +750,7 @@ const FOOTER_COLS = [
     { label: '소개',     href: aboutHref() },
     { label: '투고 안내', href: aboutHref() },
     { label: '판권 문의', href: aboutHref() },
-    { label: '채용',     href: null },
+
   ] },
   { title: '구매 Buy', links: [
     { label: '퍼블리온 스마트스토어', href: SITE.store, external: true },
@@ -767,9 +790,44 @@ function footerHTML() {
     </div>
     <div class="footer__bottom">
       <span>© 2026 퍼블리온 Publion</span>
-      <span>개인정보처리방침 · 이용약관 · Instagram · YouTube</span>
+      <span>
+        <a href="${BASE}/privacy/">개인정보처리방침</a> ·
+        <a href="${SITE.instagram}" target="_blank" rel="noopener">Instagram</a> ·
+        <a href="${SITE.youtube}" target="_blank" rel="noopener">YouTube</a>
+      </span>
     </div>
   </footer>`;
+}
+
+/* 개인정보처리방침.
+ * 지어낸 문구가 아니라 이 사이트가 실제로 하는 일만 적습니다.
+ * 확인한 사실: 폼 0개 · 쿠키 0개 · 분석 도구 0개 · 회원 기능 없음.
+ * 외부에서 받아오는 것은 구글 폰트와 유튜브 섬네일 둘뿐이고, 그 서버들은
+ * 방문자 IP 를 보게 되므로 그대로 밝힙니다.
+ * 수집을 시작하면(예: 뉴스레터 재개) 이 글도 함께 고쳐야 합니다. */
+function privacyHTML() {
+  const items = [
+    { k: '수집하는 개인정보', v: '없습니다. 회원가입, 로그인, 문의 양식, 뉴스레터 구독 같은 입력 기능을 두지 않았습니다.' },
+    { k: '쿠키', v: '쓰지 않습니다.' },
+    { k: '방문 분석', v: '구글 애널리틱스를 비롯한 어떤 방문 분석 도구도 넣지 않았습니다.' },
+    { k: '외부에서 받아오는 것', v: '글꼴은 구글 폰트, 영상 섬네일은 유튜브에서 받아옵니다. 이때 두 서버가 방문자의 IP 주소와 브라우저 정보를 보게 됩니다. 각 서비스의 방침이 따로 적용됩니다.' },
+    { k: '바깥으로 나가는 링크', v: '서점, 네이버 블로그, 스마트스토어, 유튜브, 인스타그램으로 가는 링크가 있습니다. 그곳에서는 그 회사의 방침이 적용됩니다.' },
+    { k: '브라우저에 남기는 것', v: '없습니다. 예전 뉴스레터 양식이 남긴 기록이 있다면 방문 시 자동으로 지웁니다.' },
+  ];
+  return `
+  <main class="prose-page">
+    <div class="t-crumb"><a href="${BASE}/">홈</a> / 개인정보처리방침</div>
+    <h1 class="t-h1-page">개인정보처리방침 <span class="t-en">Privacy</span></h1>
+    <p class="prose-page__lead">퍼블리온 홈페이지는 방문자의 개인정보를 수집하지 않습니다. 아래는 이 사이트가 실제로 하는 일을 그대로 적은 것입니다.</p>
+    <dl class="prose-page__list">
+      ${items.map((x) => `
+        <div class="prose-page__row">
+          <dt>${esc(x.k)}</dt>
+          <dd>${esc(x.v)}</dd>
+        </div>`).join('')}
+    </dl>
+    <p class="prose-page__foot">문의는 <a href="mailto:${SITE.email}">${esc(SITE.email)}</a> 로 보내주세요.<br>이 방침은 2026년 9월 2일 기준입니다. 수집 항목이 생기면 이 쪽을 먼저 고칩니다.</p>
+  </main>`;
 }
 
 /* ── 조립 ───────────────────────────────────────────────────── */
@@ -781,6 +839,7 @@ export function bodyHTML(view) {
     case 'about':   return aboutHTML();
     case 'authors': return authorsHTML();
     case 'journal': return journalHTML();
+    case 'privacy': return privacyHTML();
     default:        return homeHTML(view);
   }
 }
@@ -823,6 +882,13 @@ export function meta(view) {
       title: '저널 Journal — 퍼블리온',
       description: `퍼블리온이 블로그에 올린 글 ${POSTS.length}편. 대표가 쓰는 작은회사 경영수업, 신간 소식, 저자 인터뷰와 북토크 기록.`,
       path: '/journal/',
+    };
+  }
+  if (view.page === 'privacy') {
+    return {
+      title: '개인정보처리방침 Privacy — 퍼블리온',
+      description: '퍼블리온 홈페이지는 방문자의 개인정보를 수집하지 않습니다. 회원가입·입력 양식·쿠키·방문 분석 도구가 없습니다.',
+      path: '/privacy/',
     };
   }
   if (view.page === 'authors') {

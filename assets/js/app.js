@@ -46,8 +46,10 @@ function viewFromUrl(url) {
     const o = u.searchParams.get('sort');
     return { page: 'books',
              subject: SUBJECTS.includes(s) ? s : '전체',
-             sort: V.SORTS.includes(o) ? o : '신간순' };
+             sort: V.SORTS.includes(o) ? o : '신간순',
+             q: (u.searchParams.get('q') || '').slice(0, 60) };
   }
+  if (path === '/privacy') return { page: 'privacy' };
   const m = path.match(/^\/book\/(\d+)$/);
   if (m) {
     const id = Number(m[1]);
@@ -181,7 +183,21 @@ document.addEventListener('keydown', (ev) => {
   if (ev.key === 'Escape' && megaOpen) { megaOpen = false; renderMega(); }
 });
 
-/* 미리 찍힌 HTML 위에 동작만 얹습니다. 다시 그리지 않습니다. */
+/* 미리 찍힌 HTML 위에 동작만 얹습니다. 기본 상태면 다시 그리지 않습니다.
+ *
+ * 다만 미리 찍은 /books/ 는 '전체 · 신간순 · 검색어 없음' 한 벌뿐입니다.
+ * 그래서 ?subject= ?sort= ?q= 가 붙은 주소로 곧장 들어오면 (푸터·메가메뉴의
+ * 분야 링크, 공유된 주소, 즐겨찾기) 조건이 무시된 채 41종이 다 보였습니다.
+ *
+ * 첫 상태를 DOM 이 아니라 주소에서 읽습니다. DOM 에는 조건이 없기 때문입니다.
+ * 조건이 붙어 있을 때만 한 번 다시 그립니다. */
 wireHeader();
-if (state.view.page === 'home') renderHero();
+state.view = viewFromUrl(location.href);
+const v = state.view;
+if (v.page === 'books'
+    && (v.subject !== '전체' || v.sort !== '신간순' || Boolean(v.q))) {
+  render(false);
+} else if (v.page === 'home') {
+  renderHero();
+}
 startHero();

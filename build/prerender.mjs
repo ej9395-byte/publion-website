@@ -185,6 +185,7 @@ const views = [
   { page: 'about' },
   { page: 'authors' },
   { page: 'journal' },
+  { page: 'privacy' },
   ...BOOKS.map((b) => ({ page: 'detail', bookId: b.id })),
 ];
 
