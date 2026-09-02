@@ -565,6 +565,7 @@ function detailHTML(view) {
     { k: '지은이',   v: raw.author },
     { k: '옮긴이',   v: raw.trans || '—' },
     { k: '발행일',   v: raw.date + ' · 퍼블리온' },
+    { k: '쪽수·판형', v: raw.pages && raw.mm ? `${raw.pages}쪽 · ${raw.mm}` : '—' },
     { k: 'ISBN',     v: raw.isbn || '—' },
     { k: '수상·선정', v: raw.award || '—' },
   ];
