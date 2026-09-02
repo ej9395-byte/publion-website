@@ -1,0 +1,11 @@
+# 배너 배경 원본 — 재조판용. 47MB 라 저장소에 넣지 않습니다.
+assets/img/_bg/
+
+# Claude Design 프로젝트 미러 — 웹 저장소에는 필요 없습니다.
+publion/
+
+# 원본 자료
+*.pdf
+
+.DS_Store
+node_modules/

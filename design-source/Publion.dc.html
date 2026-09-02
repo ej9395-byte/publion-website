@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Archivo:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#FFFFFF;color:#111111;font-family:'Archivo','Noto Serif KR',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#111111;text-decoration:none}
+a:hover{color:#9E2B1F}
+input::placeholder{color:#8C8C88}
+::selection{background:#9E2B1F;color:#FFFFFF}
+@keyframes megaIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+</style>
+</helmet>
+
+<div style="min-height:100vh;background:#FFFFFF">
+
+  <div style="background:#111111;color:#FFFFFF;font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding:9px 32px;display:flex;justify-content:space-between;align-items:center">
+    <span>경제경영 · 인문 · 문학 &nbsp;·&nbsp; Books for the next decade</span>
+    <div style="display:flex;gap:22px;align-items:center">
+      <span>3만원 이상 무료배송</span>
+      <span style="opacity:.4">|</span>
+      <span style="cursor:pointer">KO / EN</span>
+    </div>
+  </div>
+
+  <header style="position:sticky;top:0;z-index:40;background:#FFFFFF;border-bottom:1px solid #E2E2DE" onMouseLeave="{{ closeMega }}">
+    <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:20px 32px 16px;gap:24px">
+      <div style="display:flex;gap:18px;align-items:center;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#6B6B68">
+        <span style="cursor:pointer" style-hover="color:#111111">검색 Search</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:14px;cursor:pointer" onClick="{{ goHome }}">
+        <svg width="34" height="26" viewBox="0 0 34 26" fill="none"><path d="M2 3.5 L11 3.5 L17 9 L23 3.5 L32 3.5 L32 22.5 L23 22.5 L17 17 L11 22.5 L2 22.5 Z" fill="#111111"></path></svg>
+        <div>
+          <div style="font-family:'Archivo',sans-serif;font-weight:600;font-size:27px;letter-spacing:.16em;line-height:1;text-transform:uppercase">Publion</div>
+          <div style="font-family:'Noto Serif KR',serif;font-size:11px;letter-spacing:.36em;color:#6B6B68;margin-top:6px">퍼 블 리 온</div>
+        </div>
+      </div>
+      <div style="display:flex;gap:20px;justify-content:flex-end;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#6B6B68">
+        <span style="cursor:pointer">계정 Account</span>
+        <a href="https://smartstore.naver.com/publion" target="_blank" rel="noopener" style="color:#111111;text-decoration:none;letter-spacing:.1em">스마트스토어 Store</a>
+      </div>
+    </div>
+    <nav style="display:flex;justify-content:center;gap:38px;padding:0 32px 13px;font-size:13px;letter-spacing:.08em;text-transform:uppercase">
+      <sc-for list="{{ navItems }}" as="nav" hint-placeholder-count="5">
+        <div style="cursor:pointer;padding-bottom:8px;border-bottom:1px solid transparent" style-hover="border-bottom-color:#9E2B1F;color:#9E2B1F" onMouseEnter="{{ nav.onEnter }}" onClick="{{ nav.onClick }}">{{ nav.label }}</div>
+      </sc-for>
+    </nav>
+    <sc-if value="{{ megaOpen }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute;left:0;right:0;top:100%;background:#FFFFFF;border-bottom:1px solid #E2E2DE;box-shadow:0 26px 44px -32px rgba(17,17,17,.45);animation:megaIn .18s ease both">
+        <div style="max-width:1400px;margin:0 auto;padding:40px 32px 48px;display:grid;grid-template-columns:.85fr .85fr .8fr 1.5fr;gap:48px">
+          <sc-for list="{{ megaCols }}" as="col" hint-placeholder-count="3">
+            <div>
+              <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9E2B1F;margin-bottom:16px">{{ col.title }}</div>
+              <div style="display:flex;flex-direction:column;gap:11px">
+                <sc-for list="{{ col.links }}" as="link" hint-placeholder-count="5">
+                  <div style="font-family:'Noto Serif KR',serif;font-size:16px;cursor:pointer;line-height:1.35" style-hover="color:#9E2B1F" onClick="{{ link.go }}">{{ link.label }}</div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-for>
+          <div style="border-left:1px solid #E2E2DE;padding-left:40px;display:grid;grid-template-columns:1fr 1fr;gap:22px">
+            <sc-for list="{{ megaCards }}" as="card" hint-placeholder-count="2">
+              <div style="cursor:pointer" onClick="{{ card.open }}">
+                <div style="position:relative;aspect-ratio:4/3;margin-bottom:12px;border:1px solid #E2E2DE;background:#EEEEEC">
+                  <image-slot id="{{ card.slotId }}" shape="rect" fit="{{ card.fit }}" src="{{ card.src }}" placeholder="{{ card.title }}"></image-slot>
+                </div>
+                <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:6px">{{ card.kicker }}</div>
+                <div style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:600;line-height:1.35">{{ card.title }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </sc-if>
+  </header>
+
+  <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+    <main>
+      <section style="position:relative;height:620px;background:#EEEEEC;overflow:hidden">
+        <div style="position:absolute;inset:0">
+          <image-slot id="{{ hero.slotId }}" shape="rect" fit="cover" src="{{ hero.banner }}" placeholder="{{ hero.title }} 배너 이미지"></image-slot>
+        </div>
+        <div style="position:relative;height:100%;display:flex;align-items:center;pointer-events:none">
+          <div style="max-width:620px;margin-left:64px;background:rgba(255,255,255,.94);padding:52px 56px">
+            <div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#9E2B1F;margin-bottom:22px">{{ hero.kicker }}</div>
+            <h1 style="font-family:'Noto Serif KR',serif;font-size:52px;font-weight:600;line-height:1.22;margin:0 0 18px;letter-spacing:-.02em;text-wrap:pretty">{{ hero.title }}</h1>
+            <p style="font-size:16px;line-height:1.8;color:#3F3F3D;margin:0 0 32px;max-width:460px;text-wrap:pretty">{{ hero.desc }}</p>
+            <button style="pointer-events:auto;font-family:'Archivo',sans-serif;background:#111111;color:#FFFFFF;border:0;padding:16px 34px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer" style-hover="background:#9E2B1F" onClick="{{ hero.open }}">자세히 보기 Discover</button>
+          </div>
+        </div>
+        <div style="position:absolute;left:64px;bottom:34px;display:flex;gap:10px;align-items:center">
+          <sc-for list="{{ heroDots }}" as="d" hint-placeholder-count="3">
+            <div style="width:34px;height:3px;cursor:pointer;background:{{ d.bg }}" onClick="{{ d.select }}"></div>
+          </sc-for>
+        </div>
+        <div style="position:absolute;right:32px;bottom:30px;display:flex;gap:8px">
+          <button style="width:44px;height:44px;border:1px solid #111111;background:rgba(255,255,255,.9);cursor:pointer;font-size:15px" style-hover="background:#111111;color:#FFFFFF" onClick="{{ heroPrev }}">←</button>
+          <button style="width:44px;height:44px;border:1px solid #111111;background:rgba(255,255,255,.9);cursor:pointer;font-size:15px" style-hover="background:#111111;color:#FFFFFF" onClick="{{ heroNext }}">→</button>
+        </div>
+      </section>
+
+      <section style="padding:78px 32px;border-bottom:1px solid #E2E2DE">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:38px">
+          <h2 style="font-family:'Noto Serif KR',serif;font-size:30px;font-weight:600;margin:0">신간 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">New Releases</span></h2>
+          <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid #111111;padding-bottom:3px" onClick="{{ goBooks }}">전체 보기 Shop all</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:28px">
+          <sc-for list="{{ newBooks }}" as="b" hint-placeholder-count="5">
+            <div style="cursor:pointer" onClick="{{ b.open }}">
+              <div style="position:relative;aspect-ratio:3/4;margin-bottom:16px;border:1px solid #E2E2DE;background:#EEEEEC">
+                <image-slot id="{{ b.slotId }}" shape="rect" fit="contain" src="{{ b.cover }}" placeholder="{{ b.title }}"></image-slot>
+              </div>
+              <div style="font-family:'Noto Serif KR',serif;font-size:17px;line-height:1.4;font-weight:600">{{ b.title }}</div>
+              <div style="font-size:12px;color:#6B6B68;margin-top:6px">{{ b.byline }}</div>
+              <div style="font-size:12px;margin-top:8px">{{ b.priceLabel }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="display:grid;grid-template-columns:minmax(380px,1fr) 1.35fr;border-bottom:1px solid #E2E2DE">
+        <div style="min-width:0;background:#111111;color:#FFFFFF;padding:80px 56px;display:flex;flex-direction:column;justify-content:center">
+          <div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#C4C4BE;margin-bottom:22px">저널 · Feature</div>
+          <h2 style="font-family:'Noto Serif KR',serif;font-size:34px;font-weight:600;line-height:1.35;margin:0 0 20px;text-wrap:pretty">김초엽 신작 장편소설 『파견자들』 출간 비하인드</h2>
+          <p style="font-size:15px;line-height:1.85;color:#B4B4AE;margin:0 0 32px;text-wrap:pretty">2024 문학나눔 선정도서. 원고가 책이 되기까지의 과정을 편집부가 기록했습니다.</p>
+          <a href="https://blog.naver.com/publion" target="_blank" rel="noopener" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#FFFFFF;border-bottom:1px solid #FFFFFF;padding-bottom:4px;align-self:flex-start;text-decoration:none">읽기 Read</a>
+        </div>
+        <div style="position:relative;min-width:0;aspect-ratio:16/9;background:#EEEEEC">
+          <image-slot id="feature-main" shape="rect" fit="cover" src="./assets/img/banners/feature-main.jpg" placeholder="피처 기사 이미지"></image-slot>
+        </div>
+      </section>
+
+      <section style="padding:78px 32px;border-bottom:1px solid #E2E2DE">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:38px">
+          <h2 style="font-family:'Noto Serif KR',serif;font-size:30px;font-weight:600;margin:0">분야별 탐색 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Explore our Subjects</span></h2>
+          <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid #111111;padding-bottom:3px" onClick="{{ goBooks }}">전체 보기 Browse all</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px">
+          <sc-for list="{{ subjectTiles }}" as="s" hint-placeholder-count="5">
+            <div style="cursor:pointer" onClick="{{ s.open }}">
+              <div style="position:relative;aspect-ratio:4/3;background:#EEEEEC;border:1px solid #E2E2DE;margin-bottom:16px">
+                <image-slot id="{{ s.slotId }}" shape="rect" fit="cover" src="{{ s.banner }}" placeholder="{{ s.ko }}"></image-slot>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline">
+                <div>
+                  <div style="font-family:'Noto Serif KR',serif;font-size:21px;font-weight:600">{{ s.ko }}</div>
+                  <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6B6B68;margin-top:6px">{{ s.en }}</div>
+                </div>
+                <div style="font-size:12px;color:#9E2B1F">{{ s.count }}</div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="padding:78px 32px;border-bottom:1px solid #E2E2DE;background:#F4F4F2">
+        <h2 style="font-family:'Noto Serif KR',serif;font-size:30px;font-weight:600;margin:0 0 38px">시리즈 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Explore our Series</span></h2>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
+          <sc-for list="{{ series }}" as="x" hint-placeholder-count="3">
+            <div style="cursor:pointer" onClick="{{ x.open }}">
+              <div style="position:relative;aspect-ratio:4/5;background:#EEEEEC;border:1px solid #E2E2DE;margin-bottom:16px">
+                <image-slot id="{{ x.slotId }}" shape="rect" fit="cover" src="{{ x.banner }}" placeholder="{{ x.name }}"></image-slot>
+              </div>
+              <div style="font-family:'Noto Serif KR',serif;font-size:21px;font-weight:600">{{ x.name }}</div>
+              <div style="font-size:13px;color:#6B6B68;margin-top:8px;line-height:1.7">{{ x.note }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="display:grid;grid-template-columns:minmax(320px,1fr) minmax(320px,1fr);border-bottom:1px solid #E2E2DE">
+        <div style="position:relative;min-width:0;aspect-ratio:4/3;background:#EEEEEC">
+          <image-slot id="promo-literature" shape="rect" fit="cover" src="./assets/img/banners/promo-literature.jpg" placeholder="문학 프로모션 이미지"></image-slot>
+        </div>
+        <div style="min-width:0;padding:76px 56px;display:flex;flex-direction:column;justify-content:center">
+          <h2 style="font-family:'Noto Serif KR',serif;font-size:32px;font-weight:600;margin:0 0 18px;line-height:1.35">퍼블리온 문학</h2>
+          <p style="font-size:16px;line-height:1.85;color:#3F3F3D;margin:0 0 30px;max-width:440px;text-wrap:pretty">2023년 김초엽 『파견자들』을 시작으로, 한국 소설과 해외 소설을 함께 소개합니다.</p>
+          <span style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid #111111;padding-bottom:4px;align-self:flex-start" onClick="{{ goLiterature }}">둘러보기 Explore</span>
+        </div>
+        <div style="min-width:0;padding:76px 56px;display:flex;flex-direction:column;justify-content:center;border-top:1px solid #E2E2DE">
+          <h2 style="font-family:'Noto Serif KR',serif;font-size:32px;font-weight:600;margin:0 0 18px;line-height:1.35">퍼블리온 스토어</h2>
+          <p style="font-size:16px;line-height:1.85;color:#3F3F3D;margin:0 0 30px;max-width:440px;text-wrap:pretty">『독서의 기록 다이어리』를 비롯한 퍼블리온 굿즈와 도서를 스마트스토어에서 만나실 수 있습니다.</p>
+          <a href="https://smartstore.naver.com/publion" target="_blank" rel="noopener" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#111111;border-bottom:1px solid #111111;padding-bottom:4px;align-self:flex-start;text-decoration:none">스토어 가기 Shop</a>
+        </div>
+        <div style="position:relative;min-width:0;aspect-ratio:4/3;background:#EEEEEC;border-top:1px solid #E2E2DE">
+          <image-slot id="promo-store" shape="rect" fit="cover" src="./assets/img/banners/promo-store.jpg" placeholder="독서의 기록 다이어리 이미지"></image-slot>
+        </div>
+      </section>
+
+      <section style="padding:78px 32px;border-bottom:1px solid #E2E2DE">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:38px">
+          <h2 style="font-family:'Noto Serif KR',serif;font-size:30px;font-weight:600;margin:0">저널 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">News &amp; Features</span></h2>
+          <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid #111111;padding-bottom:3px" onClick="{{ goJournal }}">전체 보기 View all</span>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px">
+          <sc-for list="{{ journal }}" as="j" hint-placeholder-count="3">
+            <article style="cursor:pointer">
+              <div style="position:relative;aspect-ratio:16/10;background:#EEEEEC;border:1px solid #E2E2DE;margin-bottom:18px">
+                <image-slot id="{{ j.slotId }}" shape="rect" fit="cover" src="./assets/img/banners/{{ j.slotId }}.jpg" placeholder="{{ j.kicker }}"></image-slot>
+              </div>
+              <h3 style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:600;margin:0 0 10px;line-height:1.45;text-wrap:pretty">{{ j.title }}</h3>
+              <p style="font-size:14px;line-height:1.75;color:#6B6B68;margin:0 0 16px">{{ j.excerpt }}</p>
+              <div style="display:flex;gap:14px;align-items:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9E2B1F">
+                <span>{{ j.kicker }}</span>
+                <span style="color:#8C8C88">{{ j.date }}</span>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+      </section>
+
+      <section style="display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;padding:56px 32px;border-bottom:1px solid #E2E2DE;background:#F4F4F2">
+        <div>
+          <h2 style="font-family:'Noto Serif KR',serif;font-size:26px;font-weight:600;margin:0 0 12px">2026년 도서목록</h2>
+          <p style="font-size:15px;line-height:1.85;color:#3F3F3D;margin:0;max-width:620px;text-wrap:pretty">퍼블리온이 펴낸 {{ titleCount }}을 분야별로 정리한 목록입니다. 서점과 도서관, 단체 주문 담당자분께 보내드리는 자료를 그대로 공개합니다.</p>
+        </div>
+        <a href="{{ catalogPdf }}" target="_blank" rel="noopener" style="font-family:'Archivo',sans-serif;background:#111111;color:#FFFFFF;padding:16px 34px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;white-space:nowrap" style-hover="background:#9E2B1F">도서목록 내려받기 PDF</a>
+      </section>
+
+      <section style="background:#111111;color:#FFFFFF;padding:76px 32px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+        <div>
+          <h2 style="font-family:'Noto Serif KR',serif;font-size:30px;font-weight:600;margin:0 0 16px">뉴스레터 구독</h2>
+          <p style="font-size:15px;line-height:1.85;color:#B4B4AE;margin:0;max-width:460px;text-wrap:pretty">매달 신간 소식과 저자의 글, 편집자가 고른 문장을 보내드립니다.</p>
+        </div>
+        <div>
+          <div style="display:flex;border-bottom:1px solid #3A3A38">
+            <input placeholder="이메일 주소 Email address" value="{{ email }}" onChange="{{ onEmail }}" onKeyDown="{{ onEmailKey }}" style="flex:1;background:transparent;border:0;outline:none;color:#FFFFFF;font-family:'Archivo',sans-serif;font-size:15px;padding:14px 0">
+            <button style="background:transparent;border:0;color:#FFFFFF;font-family:'Archivo',sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;padding:14px 0" style-hover="color:#D98B72" onClick="{{ subscribe }}">구독 Subscribe</button>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:14px;font-size:12px;line-height:1.7">
+            <span style="color:{{ subMsgColor }}">{{ subMsg }}</span>
+            <span style="color:#8C8C88;white-space:nowrap;cursor:pointer;text-decoration:underline;text-underline-offset:3px" onClick="{{ downloadSubs }}">{{ subCountLabel }}</span>
+          </div>
+        </div>
+      </section>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isBooks }}" hint-placeholder-val="{{ false }}">
+    <main style="padding:52px 32px 84px">
+      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6B6B68;margin-bottom:16px">홈 / 도서</div>
+      <h1 style="font-family:'Noto Serif KR',serif;font-size:52px;font-weight:600;margin:0 0 8px">도서 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Books</span></h1>
+      <div style="font-size:14px;color:#6B6B68;margin-bottom:32px">{{ resultLabel }}</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;gap:24px;border-top:1px solid #E2E2DE;border-bottom:1px solid #E2E2DE;padding:15px 0;margin-bottom:44px;position:sticky;top:112px;background:#FFFFFF;z-index:20">
+        <div style="display:flex;gap:9px;flex-wrap:wrap">
+          <sc-for list="{{ filterChips }}" as="c" hint-placeholder-count="4">
+            <div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:9px 16px;border:1px solid #E2E2DE;cursor:pointer;white-space:nowrap;background:{{ c.bg }};color:{{ c.fg }};border-color:{{ c.border }}" onClick="{{ c.select }}">{{ c.label }}</div>
+          </sc-for>
+        </div>
+        <div style="display:flex;gap:16px;align-items:center;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#6B6B68;white-space:nowrap">
+          <span>정렬</span>
+          <sc-for list="{{ sortOptions }}" as="s" hint-placeholder-count="3">
+            <span style="cursor:pointer;color:{{ s.color }}" onClick="{{ s.select }}">{{ s.label }}</span>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:46px 28px">
+        <sc-for list="{{ visibleBooks }}" as="b" hint-placeholder-count="8">
+          <div style="cursor:pointer;animation:fadeUp .3s ease both" onClick="{{ b.open }}">
+            <div style="position:relative;aspect-ratio:3/4;margin-bottom:16px;border:1px solid rgba(17,17,17,.1);background:#EEEEEC">
+              <image-slot id="{{ b.slotId }}" shape="rect" fit="contain" src="{{ b.cover }}" placeholder="{{ b.title }}"></image-slot>
+            </div>
+            <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9E2B1F;margin-bottom:7px">{{ b.subject }}</div>
+            <div style="font-family:'Noto Serif KR',serif;font-size:19px;line-height:1.4;font-weight:600">{{ b.title }}</div>
+            <div style="font-family:'Archivo';font-style:italic;font-size:14px;color:#6B6B68;margin-top:4px">{{ b.en }}</div>
+            <div style="font-size:13px;color:#6B6B68;margin-top:8px">{{ b.byline }}</div>
+            <div style="font-size:13px;margin-top:6px">{{ b.priceLabel }}</div>
+            <sc-if value="{{ b.award }}" hint-placeholder-val="{{ false }}">
+              <div style="font-size:11px;line-height:1.6;letter-spacing:.04em;color:#9E2B1F;margin-top:10px;padding-top:9px;border-top:1px solid #E2E2DE">{{ b.award }}</div>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isDetail }}" hint-placeholder-val="{{ false }}">
+    <main>
+      <div style="padding:26px 32px;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6B6B68;border-bottom:1px solid #E2E2DE"><span style="cursor:pointer" onClick="{{ goBooks }}">← 도서 목록으로 Back to books</span></div>
+      <section style="display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid #E2E2DE">
+        <div style="padding:76px;display:flex;align-items:center;justify-content:center;background:#EEEEEC">
+          <div style="position:relative;width:100%;max-width:380px;aspect-ratio:3/4;border:1px solid rgba(17,17,17,.1);background:#FFFFFF">
+            <image-slot id="{{ book.slotId }}" shape="rect" fit="contain" src="{{ book.cover }}" placeholder="{{ book.title }} 표지"></image-slot>
+          </div>
+        </div>
+        <div style="padding:76px 32px 76px 64px;display:flex;flex-direction:column;justify-content:center;max-width:660px">
+          <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:20px">{{ book.subject }}</div>
+          <h1 style="font-family:'Noto Serif KR',serif;font-size:46px;font-weight:600;line-height:1.2;margin:0 0 10px">{{ book.title }}</h1>
+          <div style="font-family:'Archivo';font-style:italic;font-size:22px;color:#6B6B68;margin-bottom:18px">{{ book.en }}</div>
+          <div style="font-size:14px;color:#3F3F3D;margin-bottom:28px">{{ book.byline }}</div>
+          <p style="font-size:16px;line-height:1.85;color:#3F3F3D;margin:0 0 32px;text-wrap:pretty">{{ book.blurb }}</p>
+          <div style="font-family:'Noto Serif KR',serif;font-size:28px;margin-bottom:22px">{{ book.priceLabel }}</div>
+          <a href="https://smartstore.naver.com/publion" target="_blank" rel="noopener" style="display:inline-block;background:#111111;color:#FFFFFF;padding:17px 34px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;align-self:flex-start" style-hover="background:#9E2B1F;color:#FFFFFF">스마트스토어에서 구매</a>
+        </div>
+      </section>
+      <section style="display:grid;grid-template-columns:1fr 1fr;gap:64px;padding:70px 32px;border-bottom:1px solid #E2E2DE">
+        <div>
+          <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:20px">책 소개 About this book</div>
+          <p style="font-size:16px;line-height:1.9;color:#3F3F3D;margin:0;text-wrap:pretty">{{ book.body }}</p>
+
+          <div style="margin-top:38px;padding-top:30px;border-top:1px solid #E2E2DE">
+            <h3 style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:600;margin:0 0 18px">구매하기 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Where to buy</span></h3>
+            <div style="display:flex;flex-direction:column;gap:9px">
+              <sc-for list="{{ buyLinks }}" as="x" hint-placeholder-count="4">
+                <a href="{{ x.href }}" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:15px 20px;border:1px solid #E2E2DE;text-decoration:none;color:#111111" style-hover="border-color:#111111">
+                  <span style="font-size:14px;letter-spacing:.02em">{{ x.label }}</span>
+                  <span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#6B6B68;white-space:nowrap">{{ x.note }}</span>
+                </a>
+              </sc-for>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:20px">사양 Specifications</div>
+          <sc-for list="{{ specs }}" as="row" hint-placeholder-count="5">
+            <div style="display:grid;grid-template-columns:130px 1fr;gap:16px;padding:13px 0;border-bottom:1px solid #E2E2DE;font-size:14px">
+              <span style="color:#6B6B68">{{ row.k }}</span>
+              <span>{{ row.v }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+      <sc-if value="{{ hasStories }}" hint-placeholder-val="{{ true }}">
+        <section style="padding:56px 32px;border-bottom:1px solid #E2E2DE;background:#F4F4F2">
+          <h2 style="font-family:'Noto Serif KR',serif;font-size:24px;font-weight:600;margin:0 0 22px">이 책의 이야기 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Behind the book</span></h2>
+          <div style="border-top:1px solid #E2E2DE">
+            <sc-for list="{{ stories }}" as="p" hint-placeholder-count="3">
+              <a href="{{ p.href }}" target="_blank" rel="noopener" style="display:grid;grid-template-columns:108px 1fr auto;gap:20px;align-items:baseline;padding:16px 0;border-bottom:1px solid #E2E2DE;text-decoration:none;color:#111111" style-hover="color:#9E2B1F">
+                <span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9E2B1F;white-space:nowrap">{{ p.source }}</span>
+                <span style="font-family:'Noto Serif KR',serif;font-size:17px;line-height:1.5">{{ p.title }}</span>
+                <span style="font-size:12px;color:#8C8C88;white-space:nowrap">{{ p.date }}</span>
+              </a>
+            </sc-for>
+          </div>
+        </section>
+      </sc-if>
+
+      <section style="padding:70px 32px 88px">
+        <h2 style="font-family:'Noto Serif KR',serif;font-size:28px;font-weight:600;margin:0 0 32px">함께 보면 좋은 책 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Related titles</span></h2>
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px">
+          <sc-for list="{{ related }}" as="b" hint-placeholder-count="4">
+            <div style="cursor:pointer" onClick="{{ b.open }}">
+              <div style="position:relative;aspect-ratio:3/4;margin-bottom:14px;border:1px solid rgba(17,17,17,.1);background:#EEEEEC">
+                <image-slot id="{{ b.slotId }}" shape="rect" fit="contain" src="{{ b.cover }}" placeholder="{{ b.title }}"></image-slot>
+              </div>
+              <div style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:600">{{ b.title }}</div>
+              <div style="font-size:12px;color:#6B6B68;margin-top:5px">{{ b.priceLabel }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isAbout }}" hint-placeholder-val="{{ false }}">
+    <main>
+      <section style="padding:86px 32px 66px;border-bottom:1px solid #E2E2DE;max-width:1000px">
+        <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9E2B1F;margin-bottom:24px">출판사 소개 · About</div>
+        <h1 style="font-family:'Noto Serif KR',serif;font-size:52px;font-weight:600;line-height:1.3;margin:0 0 28px;text-wrap:pretty">퍼블리온은 새롭고, 필요하고,<br>읽는 즐거움이 담긴 책을 만듭니다.</h1>
+        <p style="font-family:'Archivo';font-size:22px;font-style:italic;line-height:1.6;color:#3F3F3D;margin:0;text-wrap:pretty">Publion would like to create novel, necessary, and enjoyable books.</p>
+      </section>
+      <section style="display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid #E2E2DE">
+        <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+          <div style="padding:46px 32px;border-right:1px solid #E2E2DE">
+            <div style="font-family:'Noto Serif KR',serif;font-size:42px;line-height:1;font-weight:600">{{ s.n }}</div>
+            <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#6B6B68;margin-top:12px">{{ s.label }}</div>
+          </div>
+        </sc-for>
+      </section>
+      <section style="display:grid;grid-template-columns:1fr 1.25fr;gap:64px;padding:72px 32px;border-bottom:1px solid #E2E2DE">
+        <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F">우리가 하는 일 What we do</div>
+        <div>
+          <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="3">
+            <div style="padding:26px 0;border-bottom:1px solid #E2E2DE">
+              <div style="font-family:'Noto Serif KR',serif;font-size:22px;font-weight:600;margin-bottom:10px">{{ p.title }}</div>
+              <div style="font-size:15px;line-height:1.8;color:#3F3F3D">{{ p.text }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </section>
+      <section style="padding:72px 32px 92px;display:grid;grid-template-columns:1fr 1fr;gap:64px">
+        <div>
+          <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:18px">투고 안내 Submissions</div>
+          <p style="font-size:16px;line-height:1.85;color:#3F3F3D;margin:0 0 20px">기획안, 목차, 원고 일부를 이메일로 보내주세요. 검토 후 회신드립니다.</p>
+          <div style="font-family:'Noto Serif KR',serif;font-size:20px">publion2030@gmail.com</div>
+        </div>
+        <div>
+          <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:18px">문의 Contact</div>
+          <p style="font-size:16px;line-height:1.85;color:#3F3F3D;margin:0 0 20px">판권·강연·제휴 문의는 대표 직통으로 연락 바랍니다.</p>
+          <div style="font-family:'Noto Serif KR',serif;font-size:20px">박선영 대표 · 010-3207-0033</div>
+          <div style="font-size:13px;line-height:1.9;color:#6B6B68;margin-top:18px">팩스 032-232-6300<br>출판등록 2020년 2월 26일 제2022-000096호</div>
+        </div>
+      </section>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isAuthors }}" hint-placeholder-val="{{ false }}">
+    <main style="padding:52px 32px 88px">
+      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6B6B68;margin-bottom:16px">홈 / 저자</div>
+      <h1 style="font-family:'Noto Serif KR',serif;font-size:52px;font-weight:600;margin:0 0 36px">저자 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Authors</span></h1>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#E2E2DE;border:1px solid #E2E2DE">
+        <sc-for list="{{ authors }}" as="a" hint-placeholder-count="6">
+          <div style="background:#FFFFFF;padding:32px;cursor:pointer" style-hover="background:#F4F4F2" onClick="{{ a.open }}">
+            <div style="width:80px;height:80px;border-radius:50%;background:#EBEBE8;margin-bottom:22px"></div>
+            <div style="font-family:'Noto Serif KR',serif;font-size:23px;font-weight:600;line-height:1.3">{{ a.ko }}</div>
+            <div style="font-size:13px;color:#6B6B68;margin-top:12px;line-height:1.7">{{ a.role }}</div>
+            <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9E2B1F;margin-top:14px">{{ a.count }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </main>
+  </sc-if>
+
+  <sc-if value="{{ isJournal }}" hint-placeholder-val="{{ false }}">
+    <main style="padding:52px 32px 88px">
+      <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6B6B68;margin-bottom:16px">홈 / 저널</div>
+      <h1 style="font-family:'Noto Serif KR',serif;font-size:52px;font-weight:600;margin:0 0 8px">저널 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Journal</span></h1>
+      <p style="font-size:15px;line-height:1.8;color:#6B6B68;margin:0 0 44px;max-width:620px">퍼블리온이 블로그에 올린 글 {{ postCount }}편입니다. 제목을 누르면 해당 글로 이동합니다.</p>
+
+      <sc-for list="{{ journalGroups }}" as="g" hint-placeholder-count="2">
+        <section style="margin-bottom:56px">
+          <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding-bottom:18px;border-bottom:1px solid #111111">
+            <div>
+              <h2 style="font-family:'Noto Serif KR',serif;font-size:26px;font-weight:600;margin:0">{{ g.source }}</h2>
+              <p style="font-size:14px;color:#6B6B68;margin:8px 0 0">{{ g.lead }}</p>
+            </div>
+            <a href="{{ g.href }}" target="_blank" rel="noopener" style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #111111;padding-bottom:3px;color:#111111;text-decoration:none;white-space:nowrap">블로그 가기 Visit</a>
+          </div>
+          <sc-for list="{{ g.list }}" as="p" hint-placeholder-count="6">
+            <a href="{{ p.href }}" target="_blank" rel="noopener" style="display:grid;grid-template-columns:92px 1fr;gap:20px;align-items:baseline;padding:17px 0;border-bottom:1px solid #E2E2DE;text-decoration:none;color:#111111" style-hover="color:#9E2B1F">
+              <span style="font-size:12px;letter-spacing:.1em;color:#8C8C88;white-space:nowrap">{{ p.date }}</span>
+              <span style="font-family:'Noto Serif KR',serif;font-size:18px;line-height:1.5;text-wrap:pretty">{{ p.title }}</span>
+            </a>
+          </sc-for>
+        </section>
+      </sc-for>
+    </main>
+  </sc-if>
+
+  <footer style="background:#111111;color:#B4B4AE;padding:68px 32px 34px">
+    <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;padding-bottom:52px;border-bottom:1px solid #2A2A28">
+      <div>
+        <div style="display:flex;align-items:center;gap:12px">
+          <svg width="30" height="23" viewBox="0 0 34 26" fill="none"><path d="M2 3.5 L11 3.5 L17 9 L23 3.5 L32 3.5 L32 22.5 L23 22.5 L17 17 L11 22.5 L2 22.5 Z" fill="#FFFFFF"></path></svg>
+          <div style="font-weight:600;font-size:22px;letter-spacing:.16em;text-transform:uppercase;color:#FFFFFF">Publion</div>
+        </div>
+        <p style="font-size:13px;line-height:1.9;margin:24px 0 0;max-width:320px">퍼블리온 · 박선영 대표<br>010-3207-0033<br>publion2030@gmail.com</p>
+        <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:22px;font-size:12px;letter-spacing:.08em">
+          <sc-for list="{{ social }}" as="x" hint-placeholder-count="5">
+            <a href="{{ x.href }}" target="_blank" rel="noopener" style="color:#B4B4AE;border-bottom:1px solid #3A3A38;padding-bottom:2px;text-decoration:none" style-hover="color:#FFFFFF">{{ x.label }}</a>
+          </sc-for>
+        </div>
+      </div>
+      <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="3">
+        <div>
+          <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#FFFFFF;margin-bottom:18px">{{ col.title }}</div>
+          <div style="display:flex;flex-direction:column;gap:11px;font-size:13px">
+            <sc-for list="{{ col.links }}" as="link" hint-placeholder-count="4">
+              <span style="cursor:pointer" style-hover="color:#FFFFFF">{{ link }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+    <div style="display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding-top:24px">
+      <span>© 2026 퍼블리온 Publion</span>
+      <span>개인정보처리방침 · 이용약관 · Instagram · YouTube</span>
+    </div>
+  </footer>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1440,&quot;height&quot;:1000}}">
+const BOOKS = [
+  {id:1,title:"언컨택트",sub:"더 많은 연결을 위한 새로운 시대 진화 코드",author:"김용섭",trans:"",subject:"경제경영 Business",price:18000,year:2020,ym:"2020년 4월",date:"2020.04.20",award:"2020 교보문고 올해의책",tone:"#111111",ink:"#FFFFFF",isbn:"9791197016806",kyobo:"S000001982855"},
+  {id:2,title:"나를 믿고 일한다는 것",sub:"나와 우리를 성장시키는 진짜 유능함에 대하여",author:"우미영",trans:"",subject:"자기계발 Self-development",price:16000,year:2020,ym:"2020년 11월",date:"2020.11.05",award:"",tone:"#EFEFEC",ink:"#111111",isbn:"9791197016837",kyobo:"S000001982856"},
+  {id:3,title:"알터 에고 이펙트",sub:"대체자아 활성화 가이드",author:"토드 허먼",trans:"전리오 옮김",subject:"자기계발 Self-development",price:18000,year:2021,ym:"2021년 1월",date:"2021.01.27",award:"",tone:"#EFEFEC",ink:"#111111",isbn:"9791197016851",kyobo:"S000001982858"},
+  {id:4,title:"프로페셔널 스튜던트",sub:"위기를 기회로 만드는 사람들의 생존코드",author:"김용섭",trans:"",subject:"자기계발 Self-development",price:18000,year:2021,ym:"2021년 2월",date:"2021.02.18",award:"",tone:"#EFEFEC",ink:"#111111",isbn:"9791197016875",kyobo:"S000001982859"},
+  {id:5,title:"당신은 다른 사람의 성공에 기여한 적 있는가?",sub:"대전환 시대의 새로운 성장 방정식, 파트너십",author:"이소영",trans:"",subject:"경제경영 Business",price:17000,year:2021,ym:"2021년 3월",date:"2021.03.25",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791197016899",kyobo:"S000001982860"},
+  {id:6,title:"콘텐츠 가드닝",sub:"이르는 삶에서 기르는 삶으로",author:"서민규",trans:"",subject:"자기계발 Self-development",price:15000,year:2021,ym:"2021년 6월",date:"2021.06.18",award:"",tone:"#EFEFEC",ink:"#111111",isbn:"9791191587029",kyobo:"S000001952120"},
+  {id:7,title:"결국 Z세대가 세상을 지배한다",sub:"Z세대, 그들이 바꿀 미래의 단서들",author:"김용섭",trans:"",subject:"경제경영 Business",price:18000,year:2021,ym:"2021년 8월",date:"2021.08.10",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587067",kyobo:"S000001952121"},
+  {id:8,title:"아마존 언바운드",sub:"제프 베이조스, 그리고 글로벌 제국의 발명",author:"브래드 스톤",trans:"전리오 옮김",subject:"경제경영 Business",price:33000,year:2021,ym:"2021년 12월",date:"2021.12.01",award:"2022 세종도서 교양부문 선정",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587098",kyobo:"S000001952122"},
+  {id:9,title:"살아가다 일하다 만들다",sub:"미나 페르호넨 이야기",author:"미나가와 아키라",trans:"김지영 옮김",subject:"자기계발 Self-development",price:17000,year:2022,ym:"2022년 1월",date:"2022.01.20",award:"",tone:"#EFEFEC",ink:"#111111",isbn:"9791191587111",kyobo:"S000001952123"},
+  {id:10,title:"감성 콘텐츠",sub:"롱런 브랜드를 만드는 35가지 콘텐츠 공식",author:"가혜숙",trans:"",subject:"경제경영 Business",price:17000,year:2022,ym:"2022년 3월",date:"2022.03.22",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587135",kyobo:"S000001952124"},
+  {id:11,title:"캐리비안 해적들의 비밀 공부법",sub:"스스로 학습하고 열정을 추구하는 사람들의 위대한 비밀",author:"제임스 마커스 바크",trans:"전리오 옮김",subject:"자기계발 Self-development",price:18000,year:2022,ym:"2022년 4월",date:"2022.04.15",award:"",tone:"#EFEFEC",ink:"#111111",isbn:"9791191587159",kyobo:"S000001952125"},
+  {id:12,title:"ESG 2.0",sub:"자본주의가 선택한 미래 생존 전략",author:"김용섭",trans:"",subject:"경제경영 Business",price:22000,year:2022,ym:"2022년 7월",date:"2022.07.01",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587241",kyobo:"S000061353993"},
+  {id:13,title:"휴먼 프런티어",sub:"초연결시대에 생각해보는 거대한 아이디어의 미래",author:"마이클 바스카",trans:"전리오 옮김",subject:"인문 Humanities",price:25000,year:2022,ym:"2022년 10월",date:"2022.10.01",award:"2023 세종도서 교양부문 선정",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587272",kyobo:"S000061898441"},
+  {id:14,title:"플래닛 B는 없다",sub:"하나뿐인 지구에서 살아남기 위한 150가지 질문과 대답",author:"마이크 버너스-리",trans:"전리오 옮김",subject:"인문 Humanities",price:25000,year:2022,ym:"2022년 12월",date:"2022.12.01",award:"",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587302",kyobo:"S000200337477"},
+  {id:15,title:"어치브 모어",sub:"일과 삶에서 승률을 높이는 성취의 기술",author:"김성미",trans:"",subject:"자기계발 Self-development",price:18000,year:2022,ym:"2022년 12월",date:"2022.12.10",award:"",tone:"#EFEFEC",ink:"#111111",isbn:"9791191587296",kyobo:"S000200408270"},
+  {id:16,title:"나는 나를 응원합니다",sub:"",author:"칭고",trans:"아넬리스 그림",subject:"어린이 Children's",price:22000,year:2022,ym:"2022년 12월",date:"2022.12.25",award:"",tone:"#F2D53C",ink:"#111111",isbn:"9791191587319",kyobo:"S000200547148"},
+  {id:17,title:"기후피해세대를 넘어 기후기회세대로",sub:"인류의 미래를 위한 도전",author:"이재형",trans:"",subject:"인문 Humanities",price:18000,year:2023,ym:"2023년 1월",date:"2023.01.30",award:"2022 중소출판사 출판콘텐츠 창작지원사업 선정",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587357",kyobo:"S000200762573"},
+  {id:18,title:"아웃스탠딩 티처",sub:"더 나아질 미래를 원하는 사람들의 성장코드",author:"김용섭",trans:"",subject:"자기계발 Self-development",price:20000,year:2023,ym:"2023년 3월",date:"2023.03.24",award:"",tone:"#EFEFEC",ink:"#111111",isbn:"9791191587388",kyobo:"S000201320919"},
+  {id:19,title:"알아차림에 대한 알아차림",sub:"",author:"루퍼트 스파이라",trans:"김주환 옮김",subject:"인문 Humanities",price:18000,year:2023,ym:"2023년 5월",date:"2023.05.25",award:"",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587418",kyobo:"S000202387380"},
+  {id:20,title:"독서의 기록",sub:"내 인생을 바꾸는 작은 기적",author:"안예진",trans:"",subject:"자기계발 Self-development",price:18000,year:2023,ym:"2023년 6월",date:"2023.06.15",award:"",tone:"#EFEFEC",ink:"#111111",isbn:"9791191587425",kyobo:"S000202672654"},
+  {id:21,title:"기술이 만드는 미래 WEB 3.0과 블록체인",sub:"",author:"야마모토 야스마사",trans:"박제이 옮김",subject:"경제경영 Business",price:18000,year:2023,ym:"2023년 8월",date:"2023.08.23",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587494",kyobo:"S000208693272"},
+  {id:22,title:"집이 나에게 물어온 것들",sub:"시간의 틈에서 건져 올린 집, 자연, 삶",author:"장은진",trans:"",subject:"인문 Humanities",price:19500,year:2023,ym:"2023년 9월",date:"2023.09.09",award:"2023 중소출판사 출판콘텐츠 창작지원사업 선정",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587500",kyobo:"S000209030725"},
+  {id:23,title:"파견자들",sub:"김초엽 장편소설",author:"김초엽",trans:"",subject:"문학 Literature",price:19000,year:2023,ym:"2023년 10월",date:"2023.10.13",award:"2024 문학나눔 도서 선정 · 2024 예스24 올해의책",tone:"#1B2A4A",ink:"#FFFFFF",isbn:"9791191587524",kyobo:"S000210802440"},
+  {id:24,title:"긱 이코노미가 바꾸는 일의 미래",sub:"필요한 만큼만 맡기고, 원하는 만큼만 일하는",author:"방승천",trans:"",subject:"경제경영 Business",price:20000,year:2023,ym:"2023년 11월",date:"2023.11.10",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587548",kyobo:"S000211235599"},
+  {id:25,title:"빛을 향한 여행",sub:"머묾과 떠남",author:"장클로드 드크레센조",trans:"이소영 옮김",subject:"문학 Literature",price:19000,year:2023,ym:"2023년 12월",date:"2023.12.10",award:"",tone:"#1B2A4A",ink:"#FFFFFF",isbn:"9791191587555",kyobo:"S000211613887"},
+  {id:26,title:"NEW SPACE",sub:"이미 시작된 우주 자본의 시대",author:"이임복",trans:"",subject:"경제경영 Business",price:19000,year:2024,ym:"2024년 2월",date:"2024.02.07",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587609",kyobo:"S000212257384"},
+  {id:27,title:"리더의 각성",sub:"위기의 한국 기업, 스트롱 리더십이 답이다",author:"김용섭",trans:"",subject:"경제경영 Business",price:20000,year:2024,ym:"2024년 4월",date:"2024.04.01",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587623",kyobo:"S000212797606"},
+  {id:28,title:"위너 셀즈 올",sub:"소매업계의 강자가 되기 위한 아마존과 월마트의 기업 간 전투",author:"제이슨 델 레이",trans:"전리오 옮김",subject:"경제경영 Business",price:23000,year:2024,ym:"2024년 6월",date:"2024.06.20",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587661",kyobo:"S000213609211"},
+  {id:29,title:"오래된 책들의 메아리",sub:"",author:"바버라 데이비스",trans:"박산호 옮김",subject:"문학 Literature",price:19000,year:2024,ym:"2024년 6월",date:"2024.06.24",award:"2025 문학나눔 도서 선정",tone:"#1B2A4A",ink:"#FFFFFF",isbn:"9791191587678",kyobo:"S000213624898"},
+  {id:30,title:"문자의 역사",sub:"인류 문명사와 함께한 문자의 탄생과 발전",author:"스티븐 로저 피셔",trans:"강주헌 옮김",subject:"인문 Humanities",price:33000,year:2024,ym:"2024년 11월",date:"2024.11.01",award:"2025 세종도서 교양부문 선정",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587715",kyobo:"S000214645192"},
+  {id:31,title:"미나 페르호넨 디자인 여정: 기억의 순환",sub:"",author:"미나가와 아키라",trans:"서하나 옮김",subject:"인문 Humanities",price:43000,year:2024,ym:"2024년 11월",date:"2024.11.01",award:"",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587722",kyobo:"S000214614863"},
+  {id:32,title:"여행의 기록",sub:"기억을 기록으로 바꾸는 여행법",author:"안예진",trans:"",subject:"자기계발 Self-development",price:19000,year:2024,ym:"2024년 11월",date:"2024.11.11",award:"",tone:"#EFEFEC",ink:"#111111",isbn:"9791191587739",kyobo:"S000214645050"},
+  {id:33,title:"사물의 투명성",sub:"경험의 본질을 관조하다",author:"루퍼트 스파이라",trans:"김주환 옮김",subject:"인문 Humanities",price:22000,year:2025,ym:"2025년 1월",date:"2025.01.23",award:"",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587760",kyobo:"S000215569687"},
+  {id:34,title:"당신과 함께, 유럽",sub:"여행 작가 양영훈의 다시 찾고 싶은 유럽 도시 기행",author:"양영훈",trans:"",subject:"인문 Humanities",price:25000,year:2025,ym:"2025년 4월",date:"2025.04.01",award:"",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587791",kyobo:"S000216144605"},
+  {id:35,title:"나는 언제나 나",sub:"",author:"루퍼트 스파이라",trans:"주잔나 첼레이 그림 · 김주환 옮김",subject:"어린이 Children's",price:18000,year:2025,ym:"2025년 8월",date:"2025.08.01",award:"",tone:"#F2D53C",ink:"#111111",isbn:"9791191587814",kyobo:"S000217119016"},
+  {id:36,title:"나는 고독한 별처럼",sub:"",author:"이케자와 하루나",trans:"서하나 옮김",subject:"문학 Literature",price:18000,year:2025,ym:"2025년 11월",date:"2025.11.25",award:"",tone:"#1B2A4A",ink:"#FFFFFF",isbn:"9791191587821",kyobo:"S000218639567"},
+  {id:37,title:"10대의 독서",sub:"읽고, 묻고, 나아가는 독서의 힘",author:"류지후",trans:"",subject:"자기계발 Self-development",price:18000,year:2026,ym:"2026년 2월",date:"2026.02.02",award:"",tone:"#EFEFEC",ink:"#111111",isbn:"9791191587838",kyobo:"S000219128807"},
+  {id:38,title:"가든 타임",sub:"단단한 삶을 위한 시간",author:"이소원",trans:"",subject:"인문 Humanities",price:23000,year:2026,ym:"2026년 2월",date:"2026.02.10",award:"",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587845",kyobo:"S000219195011"},
+  {id:39,title:"아이엠",sub:"존재에 대한 명상",author:"루퍼트 스파이라",trans:"김주환 옮김",subject:"인문 Humanities",price:16000,year:2026,ym:"2026년 4월",date:"2026.04.01",award:"",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587883",kyobo:"S000219523297"},
+  {id:40,title:"현금경영",sub:"33년 경영 현장의 CEO가 알려주는 현금 생존법",author:"김성호",trans:"",subject:"경제경영 Business",price:22000,year:2026,ym:"2026년 5월",date:"2026.05.01",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587906",kyobo:"S000220053056"},
+  {id:41,title:"인간이 유리하다",sub:"AI 시대, 인간에게만 허락된 것",author:"김용섭",trans:"",subject:"경제경영 Business",price:23000,year:2026,ym:"2026년 7월",date:"2026.07.01",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587937",kyobo:"S000220588157"}
+];
+
+const SUBJECTS = ["경제경영 Business","자기계발 Self-development","인문 Humanities","문학 Literature","어린이 Children's"];
+
+const HERO = [
+  {bookId:41, kicker:"신간 New Release", slotId:"hero-1", title:"인간이 유리하다",
+   desc:"AI가 대부분의 일을 대신하는 시대에, 인간에게만 남는 것은 무엇인가. 김용섭 소장의 새 트렌드 분석서."},
+  {bookId:23, kicker:"퍼블리온 문학", slotId:"hero-2", title:"파견자들",
+   desc:"2024 문학나눔 도서 · 예스24 올해의책 선정. 김초엽 장편소설."},
+  {bookId:30, kicker:"인문", slotId:"hero-3", title:"문자의 역사",
+   desc:"2025 세종도서 교양부문 선정. 스티븐 로저 피셔가 추적한 문자의 탄생과 발전, 강주헌 옮김."}
+];
+
+const SERIES = [
+  {name:"TREND INSIGHT", slotId:"series-1", subject:"경제경영 Business", note:"김용섭 소장과 함께 펴내는 트렌드 분석 시리즈."},
+  {name:"명상의 정수", slotId:"series-2", subject:"인문 Humanities", note:"루퍼트 스파이라의 저작 4종을 김주환 교수의 번역으로 소개합니다."},
+  {name:"기록 시리즈", slotId:"series-3", subject:"자기계발 Self-development", note:"안예진의 『독서의 기록』 『여행의 기록』. 남기는 일에 관한 책."}
+];
+
+// 도서 소개글 — 대표 블로그 '작은회사 경영수업' 문체. 근거: 2026년 도서목록.
+const INTROS = {
+  1: "2020년, 사람들이 서로 멀어지기 시작했을 때 퍼블리온의 첫 책이 나왔습니다. 김용섭 소장은 이것을 일시적인 거리두기가 아니라 오래 쌓여온 욕망이 드러난 것으로 봅니다. 소비와 일하는 방식뿐 아니라 관계와 공동체까지 무엇이 달라졌는지 함께 읽어보셨으면 합니다.",
+
+  2: "매일 일하면서 우리가 바라는 것은 매출이나 성과 그 이상일 것입니다. 어도비코리아 대표 우미영은 비전공 여성 영업인으로 시작해 30년을 걸어오며 익힌 여섯 가지 태도를 이 책에 담았습니다. 출근이 숙제처럼 느껴지는 날 곁에 두고 펼쳐보시기를 바랍니다.",
+
+  3: "중요한 자리에서 평소의 내가 발목을 잡을 때가 있습니다. 멘탈게임 전략가 토드 허먼은 그럴 때 꺼내 쓸 또 하나의 자아를 만드는 법을 안내합니다. 가면을 쓰는 것이 아니라 안에 있는 나를 깨우는 일이라는 저자의 말을 오래 생각하게 됩니다.",
+
+  4: "학위에 유효기간이 생긴 시대에 계속 배운다는 것은 어떤 의미일까요. 김용섭 소장은 위기가 일상이 된 세상에서 끝까지 살아남는 사람을 프로페셔널 스튜던트라고 부릅니다. 지식의 반감기가 짧아지는 지금 무엇을 다시 배울지 함께 생각해보면 좋겠습니다.",
+
+  5: "마이크로소프트는 이 질문 하나를 평가에 넣은 뒤로 달라졌다고 합니다. 이소영 이사는 그 변화를 곁에서 지켜보며 파트너십이라는 성장 방식을 정리했습니다. 경쟁 대신 서로의 성장을 돕는 관계가 실제로 무엇을 바꾸는지 확인하실 수 있습니다.",
+
+  6: "가장 나다운 콘텐츠는 무엇일까. 왜 내 것만 초라해 보일까. 창작을 시작한 분이라면 한 번쯤 해보셨을 질문입니다. 서민규는 창작을 제작이 아니라 가드닝이라 부르며, 씨앗을 고르고 기다리고 슬럼프를 지나는 과정을 정원 가꾸듯 이야기합니다.",
+
+  7: "다음 십 년의 소비와 문화는 누가 만들까요. 김용섭 소장은 Z세대를 이해하는 서른 가지 코드를 정리했습니다. 로봇을 가족으로 받아들일 첫 세대를 기성세대의 언어가 아니라 그들의 언어로 읽어보시기를 권합니다.",
+
+  8: "온라인 서점으로 시작한 회사가 어떻게 시가총액 3위가 되었을까요. 블룸버그 수석주필 브래드 스톤이 300여 명을 인터뷰해 아마존의 안쪽을 기록했습니다. 성장의 성과와 그 대가를 함께 놓고 보는 책이며, 2022 세종도서 교양부문에 선정됐습니다.",
+
+  9: "무엇을 어떻게 만들 것인가, 누구와 함께할 것인가. 미나 페르호넨을 만든 미나가와 아키라가 자신의 답을 들려줍니다. 속도와 효율이 기준이 된 시대에 반대 방향으로 걸어온 사람의 기록을 천천히 읽어보시면 좋겠습니다.",
+
+  10: "3초 안에 사람을 붙드는 콘텐츠에는 무엇이 있을까요. 20년 차 마케터 가혜숙이 9,000여 개를 만들며 정리한 서른다섯 가지를 이 책에 담았습니다. 자본 없이 시작해 오래 남는 브랜드를 만들고 싶은 분들께 권합니다.",
+
+  11: "학위도 자격증도 없이 애플의 최연소 매니저가 된 사람이 있습니다. 제임스 마커스 바크는 자신이 걸어온 길을 해적의 공부법이라고 부릅니다. 정규 교육 바깥에서 자기 방식을 찾아가는 분들과 나누고 싶은 이야기입니다.",
+
+  12: "ESG는 지나가는 열풍일까요. 김용섭 소장은 사회나 제도가 말하는 ESG가 아니라 자본과 기업이 말하는 ESG를 보자고 제안합니다. 방어에서 전환으로 넘어가는 이 단계에서 무엇을 준비해야 할지 짚어주는 책입니다.",
+
+  13: "세상을 바꾸는 큰 아이디어는 왜 점점 드물어질까요. 마이클 바스카는 지난 300년의 진보를 되짚으며 그 이유를 찾습니다. 아직 남아 있는 가능성이 어디에 있는지 함께 생각해보게 하는 책이며, 2023 세종도서 교양부문에 선정됐습니다.",
+
+  14: "우리에게 다른 행성은 없습니다. 마이크 버너스-리는 먹을거리와 기후, 생물다양성과 플라스틱까지 150가지 질문을 던지고 답합니다. 개인이 할 수 있는 일부터 국가가 할 일까지, 근거를 갖춘 대답을 찾으실 수 있습니다.",
+
+  15: "열심히만으로는 부족해지는 순간이 있습니다. 마이크로소프트 채널 매니저 김성미는 일을 시작하기 전에 구조를 먼저 설계하라고 말합니다. 18년 동안 시도하고 실패하며 얻은 것을 정리한 책입니다.",
+
+  16: "스스로를 응원해본 적이 언제였는지 떠올려봅니다. 이 그림책은 아이가 자기 편이 되어주는 연습을 조용히 함께합니다. 아이와 어른이 나란히 앉아 읽으셨으면 하는 마음으로 펴냈습니다.",
+
+  17: "지금 멈춰도 기후변화는 계속됩니다. 이재형은 다음 세대를 기후피해세대로 남겨두지 않기 위해 지금의 어른이 무엇을 할 수 있는지 이야기합니다. 결정된 미래가 아니라 개선된 미래를 물려주자는 제안이며, 2022년 중소출판사 출판콘텐츠 창작지원사업에 선정됐습니다.",
+
+  18: "학생과 선생의 경계가 흐려진 시대에 우리를 가르칠 사람은 누구일까요. 김용섭 소장은 계속 배우는 사람에게 필요한 선생을 아웃스탠딩 티처라고 부릅니다. 『프로페셔널 스튜던트』를 읽으셨다면 이어서 펼쳐보시기를 권합니다.",
+
+  19: "나는 누구인가, 나는 알아차리고 있는가. 명상가 루퍼트 스파이라는 이 두 질문에서 시작합니다. 김주환 교수의 번역으로 만나는 명상의 정수 시리즈 첫 권이며, 애쓰지 않는 명상이 무엇인지 알려줍니다.",
+
+  20: "읽기만 하던 책을 기록으로 남기면 무엇이 달라질까요. 20년 차 직장인 안예진은 번아웃 이후 하루 한 권을 읽고 남기며 달라진 시간을 이야기합니다. 독서법과 글쓰기, 블로그 운영까지 직접 해본 방법을 나눕니다.",
+
+  21: "보기만 하던 웹에서 주고받는 웹으로, 그다음은 무엇일까요. 야마모토 야스마사는 블록체인이 여는 웹 3.0의 생태계를 안내합니다. 기술을 넘어 새로운 경제적 민주주의를 함께 생각해보자는 제안입니다.",
+
+  22: "내가 머무는 공간은 나에게 무엇을 묻고 있을까요. 장은진은 남편과 1년 4개월에 걸쳐 지은 집 기윤재에서의 시간을 기록했습니다. 현관과 창문, 다실과 옥탑방이 건네는 질문을 따라 읽다 보면 자신의 집도 다시 보게 됩니다. 2023년 중소출판사 출판콘텐츠 창작지원사업에 선정됐습니다.",
+
+  23: "인간이 외계로 가는 대신 지구가 낯선 행성이 된다면 어떨까요. 김초엽 작가는 그 질문에서 이 소설을 시작했다고 밝혔습니다. 균류를 모델로 만든 범람체와 마주한 태린을 따라가며 인간의 경계가 어디까지인지 묻는 장편소설이며, 2024 문학나눔 도서와 2024 예스24 올해의책에 선정됐습니다.",
+
+  24: "필요한 만큼만 맡기고 원하는 만큼만 일하는 방식은 가능할까요. 방승천은 디지털 인재 플랫폼이 고용과 노동을 어떻게 바꾸는지 살핍니다. 기업과 개인 양쪽에서 무엇이 달라지는지 차분히 짚어주는 책입니다.",
+
+  25: "먼 곳에서 온 사람이 한국의 골목 사진을 오래 들여다보면 무엇이 보일까요. 프랑스 국립대 한국학을 창설한 장클로드 드크레센조가 김기찬과 조세희, 마동욱의 사진에서 읽어낸 것을 적었습니다. 마르세유와 서울의 골목을 오가는 산문집입니다.",
+
+  26: "우주는 어떻게 돈이 될까요. 이임복은 국가가 이끌던 우주 개발이 민간으로 넘어오는 지점을 짚습니다. 로켓 운송과 위성 인터넷, 우주 광물까지 어디에 기회가 남아 있는지 안내합니다.",
+
+  27: "호황기에 필요한 리더십과 위기에 필요한 리더십은 다를 수밖에 없습니다. 김용섭 소장은 지금 한국 기업에 필요한 것은 강한 리더십이라고 말합니다. 책임은 지지 않고 권한만 누리는 자리에 대해 에둘러 말하지 않는 책입니다.",
+
+  28: "시골 잡화점에서 시작한 월마트와 온라인 서점에서 시작한 아마존이 같은 자리를 놓고 겨룹니다. 제이슨 델 레이가 임직원 150여 명을 인터뷰해 두 회사의 경쟁을 기록했습니다. 거대한 조직 안에서 변화를 만드는 일이 왜 어려운지에 관한 이야기이기도 합니다.",
+
+  29: "한 서점 주인의 손에 지은이를 알 수 없는 두 권의 책이 들어옵니다. 같은 이야기를 남녀 각자의 시점으로 쓴 책이었습니다. 바버라 데이비스가 1980년대와 1940년대를 오가며 40년을 관통한 진실을 따라가는 소설이며, 2025 문학나눔 도서에 선정됐습니다.",
+
+  30: "문자는 발명된 것이 아니라 모방과 차용의 산물이라고 합니다. 스티븐 로저 피셔는 수메르의 점토판부터 인터넷 언어까지 6천 년을 추적합니다. 정재승 교수가 추천했고 2025 세종도서 교양부문에 선정됐습니다.",
+
+  31: "핀란드어로 미나는 나, 페르호넨은 나비입니다. 미나가와 아키라가 걸어온 디자인의 여정을 기억이라는 말로 묶어 담았습니다. 유행에 흔들리지 않는 것들이 어떻게 오래 남는지 보여주는 책입니다.",
+
+  32: "여행이 끝나면 무엇이 남을까요. 안예진 가족은 유럽에서 한 달간 캠핑카로 다니며 그 시간을 기록으로 남기기로 했습니다. 여행 전 준비부터 다녀온 뒤 다시 쓰는 법까지, 기억을 기록으로 바꾸는 방법을 나눕니다.",
+
+  33: "경험의 본질을 알아차리는 순간에 무엇이 달라질까요. 루퍼트 스파이라는 복잡한 수행 대신 직접적인 길을 안내합니다. 명상의 정수 시리즈 두 번째 권이며 김주환 교수가 옮겼습니다.",
+
+  34: "다시 찾고 싶은 도시가 있으신가요. 여행작가 양영훈이 유럽 열 개 나라의 도시와 명소 마흔여덟 곳을 다니며 기록했습니다. 자동차와 도보, 캠핑으로 갈 수 있는 방법과 사진 400여 장을 함께 실었습니다.",
+
+  35: "모든 것이 변해도 나는 언제나 나입니다. 루퍼트 스파이라가 어린이의 눈높이로 쓴 첫 명상 그림책입니다. 부모와 교사를 위한 활용법도 실려 있어 가정과 학교 어디서든 함께 읽으실 수 있습니다.",
+
+  36: "이미 이상한 일이 벌어진 세계로 독자를 끌어당기는 일곱 편의 소설입니다. 사람들이 버섯을 경유해 생각하고 사랑하는 곳, 인공별을 떨어뜨려 죽음을 기리는 콜로니가 나옵니다. 김초엽 작가가 추천사를 썼습니다.",
+
+  37: "올해 퍼블리온이 가장 먼저 독자들과 만난 책입니다. 10대 저자가 고전 56권을 읽으며 남긴 독서의 흔적은 예상보다 훨씬 깊었습니다. 나이가 생각의 깊이를 결정하지 않는다는 사실을, 원고를 읽으며 다시 확인했습니다.",
+
+  38: "매일 더 빨라지는 세상에서 정원을 가꾸는 시간은 결국 자신을 돌보는 시간이기도 합니다. 이 책을 만들면서 잠시 멈추는 용기가 얼마나 중요한지 다시 생각하게 되었습니다. 바쁘게 지내는 분들이 자신의 속도를 되찾는 계기를 만나셨으면 하는 마음으로 펴냈습니다.",
+
+  39: "루퍼트 스파이라가 30년에 걸쳐 다듬은 명상 시집입니다. 소리 내어 읽는 것만으로 명상이 되는 시와 철학적 서문, 탄생 과정을 담은 후기로 이루어져 있습니다. 나는 누구인가라는 단 하나의 질문 앞에서, 경험 이전의 나로 돌아가게 하는 책입니다.",
+
+  40: "좋은 콘텐츠를 만드는 일과 회사를 지속적으로 운영하는 일은 전혀 다른 문제입니다. 출판사를 운영하며 마주한 이 단순한 원칙이 이 책을 펴낸 이유였습니다. 기업은 이익이 아니라 현금으로 살아간다는 사실을, 오늘도 회사를 운영하고 계신 분들과 나누고 싶습니다.",
+
+  41: "AI가 대부분의 일을 대신하는 시대에 인간에게만 남는 것은 무엇일까요. 김용섭 소장의 새 트렌드 분석서입니다. 생존의 규칙이 바뀐 자리에서 어떤 싸움을 선택할지 함께 생각해보게 합니다.",
+};
+
+// 퍼블리온이 발행한 글 — 대표 블로그 + 네이버 블로그 RSS
+const POSTS = [
+  { date: "2026.07", source: "대표의 기록", title: "홈플러스 사태의 전말", href: "https://publion.tistory.com/13" },
+  { date: "2026.07", source: "대표의 기록", title: "기업은 왜 망할까? 언론이 『현금경영』에서 공통으로 주목한 단 하나의 이유", href: "https://publion.tistory.com/12" },
+  { date: "2026.06", source: "대표의 기록", title: "2026년 상반기를 돌아보며", href: "https://publion.tistory.com/11" },
+  { date: "2026.06", source: "대표의 기록", title: "왜 많은 경영자가 '현금'을 가장 중요한 경영 자원이라고 말할까요?", href: "https://publion.tistory.com/10" },
+  { date: "2026.06", source: "대표의 기록", title: "2024, 서울국제도서전의 추억", href: "https://publion.tistory.com/9" },
+  { date: "2026.06", source: "대표의 기록", title: "175억 흑자 기업은 왜 220억 앞에서 멈춰 섰나", href: "https://publion.tistory.com/8" },
+  { date: "2026.06", source: "대표의 기록", title: "'트렌드 인사이트 시리즈', 변화의 흐름을 읽는 책은 계속됩니다", href: "https://publion.tistory.com/7" },
+  { date: "2026.06", source: "대표의 기록", title: "요즘 ChatGPT에 가장 많이 검색되는 현금흐름 관련 책들, 그리고 《현금경영》", href: "https://publion.tistory.com/6" },
+  { date: "2026.06", source: "대표의 기록", title: "왜 지금 《현금경영》일까요?", href: "https://publion.tistory.com/5" },
+  { date: "2026.06", source: "대표의 기록", title: "30년의 직장 생활, 새로운 시작", href: "https://publion.tistory.com/4" },
+  { date: "2026.07", source: "퍼블리온 블로그", title: "[2026_출간도서] 가든타임", href: "https://blog.naver.com/publion/224346054833" },
+  { date: "2026.07", source: "퍼블리온 블로그", title: "[저자 인터뷰] <10대의 독서> 류지후", href: "https://blog.naver.com/publion/224341883116" },
+  { date: "2026.07", source: "퍼블리온 블로그", title: "[2026_출간도서] 10대의 독서", href: "https://blog.naver.com/publion/224341861931" },
+  { date: "2026.07", source: "퍼블리온 블로그", title: "[저자 인터뷰] <나는 고독한 별처럼> 이캐자와 하루나", href: "https://blog.naver.com/publion/224338824611" },
+  { date: "2026.07", source: "퍼블리온 블로그", title: "2026년 상반기를 돌아보며", href: "https://blog.naver.com/publion/224334341866" },
+  { date: "2026.07", source: "퍼블리온 블로그", title: "<나는 고독한 별처럼> 김초엽 작가 추천사", href: "https://blog.naver.com/publion/224334242912" },
+  { date: "2026.06", source: "퍼블리온 블로그", title: "기술과 인간이 어지럽게 얽히고 '조심조심' 손끝을 맞대는 일곱 편의 SF 소설(김초엽 추천)", href: "https://blog.naver.com/publion/224330337983" },
+  { date: "2026.06", source: "퍼블리온 블로그", title: "175억 흑자 기업은 왜 220억 앞에서 멈춰 섰나", href: "https://blog.naver.com/publion/224330311921" },
+  { date: "2026.06", source: "퍼블리온 블로그", title: "<가든타임> 최인아책방 북토크 소식", href: "https://blog.naver.com/publion/224327636070" },
+  { date: "2026.06", source: "퍼블리온 블로그", title: "2026 퍼블리온 출판사 도서목록", href: "https://blog.naver.com/publion/224326510595" },
+  { date: "2026.06", source: "퍼블리온 블로그", title: "퍼블리온 출판사 독자 설문 이벤트", href: "https://blog.naver.com/publion/224325494835" },
+  { date: "2026.06", source: "퍼블리온 블로그", title: "이익은 의견이고 현금은 사실이다[현금경영]", href: "https://blog.naver.com/publion/224325462825" },
+  { date: "2025.07", source: "퍼블리온 블로그", title: "[펀딩 오픈 D-3] 오늘 체험단 모집이 마감됩니다.", href: "https://blog.naver.com/publion/223928816680" },
+  { date: "2025.07", source: "퍼블리온 블로그", title: "기대 이상의 감동, 먼 훗날까지 기억될 전시", href: "https://blog.naver.com/publion/223927429931" },
+  { date: "2025.07", source: "퍼블리온 블로그", title: "'나만 알고 싶은 브랜드'를 만든 창업자의 철학은?", href: "https://blog.naver.com/publion/223924921914" },
+  { date: "2025.07", source: "퍼블리온 블로그", title: "[체험단 모집] 미나 페르호넨 펀딩, 'A Gentle Memory' set", href: "https://blog.naver.com/publion/223922623758" },
+  { date: "2025.07", source: "퍼블리온 블로그", title: "[미나 페르호넨] 전시의 기억을 담은 향, 오직 이번 펀딩에서만.", href: "https://blog.naver.com/publion/223922618519" },
+  { date: "2025.05", source: "퍼블리온 블로그", title: "유럽에서 가장 친환경적인 도시? [당신과 함께, 유럽]", href: "https://blog.naver.com/publion/223871462869" },
+  { date: "2025.05", source: "퍼블리온 블로그", title: "세상에서 가장 아름다운 어촌이 유럽에? [당신과 함께, 유럽]", href: "https://blog.naver.com/publion/223858066122" },
+  { date: "2025.04", source: "퍼블리온 블로그", title: "이곳을 언제 다시 찾을 수 있을까? <당신과 함께, 유럽> 저자 인터뷰", href: "https://blog.naver.com/publion/223850015280" },
+  { date: "2025.04", source: "퍼블리온 블로그", title: "출판 과정 알아보기1_기획", href: "https://blog.naver.com/publion/223837594878" },
+  { date: "2025.04", source: "퍼블리온 블로그", title: "<당신과 함께, 유럽> 북토크(서울)", href: "https://blog.naver.com/publion/223835197310" },
+  { date: "2025.04", source: "퍼블리온 블로그", title: "출판사 대표의 하루", href: "https://blog.naver.com/publion/223835141249" },
+  { date: "2025.04", source: "퍼블리온 블로그", title: "죽기 전에 꼭 가봐야 할 유럽의 여행지 1위는? [당신과 함께, 유럽]", href: "https://blog.naver.com/publion/223834084755" },
+  { date: "2025.04", source: "퍼블리온 블로그", title: "창업 1841일차", href: "https://blog.naver.com/publion/223833461973" },
+  { date: "2025.04", source: "퍼블리온 블로그", title: "프랑스에서 '로마'를 볼 수 있는 곳이 있다고? [당신과 함께, 유럽]", href: "https://blog.naver.com/publion/223832851627" },
+  { date: "2025.04", source: "퍼블리온 블로그", title: "스위스에서 가장 매력적인 도시는 어디일까? [당신과 함께, 유럽]", href: "https://blog.naver.com/publion/223832840647" },
+  { date: "2025.04", source: "퍼블리온 블로그", title: "흔하지 않은 유럽 여행지? 네덜란드의 베니스 '히트호른' [당신과 함께, 유럽]", href: "https://blog.naver.com/publion/223832823685" },
+  { date: "2025.04", source: "퍼블리온 블로그", title: "<당신과 함께, 유럽> 북토크(부산)", href: "https://blog.naver.com/publion/223832725103" },
+  { date: "2025.04", source: "퍼블리온 블로그", title: "[퍼블리온 신간] 당신과 함께, 유럽, 양영훈 여행작가의 유럽 도시 기행", href: "https://blog.naver.com/publion/223825894007" },
+  { date: "2025.02", source: "퍼블리온 블로그", title: "[퍼블리온 신간] 사물의 투명성, 루퍼트 스파이라, 김주환 교수 번역", href: "https://blog.naver.com/publion/223745759669" },
+  { date: "2025.01", source: "퍼블리온 블로그", title: "[모집] 2025 퍼블리온 출판사 서포터즈 2기", href: "https://blog.naver.com/publion/223737850365" },
+  { date: "2024.11", source: "퍼블리온 블로그", title: "[퍼블리온 신간] 미나 페르호넨 디자인의 여정: 기억의 순환 전시 도록 출간, 미나가와 아키라 x 김지수 인터뷰", href: "https://blog.naver.com/publion/223643555397" },
+  { date: "2024.11", source: "퍼블리온 블로그", title: "[퍼블리온 신간] 문자의 역사, 정재승 박사 추천, 문자의 탄생과 진화", href: "https://blog.naver.com/publion/223642750209" },
+  { date: "2024.10", source: "퍼블리온 블로그", title: "미나 페르호넨 전시도록 예약판매, 첫 300부 한정 굿즈 증정, 동대문 디자인 플라자 DDP 전시", href: "https://blog.naver.com/publion/223622140086" },
+  { date: "2024.09", source: "퍼블리온 블로그", title: "서울 전시 추천, DDP 전시 <미나 페르호넨 디자인 여정 : 기억의 순환>", href: "https://blog.naver.com/publion/223582569286" },
+  { date: "2024.09", source: "퍼블리온 블로그", title: "국내 최초 개최! <미나 페르호넨 디자인 여정: 기억의 순환> / <살아가다 일하다 만들다> 리커버 출간 소식", href: "https://blog.naver.com/publion/223582568477" },
+  { date: "2024.09", source: "퍼블리온 블로그", title: "<살아가다 일하다 만들다> 리커버 북 출간, 미나 페르호넨 디자인 여정 동대문 DDP 전시회", href: "https://blog.naver.com/publion/223580879669" },
+  { date: "2024.08", source: "퍼블리온 블로그", title: "파리 올림픽 양궁 국가대표 금메달, 김주환 교수님의 자기확언, 알아차림에 대한 알아차림에서부터", href: "https://blog.naver.com/publion/223537283142" },
+  { date: "2024.06", source: "퍼블리온 블로그", title: "[퍼블리온 신간] 오래된 책들의 메아리, 올 여름 단 한 권의 장편소설을 읽어야 한다면", href: "https://blog.naver.com/publion/223489241044" },
+  { date: "2024.06", source: "퍼블리온 블로그", title: "경제경영분야 신간도서, <위너 셀즈 올>, 승자는 모든 것을 판다", href: "https://blog.naver.com/publion/223485574931" },
+  { date: "2024.06", source: "퍼블리온 블로그", title: "2024 서울국제도서전, 파견자들 리커버 도서 김초엽 작가 사인회", href: "https://blog.naver.com/publion/223483218934" },
+  { date: "2024.06", source: "퍼블리온 블로그", title: "[퍼블리온 신간] 위너 셀즈 올, 아마존과 월마트 승자가 되기 위한 전쟁", href: "https://blog.naver.com/publion/223482949904" },
+  { date: "2024.06", source: "퍼블리온 블로그", title: "[퍼블리온 소식] 서울 국제도서전 2024 참여, 신간도서", href: "https://blog.naver.com/publion/223482192148" },
+  { date: "2024.05", source: "퍼블리온 블로그", title: "[퍼블리온 신간 표지투표] Winner Sells All, 위너 셀즈 올, 아마존과 월마트의 대격돌", href: "https://blog.naver.com/publion/223445257269" },
+  { date: "2024.05", source: "퍼블리온 블로그", title: "[퍼블리온 신간도서] 오래된 책들의 메아리, 장편소설", href: "https://blog.naver.com/publion/223439918048" },
+  { date: "2024.05", source: "퍼블리온 블로그", title: "나만의 부캐, 대체자아란? 알터에고 이펙트", href: "https://blog.naver.com/publion/223433886053" },
+  { date: "2024.04", source: "퍼블리온 블로그", title: "미국 금리 8%도 가능하다? JP 모건 제이미 다이먼 회장의 주주서한에서 찾은 리더의 각성", href: "https://blog.naver.com/publion/223427561146" },
+  { date: "2024.04", source: "퍼블리온 블로그", title: "알아차림에 대한 알아차림, 김주환 번역, 진짜 나는 누구인가?", href: "https://blog.naver.com/publion/223413323508" },
+  { date: "2024.03", source: "퍼블리온 블로그", title: "[퍼블리온 신간] 리더의 각성, 김용섭, 스트롱리더십이 답이다", href: "https://blog.naver.com/publion/223395890699" },
+];
+
+// 도서번호 → 그 책을 다룬 글
+const POSTS_BY_BOOK = {
+  "40": [
+    "https://publion.tistory.com/12",
+    "https://publion.tistory.com/6",
+    "https://publion.tistory.com/5",
+    "https://blog.naver.com/publion/224325462825"
+  ],
+  "38": [
+    "https://blog.naver.com/publion/224346054833",
+    "https://blog.naver.com/publion/224327636070"
+  ],
+  "37": [
+    "https://blog.naver.com/publion/224341883116",
+    "https://blog.naver.com/publion/224341861931"
+  ],
+  "36": [
+    "https://blog.naver.com/publion/224338824611",
+    "https://blog.naver.com/publion/224334242912"
+  ],
+  "34": [
+    "https://blog.naver.com/publion/223871462869",
+    "https://blog.naver.com/publion/223858066122",
+    "https://blog.naver.com/publion/223850015280",
+    "https://blog.naver.com/publion/223835197310",
+    "https://blog.naver.com/publion/223834084755",
+    "https://blog.naver.com/publion/223832851627",
+    "https://blog.naver.com/publion/223832840647",
+    "https://blog.naver.com/publion/223832823685",
+    "https://blog.naver.com/publion/223832725103",
+    "https://blog.naver.com/publion/223825894007"
+  ],
+  "33": [
+    "https://blog.naver.com/publion/223745759669"
+  ],
+  "30": [
+    "https://blog.naver.com/publion/223642750209"
+  ],
+  "31": [
+    "https://blog.naver.com/publion/223582569286",
+    "https://blog.naver.com/publion/223582568477"
+  ],
+  "9": [
+    "https://blog.naver.com/publion/223580879669"
+  ],
+  "19": [
+    "https://blog.naver.com/publion/223537283142",
+    "https://blog.naver.com/publion/223413323508"
+  ],
+  "29": [
+    "https://blog.naver.com/publion/223489241044",
+    "https://blog.naver.com/publion/223439918048"
+  ],
+  "28": [
+    "https://blog.naver.com/publion/223485574931",
+    "https://blog.naver.com/publion/223482949904",
+    "https://blog.naver.com/publion/223445257269"
+  ],
+  "23": [
+    "https://blog.naver.com/publion/223483218934"
+  ],
+  "3": [
+    "https://blog.naver.com/publion/223433886053"
+  ],
+  "27": [
+    "https://blog.naver.com/publion/223427561146",
+    "https://blog.naver.com/publion/223395890699"
+  ]
+};
+
+
+class Component extends DCLogic {
+  state = { page:"home", bookId:41, subject:"전체", sort:"신간순", megaOpen:false, cart:0, added:false,
+             heroIndex:0, email:"", subs:[], subMsg:"", subOk:false };
+
+  componentDidMount(){
+    try {
+      const raw = localStorage.getItem("publion.newsletter");
+      if (raw) this.setState({subs: JSON.parse(raw)});
+    } catch(e){}
+    this.heroTimer = setInterval(() => {
+      this.setState(s => ({heroIndex: (s.heroIndex + 1) % 3}));
+    }, 7000);
+  }
+  componentWillUnmount(){ clearInterval(this.heroTimer); }
+
+  saveSubs(list){
+    this.setState({subs:list});
+    try { localStorage.setItem("publion.newsletter", JSON.stringify(list)); } catch(e){}
+  }
+
+  go(page, extra){ this.setState(Object.assign({page, megaOpen:false, added:false}, extra||{})); window.scrollTo(0,0); }
+  openBook(id){ this.go("detail", {bookId:id}); }
+
+  money(n){ return n ? "₩" + n.toLocaleString("ko-KR") : "출간 예정"; }
+  byline(b){ return [b.author, b.trans].filter(Boolean).join(" · "); }
+
+  decorate(b){
+    return Object.assign({}, b, {
+      priceLabel: this.money(b.price),
+      byline: this.byline(b),
+      en: b.sub || "",
+      blurb: b.sub || "",
+      slotId: "cover-" + b.id,
+      cover: "./assets/img/covers/cover-" + b.id + ".jpg",
+      open: () => this.openBook(b.id)
+    });
+  }
+
+  // 서점 링크 — 그 책의 상품 페이지로 바로 갑니다.
+  //   교보문고 : 상품ID. ISBN 으로는 열리지 않습니다.
+  //   예스24   : ISBN 검색. dispNo 가 없으면 첫 화면으로 튕깁니다.
+  //   알라딘   : ISBN 으로 바로 열립니다.
+  buyLinks(b){
+    return [
+      {label:"퍼블리온 스마트스토어", note:"출판사 직영", own:true,
+       href:"https://smartstore.naver.com/publion"},
+      {label:"교보문고", note:this.money(b.price), own:false,
+       href:"https://product.kyobobook.co.kr/detail/" + b.kyobo},
+      {label:"예스24", note:this.money(b.price), own:false,
+       href:"https://www.yes24.com/product/search?domain=BOOK&query=" + b.isbn + "&dispNo="},
+      {label:"알라딘", note:this.money(b.price), own:false,
+       href:"https://www.aladin.co.kr/shop/wproduct.aspx?ISBN=" + b.isbn}
+    ];
+  }
+
+  subscribe(){
+    const v = (this.state.email || "").trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) {
+      this.setState({subMsg:"이메일 주소를 확인해 주세요.", subOk:false});
+      return;
+    }
+    if (this.state.subs.some(x => x.email.toLowerCase() === v.toLowerCase())) {
+      this.setState({subMsg:"이미 구독 중인 주소입니다.", subOk:false, email:""});
+      return;
+    }
+    const list = this.state.subs.concat([{email:v, at:new Date().toISOString().slice(0,10)}]);
+    this.saveSubs(list);
+    this.setState({email:"", subMsg:"구독 신청이 접수됐습니다. 첫 뉴스레터를 보내드립니다.", subOk:true});
+  }
+
+  downloadSubs(){
+    if (!this.state.subs.length) return;
+    const csv = "email,subscribed_at\n" + this.state.subs.map(x => x.email + "," + x.at).join("\n");
+    const url = URL.createObjectURL(new Blob(["\ufeff" + csv], {type:"text/csv;charset=utf-8"}));
+    const a = document.createElement("a");
+    a.href = url; a.download = "publion-newsletter.csv"; a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  renderVals(){
+    const s = this.state;
+    const filtered = BOOKS.filter(b => s.subject === "전체" || b.subject === s.subject);
+    const sorted = filtered.slice().sort((a,b) =>
+      s.sort === "신간순" ? b.date.localeCompare(a.date) :
+      s.sort === "가나다순" ? a.title.localeCompare(b.title, "ko") :
+      (a.price||999999) - (b.price||999999));
+
+    const book = BOOKS.find(b => b.id === s.bookId) || BOOKS[0];
+
+    const authorNames = [];
+    BOOKS.forEach(b => { if (b.author && authorNames.indexOf(b.author) < 0) authorNames.push(b.author); });
+    authorNames.sort((x,y) => BOOKS.filter(b=>b.author===y).length - BOOKS.filter(b=>b.author===x).length);
+
+    return {
+      isHome: s.page==="home", isBooks: s.page==="books", isDetail: s.page==="detail",
+      isAbout: s.page==="about", isAuthors: s.page==="authors", isJournal: s.page==="journal",
+
+      postCount: POSTS.length,
+      journalGroups: [
+        {source:"대표의 기록", lead:"박선영 대표가 쓰는 작은회사 경영수업입니다.",
+         href:"https://publion.tistory.com",
+         list: POSTS.filter(p => p.source === "대표의 기록")},
+        {source:"퍼블리온 블로그", lead:"신간 소식, 저자 인터뷰, 북토크와 행사 기록입니다.",
+         href:"https://blog.naver.com/publion",
+         list: POSTS.filter(p => p.source === "퍼블리온 블로그")}
+      ],
+      goJournal: () => this.go("journal"),
+      catalogPdf: "https://drive.google.com/file/d/14xDhg0Z7kjXStwnNtX0qU1RH-K25IBED/view",
+      titleCount: BOOKS.length + "종",
+      megaOpen: s.megaOpen, cartCount: s.cart,
+
+      goHome: () => this.go("home"),
+      goLiterature: () => this.go("books", {subject:"문학 Literature"}),
+
+      buyLinks: this.buyLinks(book),
+      social: [
+        {label:"Instagram", href:"https://instagram.com/publion_book"},
+        {label:"Facebook", href:"https://www.facebook.com/publionbooks"},
+        {label:"YouTube", href:"https://www.youtube.com/channel/UCiAnjLlaS08ncxTel_Pd3EQ"},
+        {label:"네이버 블로그", href:"https://blog.naver.com/publion"},
+        {label:"스마트스토어", href:"https://smartstore.naver.com/publion"}
+      ],
+
+      hero: Object.assign({}, HERO[s.heroIndex], {
+        banner: "./assets/img/banners/" + HERO[s.heroIndex].slotId + ".jpg",
+        open: () => this.openBook(HERO[s.heroIndex].bookId)}),
+      heroDots: HERO.map((h,i) => ({
+        bg: i === s.heroIndex ? "#111111" : "rgba(17,17,17,.25)",
+        select: () => this.setState({heroIndex:i})
+      })),
+      heroPrev: () => this.setState(st => ({heroIndex: (st.heroIndex + HERO.length - 1) % HERO.length})),
+      heroNext: () => this.setState(st => ({heroIndex: (st.heroIndex + 1) % HERO.length})),
+
+      series: SERIES.map(x => Object.assign({}, x, {
+        banner: "./assets/img/banners/" + x.slotId + ".jpg",
+        open: () => this.go("books", {subject:x.subject})})),
+
+      megaCards: [
+        {kicker:"시리즈", title:"TREND INSIGHT", slotId:"mega-card-1", fit:"cover",
+         src:"./assets/img/banners/mega-card-1.jpg", open:()=>this.go("books",{subject:"경제경영 Business"})},
+        {kicker:"신간", title:"인간이 유리하다", slotId:"cover-41", fit:"contain",
+         src:"./assets/img/banners/mega-card-1.jpg", open:()=>this.openBook(41)}
+      ],
+
+      email: s.email,
+      onEmail: (ev) => this.setState({email: ev.target.value, subMsg:""}),
+      onEmailKey: (ev) => { if (ev.key === "Enter") this.subscribe(); },
+      subscribe: () => this.subscribe(),
+      subMsg: s.subMsg,
+      subMsgColor: s.subOk ? "#D98B72" : "#B4B4AE",
+      subCountLabel: s.subs.length ? "구독자 " + s.subs.length + "명 · CSV 내려받기" : "",
+      downloadSubs: () => this.downloadSubs(),
+      goBooks: () => this.go("books", {subject:"전체"}),
+      goAbout: () => this.go("about"),
+      closeMega: () => this.setState({megaOpen:false}),
+      openFeatured: () => this.openBook(41),
+
+      navItems: [
+        {label:"도서 Books", onEnter:()=>this.setState({megaOpen:true}), onClick:()=>this.go("books",{subject:"전체"})},
+        {label:"신간 New", onEnter:()=>this.setState({megaOpen:false}), onClick:()=>this.go("books",{subject:"전체",sort:"신간순"})},
+        {label:"저자 Authors", onEnter:()=>this.setState({megaOpen:false}), onClick:()=>this.go("authors")},
+        {label:"저널 Journal", onEnter:()=>this.setState({megaOpen:false}), onClick:()=>this.go("journal")},
+        {label:"출판사 소개 About", onEnter:()=>this.setState({megaOpen:false}), onClick:()=>this.go("about")}
+      ],
+
+      megaCols: [
+        {title:"분야 Subject", links: SUBJECTS.map(x => ({label:x, go:()=>this.go("books",{subject:x})}))},
+        {title:"모아보기 Collections", links:[
+          {label:"TREND INSIGHT 시리즈 (김용섭)", go:()=>this.go("books",{subject:"경제경영 Business"})},
+          {label:"루퍼트 스파이라 명상 시리즈", go:()=>this.go("books",{subject:"인문 Humanities"})},
+          {label:"일하는 사람의 책", go:()=>this.go("books",{subject:"자기계발 Self-development"})},
+          {label:"출간 예정", go:()=>this.go("books",{subject:"전체"})}
+        ]},
+        {title:"서비스 Service", links:[
+          {label:"단체·도매 주문", go:()=>this.go("about")},
+          {label:"투고 안내", go:()=>this.go("about")},
+          {label:"판권 문의 Rights", go:()=>this.go("about")},
+          {label:"강연 요청", go:()=>this.go("about")}
+        ]}
+      ],
+
+      newBooks: BOOKS.slice().sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5).map(b=>this.decorate(b)),
+
+      subjectTiles: SUBJECTS.map((x,i) => ({
+        ko: x.split(" ")[0], en: x.split(" ").slice(1).join(" "),
+        count: BOOKS.filter(b=>b.subject===x).length + "종",
+        slotId: "subject-" + (i+1),
+        banner: "./assets/img/banners/subject-" + (i+1) + ".jpg",
+        open: () => this.go("books", {subject:x})
+      })),
+
+      journal: [
+        {kicker:"대표의 기록", date:"2026.06", slotId:"journal-1",
+         title:"2026년 상반기를 돌아보며",
+         excerpt:"올해 펴낸 네 권이 서로 다른 분야였는데도 같은 방향을 보고 있었습니다.",
+         href:"https://publion.tistory.com/11"},
+        {kicker:"대표의 기록", date:"2026.06", slotId:"journal-2",
+         title:"왜 지금 『현금경영』일까요",
+         excerpt:"좋은 책을 만드는 일과 회사를 계속 운영하는 일은 전혀 다른 문제였습니다.",
+         href:"https://publion.tistory.com/5"},
+        {kicker:"저자 인터뷰", date:"2023.10", slotId:"journal-3",
+         title:"김초엽 신작 장편소설 『파견자들』 출간 비하인드",
+         excerpt:"인간과 인간 바깥의 경계를 지워보고 싶었다는 작가의 말에서 이 소설이 시작됐습니다.",
+         href:"https://ch.yes24.com/Article/Details/54880"}
+      ],
+
+      resultLabel: sorted.length + "종 · " + s.subject + " · " + s.sort,
+      filterChips: ["전체"].concat(SUBJECTS).map(x => ({
+        label: x,
+        bg: s.subject===x ? "#111111" : "transparent",
+        fg: s.subject===x ? "#FFFFFF" : "#111111",
+        border: s.subject===x ? "#111111" : "#E2E2DE",
+        select: () => this.setState({subject:x})
+      })),
+      sortOptions: ["신간순","가나다순","가격순"].map(x => ({
+        label:x, color: s.sort===x ? "#9E2B1F" : "#6B6B68",
+        select: () => this.setState({sort:x})
+      })),
+      visibleBooks: sorted.map(b=>this.decorate(b)),
+
+      book: Object.assign({}, book, {
+        priceLabel: this.money(book.price),
+        byline: this.byline(book),
+        en: book.sub || "",
+        blurb: book.sub || "",
+        slotId: "cover-" + book.id,
+        cover: "./assets/img/covers/cover-" + book.id + ".jpg",
+        body: INTROS[book.id] || "이 책의 소개글은 준비 중입니다. 궁금한 점은 publion2030@gmail.com 으로 알려주세요."
+      }),
+      specs: [
+        {k:"분야", v:book.subject},
+        {k:"ISBN", v:book.isbn},
+        {k:"지은이", v:book.author},
+        {k:"옮긴이", v:book.trans || "—"},
+        {k:"발행일", v:book.date + " · 퍼블리온"},
+        {k:"정가", v:this.money(book.price)},
+        {k:"수상·선정", v:book.award || "—"}
+      ],
+      stories: (POSTS_BY_BOOK[String(book.id)] || [])
+        .map(h => POSTS.find(p => p.href === h)).filter(Boolean),
+      hasStories: (POSTS_BY_BOOK[String(book.id)] || []).length > 0,
+      cartLabel: s.added ? "담김 ✓ Added" : "장바구니 담기 Add to cart",
+      addToCart: () => this.setState(st => ({cart: st.cart+1, added:true})),
+      related: BOOKS.filter(b=>b.subject===book.subject && b.id!==book.id).slice(0,4).map(b=>this.decorate(b)),
+
+      stats: [
+        {n:"2020", label:"설립 Founded"},
+        {n:"41", label:"출간 도서 Titles"},
+        {n:"5", label:"분야 Subjects"},
+        {n:"8", label:"수상·선정 Awards"}
+      ],
+      pillars: [
+        {title:"경제경영 · 자기계발", text:"김용섭 소장의 TREND INSIGHT 시리즈를 비롯해 변화의 방향을 먼저 말하는 책을 펴냅니다."},
+        {title:"인문", text:"문자와 문명, 명상과 의식을 다루는 번역서를 중심으로 목록을 쌓아 갑니다."},
+        {title:"문학", text:"2023년 김초엽 『파견자들』을 시작으로 한국 문학과 해외 소설을 함께 소개합니다."}
+      ],
+      authors: authorNames.map(name => {
+        const list = BOOKS.filter(b=>b.author===name);
+        return {ko:name, role: list[0].subject, count: list.length + "종", open: () => this.openBook(list[0].id)};
+      }),
+
+      footerCols: [
+        {title:"도서 Books", links:SUBJECTS.concat(["출간 예정"])},
+        {title:"출판사 About", links:["소개","투고 안내","판권 문의","채용"]},
+        {title:"구매 Buy", links:["퍼블리온 스마트스토어","교보문고","예스24","알라딘"]}
+      ]
+    };
+  }
+}
+
+</script>
+</body>
+</html>
