@@ -11,6 +11,7 @@ import { INTROS } from './intros.js';
 import { POSTS, POSTS_BY_BOOK } from './posts.js';
 import { NOTES } from './notes.js';
 import { VIDEOS, PRESS, YOUTUBE_CHANNEL } from './media.js';
+import { EXTERNAL_LINKS } from './external.js';
 import { TOC, AUTHOR_BIO } from './contents.js';
 
 export const SITE = {
@@ -600,6 +601,32 @@ function storyHTML(bookId) {
     </section>`;
 }
 
+const EXTERNAL_KIND = {
+  video: '영상',
+  article: '글',
+  review: '리뷰',
+};
+
+/* 외부 소개 — 공식 채널 바깥에서 책을 다룬 콘텐츠입니다. */
+function externalHTML(bookId) {
+  const list = EXTERNAL_LINKS[String(bookId)] || [];
+  if (!list.length) return '';
+  return `
+    <section class="external">
+      <h2 class="external__head">외부 소개 <span class="t-en">External reviews</span></h2>
+      <ul class="external__list">
+        ${list.map((p) => `
+          <li class="external__row">
+            <a class="external__link" href="${p.href}" target="_blank" rel="noopener">
+              <span class="external__source">${esc(p.source)} · ${esc(EXTERNAL_KIND[p.type] || '소개')}</span>
+              <span class="external__title">${esc(p.title)}</span>
+              <span class="external__date">${esc(p.date)}</span>
+            </a>
+          </li>`).join('')}
+      </ul>
+    </section>`;
+}
+
 function detailHTML(view) {
   const raw = BOOKS.find((b) => b.id === view.bookId) || BOOKS[0];
   const book = decorate(raw);
@@ -665,6 +692,7 @@ function detailHTML(view) {
     ${noteHTML(raw.id)}
     ${videoHTML(raw.id, book.title)}
     ${storyHTML(raw.id)}
+    ${externalHTML(raw.id)}
 
     <section class="detail__related">
       <h2>함께 보면 좋은 책 <span class="t-en">Related titles</span></h2>

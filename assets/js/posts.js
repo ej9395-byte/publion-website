@@ -67,11 +67,166 @@ export const POSTS = [
   { date: "2024.04", source: "퍼블리온 블로그", title: "미국 금리 8%도 가능하다? JP 모건 제이미 다이먼 회장의 주주서한에서 찾은 리더의 각성", href: "https://blog.naver.com/publion/223427561146" },
   { date: "2024.04", source: "퍼블리온 블로그", title: "알아차림에 대한 알아차림, 김주환 번역, 진짜 나는 누구인가?", href: "https://blog.naver.com/publion/223413323508" },
   { date: "2024.03", source: "퍼블리온 블로그", title: "[퍼블리온 신간] 리더의 각성, 김용섭, 스트롱리더십이 답이다", href: "https://blog.naver.com/publion/223395890699" },
+  { date: "2024.03", source: "퍼블리온 블로그", title: "[퍼블리온 신간소식] 리더의 각성, 김용섭 소장", href: "https://blog.naver.com/publion/223390844572" },
+  { date: "2024.03", source: "퍼블리온 블로그", title: "독서의 기록 북토크 시즌 2 마무리, 예스24 X 동네책방 X 퍼블리온", href: "https://blog.naver.com/publion/223388113910" },
+  { date: "2024.03", source: "퍼블리온 블로그", title: "이임복 교수님이 직접 들려주는 쉬운 '우주 자본의 미래'", href: "https://blog.naver.com/publion/223383925599" },
+  { date: "2024.03", source: "퍼블리온 블로그", title: "[여성리더시리즈] 마이크로소프트 이소영이사, 당신은 다른 사람의 성공에 기여한 적 있는가?", href: "https://blog.naver.com/publion/223375965132" },
+  { date: "2024.02", source: "퍼블리온 블로그", title: "이임복 작가, 세컨드브레인연구소 대표, 이미 시작된 우주 자본의 시대", href: "https://blog.naver.com/publion/223361411998" },
+  { date: "2024.02", source: "퍼블리온 블로그", title: "상업우주 2.0의 시대, 저궤도 위성 스타링크, 이미 시작된 우주 자본의 시대 우주투자는?", href: "https://blog.naver.com/publion/223359135326" },
+  { date: "2024.02", source: "퍼블리온 블로그", title: "독서의 기록 안예진 작가 전국 북토크 소식, 예스24 X 동네책방", href: "https://blog.naver.com/publion/223357956055" },
+  { date: "2024.02", source: "퍼블리온 블로그", title: "[여성리더시리즈] 나를 믿고 일한다는 것, 우미영 전 어도비코리아대표", href: "https://blog.naver.com/publion/223355481397" },
+  { date: "2024.02", source: "퍼블리온 블로그", title: "[퍼블리온 신간] NEW SPACE 이미 시작된 우주자본의 시대", href: "https://blog.naver.com/publion/223346880991" },
+  { date: "2024.02", source: "퍼블리온 블로그", title: "[퍼블리온 신간] 빛을 향한 여행", href: "https://blog.naver.com/publion/223339115695" },
+  { date: "2024.01", source: "퍼블리온 블로그", title: "표지선정완료, 뉴 스페이스, New Space 이미 시작된 우주 자본의 시대, 퍼블리온 신간도서", href: "https://blog.naver.com/publion/223333217293" },
+  { date: "2024.01", source: "퍼블리온 블로그", title: "퍼블리온 신간 표지투표, New Sapce 이미 시작된 우주 자본의 시대", href: "https://blog.naver.com/publion/223330962123" },
+  { date: "2023.11", source: "퍼블리온 블로그", title: "회사 생활이 힘든 사람에게 필요한 것", href: "https://blog.naver.com/publion/223276995922" },
+  { date: "2023.11", source: "퍼블리온 블로그", title: "[신간] 긱 이코노미가 바꾸는 일의 미래", href: "https://blog.naver.com/publion/223265621353" },
+  { date: "2023.11", source: "퍼블리온 블로그", title: "김초엽 작가와 함께하는 <파견자들> 북토크에 초대합니다!", href: "https://blog.naver.com/publion/223257159741" },
+  { date: "2023.11", source: "퍼블리온 블로그", title: "<파견자들> 서점 별 굿즈 모음.zip", href: "https://blog.naver.com/publion/223257155008" },
+  { date: "2023.11", source: "퍼블리온 블로그", title: "\"한국 SF의 현재이자 미래\", <파견자들> 실제 독자 리뷰", href: "https://blog.naver.com/publion/223257148897" },
+  { date: "2023.10", source: "퍼블리온 블로그", title: "김초엽 <파견자들> 모든 서점 구매 가능 알림", href: "https://blog.naver.com/publion/223250365968" },
+  { date: "2023.10", source: "퍼블리온 블로그", title: "김초엽 인터뷰 / <파견자들> 출간 비하인드", href: "https://blog.naver.com/publion/223250364276" },
+  { date: "2023.10", source: "퍼블리온 블로그", title: "해금 연주와 밀크티도 함께한 북콘서트 후기 / 집이 나에게 물어온 것들 / 해금서가", href: "https://blog.naver.com/publion/223246399502" },
+  { date: "2023.10", source: "퍼블리온 블로그", title: "<파견자들> 동네책방 입고 문의", href: "https://blog.naver.com/publion/223232545742" },
+  { date: "2023.10", source: "퍼블리온 블로그", title: "[신간] 파견자들 / 김초엽 장편소설 출간", href: "https://blog.naver.com/publion/223229619021" },
+  { date: "2023.09", source: "퍼블리온 블로그", title: "《집이 나에게 물어온 것들》 서평단 모집", href: "https://blog.naver.com/publion/223215101174" },
+  { date: "2023.09", source: "퍼블리온 블로그", title: "[신간] 집이 나에게 물어온 것들 / 시간의 틈에서 건져 올린 집, 자연, 삶.", href: "https://blog.naver.com/publion/223214998416" },
+  { date: "2023.09", source: "퍼블리온 블로그", title: "<집이 나에게 물어온 것들> 출간 기념 이벤트", href: "https://blog.naver.com/publion/223209544718" },
+  { date: "2023.09", source: "퍼블리온 블로그", title: "모르면 손해 보는 웹 3.0, [WEB 3.0과 블록체인] 서평", href: "https://blog.naver.com/publion/223203974114" },
+  { date: "2023.09", source: "퍼블리온 블로그", title: "[신간] WEB 3.0과 블록체인, 기술이 만드는 미래", href: "https://blog.naver.com/publion/223199632123" },
+  { date: "2023.08", source: "퍼블리온 블로그", title: "《WEB 3.0과 블록체인》 서평단 모집", href: "https://blog.naver.com/publion/223193469515" },
+  { date: "2023.08", source: "퍼블리온 블로그", title: "[IT 상식] 웹 3.0이 뭔지 아시나요? 만화로 쉽게 알려드림!", href: "https://blog.naver.com/publion/223193422565" },
+  { date: "2023.08", source: "퍼블리온 블로그", title: "행복한 사람들의 비밀은?", href: "https://blog.naver.com/publion/223186293331" },
+  { date: "2023.08", source: "퍼블리온 블로그", title: "실리콘밸리 기업들이 명상에 빠진 이유는?", href: "https://blog.naver.com/publion/223181248066" },
+  { date: "2023.07", source: "퍼블리온 블로그", title: "글쓰기 초보라면 이렇게 세 줄만 써보세요! 작가가 알려주는 글쓰기 노하우", href: "https://blog.naver.com/publion/223155191117" },
+  { date: "2023.07", source: "퍼블리온 블로그", title: "서평단에서 베스트셀러 작가가 된 사연은? ['독서의 기록' 출판 비하인드]", href: "https://blog.naver.com/publion/223150381904" },
+  { date: "2023.07", source: "퍼블리온 블로그", title: "여러분이 책 읽는 게 힘든 이유는? 재밌고 유용한 5가지 독서법!", href: "https://blog.naver.com/publion/223148675688" },
+  { date: "2023.06", source: "퍼블리온 블로그", title: "사람들이 잘 모르는 '진짜' 명상하는 법", href: "https://blog.naver.com/publion/223137379438" },
+  { date: "2023.06", source: "퍼블리온 블로그", title: "분위기 좋은 서울 북카페, '북티크' / 출판마케터의 [독서의 기록] 북토크 후기", href: "https://blog.naver.com/publion/223133674353" },
+  { date: "2023.06", source: "퍼블리온 블로그", title: "신간 <독서의 기록> 책 증정 이벤트", href: "https://blog.naver.com/publion/223131060312" },
+  { date: "2023.06", source: "퍼블리온 블로그", title: "[신간] 독서의 기록, 5개월만에 도서 인플루언서로 경제적 자유 누리기!", href: "https://blog.naver.com/publion/223130491206" },
+  { date: "2023.06", source: "퍼블리온 블로그", title: "[출판 비하인드] #8. 김주환 교수님이 이 책을 번역하신 이유?", href: "https://blog.naver.com/publion/223128951384" },
+  { date: "2023.06", source: "퍼블리온 블로그", title: "<알아차림에 대한 알아차림> 전자책 출간 소식", href: "https://blog.naver.com/publion/223127955566" },
+  { date: "2023.06", source: "퍼블리온 블로그", title: "[신간] 알아차림에 대한 알아차림, 김주환 교수의 번역으로 만나는 알아차림 명상", href: "https://blog.naver.com/publion/223117885435" },
+  { date: "2023.05", source: "퍼블리온 블로그", title: "출판마케터의 최인아책방 북토크 후기! 김용섭 소장님의 <아웃스탠딩 티처>", href: "https://blog.naver.com/publion/223099578082" },
+  { date: "2023.05", source: "퍼블리온 블로그", title: "‘아웃스탠딩 티처’ 김용섭 저자의 시각 [채널예스 인터뷰]", href: "https://blog.naver.com/publion/223092692361" },
+  { date: "2023.03", source: "퍼블리온 블로그", title: "<아웃스탠딩 티처> 구매 이벤트", href: "https://blog.naver.com/publion/223061108279" },
+  { date: "2023.03", source: "퍼블리온 블로그", title: "[신간] 아웃스탠딩 티처, 더 나아질 미래를 원하는 사람들의 성장코드", href: "https://blog.naver.com/publion/223061106115" },
+  { date: "2023.03", source: "퍼블리온 블로그", title: "학교에서 이런 말하는 선생은 피해라! 장래를 위협하는 10개의 말", href: "https://blog.naver.com/publion/223053493809" },
+  { date: "2023.03", source: "퍼블리온 블로그", title: "한국 교육의 실태, 서울대에서 A+ 받으려면...", href: "https://blog.naver.com/publion/223052744494" },
+  { date: "2023.03", source: "퍼블리온 블로그", title: "공부 잘 하는 학생이 새학기 목표를 세우는 법은?", href: "https://blog.naver.com/publion/223051524688" },
+  { date: "2023.02", source: "퍼블리온 블로그", title: "<프로페셔널 스튜던트> 김용섭 저자의 신간 펀딩 시작!", href: "https://blog.naver.com/publion/223015121563" },
+  { date: "2023.02", source: "퍼블리온 블로그", title: "[신간] 기후피해세대를 넘어 기후기회세대로, 인류의 미래를 위한 도전", href: "https://blog.naver.com/publion/223014272671" },
+  { date: "2023.01", source: "퍼블리온 블로그", title: "[신간] 나는 나를 응원합니다, 셀프 칭찬으로 자존감과 용기를 올리는 힐링 에세이", href: "https://blog.naver.com/publion/222976813864" },
+  { date: "2022.12", source: "퍼블리온 블로그", title: "[신간] 어치브 모어, 마이크로소프트 매니저의 일잘러 비법!", href: "https://blog.naver.com/publion/222949799392" },
+  { date: "2022.12", source: "퍼블리온 블로그", title: "[친환경/환경책] 기후변화에 대응하여 우리는 채식주의자, 비건이 돼야할까?", href: "https://blog.naver.com/publion/222943340743" },
+  { date: "2022.12", source: "퍼블리온 블로그", title: "취준? 이직? 자격증? 원하는 것에서 성취해내는 비밀", href: "https://blog.naver.com/publion/222943261036" },
+  { date: "2022.11", source: "퍼블리온 블로그", title: "[신간] 마이클 버너스의 '플래닛 B는 없다', 기후 위기를 맞이한 지구에서 살아남는 150가지 질문.", href: "https://blog.naver.com/publion/222942427965" },
+  { date: "2022.11", source: "퍼블리온 블로그", title: "\"세상을 밝힐 아이디어는 왜 더 이상 나오지 않는가?\" <휴먼 프런티어> 저자 인터뷰", href: "https://blog.naver.com/publion/222936325631" },
+  { date: "2022.10", source: "퍼블리온 블로그", title: "이 책은 왜 6년이나 걸렸을까요?", href: "https://blog.naver.com/publion/222913230685" },
+  { date: "2022.10", source: "퍼블리온 블로그", title: "인류의 혁신은 정체된 것일까?", href: "https://blog.naver.com/publion/222912097803" },
+  { date: "2022.09", source: "퍼블리온 블로그", title: "《휴먼 프런티어》 세상을 바꾸는 획기적인 아이디어는 왜 더 이상 나오지 않는가?", href: "https://blog.naver.com/publion/222885662608" },
+  { date: "2022.09", source: "퍼블리온 블로그", title: "프로블로거가 되는 35가지 방법", href: "https://blog.naver.com/publion/222874608743" },
+  { date: "2022.09", source: "퍼블리온 블로그", title: "당신이 모르는 아마존의 비밀", href: "https://blog.naver.com/publion/222870348352" },
+  { date: "2022.08", source: "퍼블리온 블로그", title: "ESG2.0 전자책, 큰글자책 출시", href: "https://blog.naver.com/publion/222845480819" },
+  { date: "2022.06", source: "퍼블리온 블로그", title: "《ESG 2.0》 자본주의가 선택한 미래 생존 전략", href: "https://blog.naver.com/publion/222795051111" },
+  { date: "2022.06", source: "퍼블리온 블로그", title: "신간 알림 : ESG 2.0", href: "https://blog.naver.com/publion/222772952576" },
+  { date: "2022.04", source: "퍼블리온 블로그", title: "《캐리비안 해적들의 비밀 공부법》 스스로 학습하고 열정을 추구하는 사람들의 위대한 비밀", href: "https://blog.naver.com/publion/222704116015" },
+  { date: "2022.03", source: "퍼블리온 블로그", title: "사람을 끌어당기는 콘텐츠 만들기의 모든 것", href: "https://blog.naver.com/publion/222676262029" },
+  { date: "2022.03", source: "퍼블리온 블로그", title: "《감성 콘텐츠》 롱런 브랜드를 만드는 35가지 콘텐츠 공식!", href: "https://blog.naver.com/publion/222676258703" },
+  { date: "2022.01", source: "퍼블리온 블로그", title: "《살아가다 일하다 만들다》 일하는 사람, 만드는 사람의 기쁨과 긍지는 어디서 오는가?", href: "https://blog.naver.com/publion/222625976090" },
+  { date: "2021.12", source: "퍼블리온 블로그", title: "《아마존 언바운드》 제프 베이조스, 그리고 글로벌 제국의 발명", href: "https://blog.naver.com/publion/222578252902" },
+  { date: "2021.11", source: "퍼블리온 블로그", title: "코로나만 끝나면 다 잘 될 거라고? 그때가 ‘진짜 위기’다.", href: "https://blog.naver.com/publion/222559334922" },
+  { date: "2021.10", source: "퍼블리온 블로그", title: "Z세대에게서 변화하는 세상의 미래를 읽어라! <결국 Z세대가 세상을 지배한다>", href: "https://blog.naver.com/publion/222547765694" },
+  { date: "2021.10", source: "퍼블리온 블로그", title: "\"어떻게 하면 지속가능한 콘텐츠 이어갈 수 있을까?\" <콘텐츠 가드닝>", href: "https://blog.naver.com/publion/222547735139" },
+  { date: "2021.10", source: "퍼블리온 블로그", title: "\"이 질문이 결국 당신을 '성공'으로 이끌어줄 것이다!\" <당신은 다른 사람의 성공에 기여한 적 있는가?>", href: "https://blog.naver.com/publion/222547727225" },
+  { date: "2021.10", source: "퍼블리온 블로그", title: "순진하면 무능해진다! <프로페셔널 스튜던트>", href: "https://blog.naver.com/publion/222547684865" },
+  { date: "2021.10", source: "퍼블리온 블로그", title: "\"나만의 부캐, 대체자아를 소환하라!\" <알터 에고 이펙트>", href: "https://blog.naver.com/publion/222547666955" },
+  { date: "2021.10", source: "퍼블리온 블로그", title: "나를 지키고 나를 키우는 '진짜 일'을 하세요. <나를 믿고 일한다는 것>", href: "https://blog.naver.com/publion/222547643297" },
+  { date: "2021.10", source: "퍼블리온 블로그", title: "이젠 접촉 없이 소통하라! <언컨택트>", href: "https://blog.naver.com/publion/222547598234" },
 ];
 
 /* 도서번호 → 그 책을 다룬 글 주소.
  * 도서 상세 페이지 아래 '이 책의 이야기'로 나옵니다. */
 export const POSTS_BY_BOOK = {
+  "1": [
+    "https://blog.naver.com/publion/222547598234",
+    "https://blog.naver.com/publion/222559334922"
+  ],
+  "2": [
+    "https://blog.naver.com/publion/223355481397",
+    "https://blog.naver.com/publion/223276995922",
+    "https://blog.naver.com/publion/222547643297"
+  ],
+  "3": [
+    "https://blog.naver.com/publion/223433886053",
+    "https://blog.naver.com/publion/222547666955"
+  ],
+  "4": [
+    "https://blog.naver.com/publion/223015121563",
+    "https://blog.naver.com/publion/222559334922",
+    "https://blog.naver.com/publion/222547684865"
+  ],
+  "5": [
+    "https://blog.naver.com/publion/223375965132",
+    "https://blog.naver.com/publion/222547727225"
+  ],
+  "6": [
+    "https://blog.naver.com/publion/222547735139"
+  ],
+  "7": [
+    "https://blog.naver.com/publion/222547765694"
+  ],
+  "8": [
+    "https://blog.naver.com/publion/222870348352",
+    "https://blog.naver.com/publion/222578252902"
+  ],
+  "9": [
+    "https://blog.naver.com/publion/223580879669",
+    "https://blog.naver.com/publion/222625976090"
+  ],
+  "10": [
+    "https://blog.naver.com/publion/222874608743",
+    "https://blog.naver.com/publion/222676262029",
+    "https://blog.naver.com/publion/222676258703"
+  ],
+  "11": [
+    "https://blog.naver.com/publion/222704116015"
+  ],
+  "12": [
+    "https://blog.naver.com/publion/222845480819",
+    "https://blog.naver.com/publion/222795051111",
+    "https://blog.naver.com/publion/222772952576"
+  ],
+  "13": [
+    "https://blog.naver.com/publion/222936325631",
+    "https://blog.naver.com/publion/222913230685",
+    "https://blog.naver.com/publion/222912097803",
+    "https://blog.naver.com/publion/222885662608"
+  ],
+  "14": [
+    "https://blog.naver.com/publion/222943340743",
+    "https://blog.naver.com/publion/222942427965"
+  ],
+  "15": [
+    "https://blog.naver.com/publion/222949799392",
+    "https://blog.naver.com/publion/222943261036"
+  ],
+  "16": [
+    "https://blog.naver.com/publion/222976813864"
+  ],
+  "17": [
+    "https://blog.naver.com/publion/223014272671"
+  ],
+  "18": [
+    "https://blog.naver.com/publion/223099578082",
+    "https://blog.naver.com/publion/223092692361",
+    "https://blog.naver.com/publion/223061108279",
+    "https://blog.naver.com/publion/223061106115",
+    "https://blog.naver.com/publion/223053493809",
+    "https://blog.naver.com/publion/223052744494",
+    "https://blog.naver.com/publion/223051524688"
+  ],
   "40": [
     "https://publion.tistory.com/12",
     "https://publion.tistory.com/6",
@@ -109,15 +264,42 @@ export const POSTS_BY_BOOK = {
     "https://blog.naver.com/publion/223642750209"
   ],
   "31": [
+    "https://blog.naver.com/publion/223643555397",
+    "https://blog.naver.com/publion/223622140086",
     "https://blog.naver.com/publion/223582569286",
     "https://blog.naver.com/publion/223582568477"
   ],
-  "9": [
-    "https://blog.naver.com/publion/223580879669"
-  ],
   "19": [
     "https://blog.naver.com/publion/223537283142",
-    "https://blog.naver.com/publion/223413323508"
+    "https://blog.naver.com/publion/223413323508",
+    "https://blog.naver.com/publion/223186293331",
+    "https://blog.naver.com/publion/223181248066",
+    "https://blog.naver.com/publion/223137379438",
+    "https://blog.naver.com/publion/223128951384",
+    "https://blog.naver.com/publion/223127955566",
+    "https://blog.naver.com/publion/223117885435"
+  ],
+  "20": [
+    "https://blog.naver.com/publion/223388113910",
+    "https://blog.naver.com/publion/223357956055",
+    "https://blog.naver.com/publion/223155191117",
+    "https://blog.naver.com/publion/223150381904",
+    "https://blog.naver.com/publion/223148675688",
+    "https://blog.naver.com/publion/223133674353",
+    "https://blog.naver.com/publion/223131060312",
+    "https://blog.naver.com/publion/223130491206"
+  ],
+  "21": [
+    "https://blog.naver.com/publion/223203974114",
+    "https://blog.naver.com/publion/223199632123",
+    "https://blog.naver.com/publion/223193469515",
+    "https://blog.naver.com/publion/223193422565"
+  ],
+  "22": [
+    "https://blog.naver.com/publion/223246399502",
+    "https://blog.naver.com/publion/223215101174",
+    "https://blog.naver.com/publion/223214998416",
+    "https://blog.naver.com/publion/223209544718"
   ],
   "29": [
     "https://blog.naver.com/publion/223489241044",
@@ -129,13 +311,33 @@ export const POSTS_BY_BOOK = {
     "https://blog.naver.com/publion/223445257269"
   ],
   "23": [
-    "https://blog.naver.com/publion/223483218934"
+    "https://blog.naver.com/publion/224330337983",
+    "https://blog.naver.com/publion/223483218934",
+    "https://blog.naver.com/publion/223257159741",
+    "https://blog.naver.com/publion/223257155008",
+    "https://blog.naver.com/publion/223257148897",
+    "https://blog.naver.com/publion/223250365968",
+    "https://blog.naver.com/publion/223250364276",
+    "https://blog.naver.com/publion/223232545742",
+    "https://blog.naver.com/publion/223229619021"
   ],
-  "3": [
-    "https://blog.naver.com/publion/223433886053"
+  "24": [
+    "https://blog.naver.com/publion/223265621353"
+  ],
+  "25": [
+    "https://blog.naver.com/publion/223339115695"
+  ],
+  "26": [
+    "https://blog.naver.com/publion/223383925599",
+    "https://blog.naver.com/publion/223361411998",
+    "https://blog.naver.com/publion/223359135326",
+    "https://blog.naver.com/publion/223346880991",
+    "https://blog.naver.com/publion/223333217293",
+    "https://blog.naver.com/publion/223330962123"
   ],
   "27": [
     "https://blog.naver.com/publion/223427561146",
-    "https://blog.naver.com/publion/223395890699"
+    "https://blog.naver.com/publion/223395890699",
+    "https://blog.naver.com/publion/223390844572"
   ]
 };
