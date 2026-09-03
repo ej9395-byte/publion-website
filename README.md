@@ -31,6 +31,12 @@ GitHub 과 Vercel 로 올립니다. 코덱스에 붙여넣을 프롬프트가 `D
 `https://publion.co.kr` 로 박혀 있습니다. 실제 도메인이 정해지면 고치고
 `node build/prerender.mjs` 를 다시 돌려야 canonical 주소와 sitemap 이 맞습니다.
 
+## 재사용 가이드
+
+다른 출판사 홈페이지를 만들 때 참고할 제작 방식은
+`docs/publisher-homepage-production-guide.md` 에 정리했습니다. 새 프로젝트에서 더 나은
+방식이 생기면 그 문서의 `업데이트 기록`에 날짜와 이유를 남기고 본문을 함께 고칩니다.
+
 ## 구성
 
 | 경로 | 내용 |
