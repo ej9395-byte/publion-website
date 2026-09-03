@@ -14,6 +14,7 @@ node build/prerender.mjs && python3 -m http.server 4173
 
 데이터나 소개글을 고친 뒤에는 **반드시 `node build/prerender.mjs` 를 다시 돌립니다.**
 정적 페이지 45개가 그때 다시 만들어집니다.
+Vercel 배포에서는 같은 명령을 `package.json` 의 `build` 스크립트로 실행합니다.
 
 ## 배포
 
