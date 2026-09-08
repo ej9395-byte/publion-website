@@ -39,6 +39,16 @@ export const SITE = {
   // 시·군·구까지만 씁니다.
   address: '인천광역시 남동구',
   catalogPdf: 'https://drive.google.com/file/d/14xDhg0Z7kjXStwnNtX0qU1RH-K25IBED/view',
+  // 뉴스레터 구독 폼 (외부 서비스).
+  // 비어 있으면 뉴스레터 자리는 '준비 중'으로 남고,
+  // 개인정보처리방침도 '수집 없음' 문안을 그대로 씁니다.
+  // 주소를 넣으면 구독 버튼과 방침 문안이 함께 켜집니다.
+  newsletterForm: '',
+  // 폼을 어느 서비스로 만들었는지 (예: '구글 폼', 'Tally').
+  // 방침에 '어디에 저장되는지'를 밝혀야 하므로 주소와 함께 채웁니다.
+  newsletterFormName: '',
+  // 보관 기간 (대표 결정 2026-09-08). 폼 주소가 들어와야 방침에 나타납니다.
+  newsletterRetention: '구독을 취소하실 때까지',
 };
 
 export const SORTS = ['신간순', '가나다순'];
@@ -81,6 +91,21 @@ export const aboutHref = () => BASE + '/about/';
 export const authorsHref = () => BASE + '/authors/';
 export const journalHref = () => BASE + '/journal/';
 export const bookHref = (id) => `${BASE}/book/${id}/`;
+
+/* 영문 섹션 — 해외 에이전시·출판사가 보는 화면입니다.
+   AI·검색 크롤러가 자바스크립트를 실행하지 않으므로 한국어 화면과 똑같이
+   주소마다 정적으로 찍습니다. */
+export const enHomeHref   = () => BASE + '/en/';
+export const enBooksHref  = () => BASE + '/en/books/';
+export const enRightsHref = () => BASE + '/en/rights/';
+
+/* 같은 내용의 반대 언어 주소. 상단 KO/EN 전환에 씁니다. */
+export function counterpartHref(view) {
+  if (view.lang === 'en') {
+    return view.page === 'en-books' ? booksHref('전체') : homeHref();
+  }
+  return view.page === 'books' ? enBooksHref() : enHomeHref();
+}
 
 export function booksHref(subject, sort) {
   const q = [];
@@ -129,7 +154,6 @@ export const SOCIAL = [
   { label: 'YouTube',      href: SITE.youtube },
   { label: '네이버 블로그', href: SITE.blog },
   { label: '대표 블로그',   href: SITE.tistory },
-  { label: '스마트스토어',  href: SITE.store },
 ];
 
 export const JOURNAL = [
@@ -153,6 +177,12 @@ export const NAV_ITEMS = [
   { label: '저자 Authors',     href: authorsHref(),              mega: false, match: 'authors' },
   { label: '저널 Journal',     href: journalHref(),              mega: false, match: 'journal' },
   { label: '출판사 소개 About', href: aboutHref(),                mega: false, match: 'about' },
+];
+
+export const EN_NAV = [
+  { label: 'Catalogue', href: enBooksHref(),  match: 'en-books' },
+  { label: 'Rights',    href: enRightsHref(), match: 'en-rights' },
+  { label: 'About',     href: enHomeHref(),   match: 'en-home' },
 ];
 
 const MEGA_COLS = [
@@ -202,7 +232,9 @@ export function retailersFor(book) {
 /* ── 머리말 ─────────────────────────────────────────────────── */
 
 function headerHTML(view) {
-  const currentIndex = NAV_ITEMS.findIndex((n) => n.match === view.page);
+  const en = view.lang === 'en';
+  const items = en ? EN_NAV : NAV_ITEMS;
+  const currentIndex = items.findIndex((n) => n.match === view.page);
   // 좁은 화면에서는 영문 병기를 숨깁니다. 그래서 영문만 따로 감쌉니다.
   // '도서 Books' → 도서 + <span>Books</span>
   const splitLabel = (label) => {
@@ -211,24 +243,30 @@ function headerHTML(view) {
       ? `${esc(m[1])} <span class="nav__en">${esc(m[2])}</span>`
       : esc(label);
   };
-  const nav = NAV_ITEMS.map((n, i) => `
+  const nav = items.map((n, i) => `
     <a class="nav__item" href="${n.href}" data-nav="${i}"${n.external ? ' target="_blank" rel="noopener"' : ''}
        ${i === currentIndex ? 'aria-current="page"' : ''}>${splitLabel(n.label)}</a>`).join('');
 
+  /* KO/EN 전환 — 지금 보는 언어는 글자로, 반대 언어는 링크로 둡니다. */
+  const other = counterpartHref(view);
+  const lang = en
+    ? `<a class="topbar__lang" href="${other}">KO</a><span class="topbar__sep" aria-hidden="true">/</span><span class="topbar__lang topbar__lang--on">EN</span>`
+    : `<span class="topbar__lang topbar__lang--on">KO</span><span class="topbar__sep" aria-hidden="true">/</span><a class="topbar__lang" href="${other}">EN</a>`;
+
   return `
   <div class="topbar">
-    <span>경제경영 · 인문 · 문학 &nbsp;·&nbsp; Books for the next decade</span>
+    <span>${en
+      ? 'Business &middot; Humanities &middot; Literature &nbsp;·&nbsp; Books for the next decade'
+      : '경제경영 · 인문 · 문학 &nbsp;·&nbsp; Books for the next decade'}</span>
     <div class="topbar__right">
-      <span>3만원 이상 무료배송</span>
-      <span class="topbar__sep" aria-hidden="true">|</span>
-      <span class="topbar__lang">KO / EN</span>
+      ${lang}
     </div>
   </div>
 
   <header class="header" id="site-header">
     <div class="header__bar">
-      <div class="header__left"><a href="${booksHref('전체')}#book-search">검색 Search</a></div>
-      <a class="header__brand" href="${BASE}/" aria-label="퍼블리온 홈">
+      <div class="header__left"><a href="${en ? enBooksHref() : booksHref('전체') + '#book-search'}">${en ? 'Catalogue' : '검색 Search'}</a></div>
+      <a class="header__brand" href="${en ? enHomeHref() : BASE + '/'}" aria-label="${en ? 'Publion home' : '퍼블리온 홈'}">
         <svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-hidden="true">
           <path d="${LOGO_PATH}" fill="#111111"></path>
         </svg>
@@ -237,12 +275,10 @@ function headerHTML(view) {
           <div class="header__ko">퍼 블 리 온</div>
         </div>
       </a>
-      <div class="header__right">
-        <a href="${SITE.store}" target="_blank" rel="noopener">스마트스토어 Store</a>
-      </div>
+      <div class="header__right"></div>
     </div>
-    <nav class="nav" aria-label="주요 메뉴">${nav}</nav>
-    <div id="mega-mount">${view.megaOpen ? megaHTML() : ''}</div>
+    <nav class="nav" aria-label="${en ? 'Main menu' : '주요 메뉴'}">${nav}</nav>
+    <div id="mega-mount">${!en && view.megaOpen ? megaHTML() : ''}</div>
   </header>`;
 }
 
@@ -299,15 +335,25 @@ export function heroHTML(heroIndex) {
  * 그쪽 폼 action 을 연결하면 됩니다. localStorage 는 쓰지 않습니다.
  */
 export function newsletterHTML() {
+  /* 구독은 외부 폼 서비스로 받습니다 (대표 결정 2026-09-08).
+     정적 사이트라 주소를 저장할 곳이 없어, 폼 주소를 SITE.newsletterForm 에 넣으면
+     아래 신청 버튼이 열리고 비어 있으면 지금까지처럼 '준비 중'으로 남습니다. */
+  const form = SITE.newsletterForm;
+
+  const right = form
+    ? `<a class="newsletter__cta" href="${form}" target="_blank" rel="noopener">구독 신청 <span class="t-en">Subscribe</span></a>
+       <p class="newsletter__aside">지난 소식은 <a href="${SITE.blog}" target="_blank" rel="noopener">네이버 블로그</a>에서 보실 수 있습니다.</p>`
+    : `<p class="newsletter__soon">준비 중 <span class="t-en">Coming soon</span></p>
+       <p class="newsletter__aside">그동안의 소식은 <a href="${SITE.blog}" target="_blank" rel="noopener">네이버 블로그</a>에서 보실 수 있습니다.</p>`;
+
   return `
   <section class="newsletter">
     <div>
       <h2 class="newsletter__title">뉴스레터</h2>
-      <p class="newsletter__text">신간 소식과 편집자가 고른 문장을 전하는 뉴스레터를 준비하고 있습니다.</p>
+      <p class="newsletter__text">신간 소식과 편집자가 고른 문장을 전하는 뉴스레터입니다.</p>
     </div>
     <div>
-      <p class="newsletter__soon">준비 중 <span class="t-en">Coming soon</span></p>
-      <p class="newsletter__aside">그동안의 소식은 <a href="${SITE.blog}" target="_blank" rel="noopener">네이버 블로그</a>에서 보실 수 있습니다.</p>
+      ${right}
     </div>
   </section>`;
 }
@@ -391,9 +437,12 @@ function homeHTML(view) {
         <a class="promo__link" href="${booksHref('문학 Literature')}">둘러보기 Explore</a>
       </div>
       <div class="promo__text promo__text--row2">
-        <h2 class="promo__title">퍼블리온 스토어</h2>
-        <p class="promo__body">『독서의 기록 다이어리』를 비롯한 퍼블리온 굿즈와 도서를 스마트스토어에서 만나실 수 있습니다.</p>
-        <a class="promo__link" href="${SITE.store}" target="_blank" rel="noopener">스토어 가기 Shop</a>
+        <h2 class="promo__title">서점에서 만나기</h2>
+        <p class="promo__body">퍼블리온의 책은 온라인 서점에서 만나실 수 있습니다.</p>
+        <div class="detail__buy-list">
+          ${retailersFor().map((r) => `
+            <a class="detail__buy-item" href="${r.href}" target="_blank" rel="noopener">${esc(r.label)}</a>`).join('')}
+        </div>
       </div>
       <div class="promo__img promo__img--row2">${slot('promo-store', 'cover', '독서의 기록 다이어리 이미지', `${BANNER_DIR}/promo-store.jpg`)}</div>
     </section>
@@ -767,6 +816,15 @@ function aboutHTML() {
   </main>`;
 }
 
+/* 강연 가능 저자 — 대표 확인 명단이 오면 이 배열만 채웁니다.
+   이름은 data.js 의 author 값과 정확히 같아야 짝이 맞습니다.
+   topic 은 선택입니다. 비어 있으면 저자 페이지에 아무 표시도 나오지 않습니다.
+   예: { name: '김용섭', topic: '트렌드·미래 전망' }
+   문의는 대표 메일로 연결합니다. */
+export const SPEAKERS = [];
+
+const speakerOf = (name) => SPEAKERS.find((x) => x.name === name);
+
 export function authorList() {
   const names = [];
   BOOKS.forEach((b) => { if (b.author && !names.includes(b.author)) names.push(b.author); });
@@ -817,18 +875,39 @@ function journalHTML() {
 }
 
 function authorsHTML() {
-  const cards = authorList().map((a) => `
+  const cards = authorList().map((a) => {
+    const sp = speakerOf(a.name);
+    return `
     <a class="author" href="${a.href}">
       <div class="author__avatar" aria-hidden="true"></div>
-      <div class="author__name">${esc(a.name)}</div>
+      <div class="author__name">${esc(a.name)}${sp ? '<span class="author__talk">강연</span>' : ''}</div>
       <div class="author__role">${esc(a.role)}</div>
       <div class="author__count">${a.count}종</div>
-    </a>`).join('');
+    </a>`;
+  }).join('');
+
+  /* 강연 안내는 명단이 있을 때만 나옵니다. 비어 있으면 지금까지와 똑같습니다. */
+  const talk = SPEAKERS.length ? `
+    <section class="talk">
+      <h2 class="talk__head">저자 강연 <span class="t-en">Author talks</span></h2>
+      <p class="talk__lead">아래 저자는 강연·북토크·기업 특강을 진행합니다.
+        일정과 주제는 메일로 문의해 주세요.</p>
+      <ul class="talk__list">
+        ${SPEAKERS.map((sp) => `
+          <li class="talk__row">
+            <span class="talk__name">${esc(sp.name)}</span>
+            ${sp.topic ? `<span class="talk__topic">${esc(sp.topic)}</span>` : ''}
+          </li>`).join('')}
+      </ul>
+      <a class="talk__cta" href="mailto:${SITE.email}?subject=${encodeURIComponent('강연 문의')}">강연 문의 <span class="t-en">Request a talk</span></a>
+    </section>` : '';
+
   return `
   <main class="authors">
     <nav class="t-crumb" aria-label="위치"><a href="${BASE}/">홈</a> / 저자</nav>
     <h1 class="t-h1-page">저자 <span class="t-en">Authors</span></h1>
     <div class="grid-authors">${cards}</div>
+    ${talk}
   </main>`;
 }
 
@@ -841,19 +920,35 @@ const FOOTER_COLS = [
   { title: '출판사 About', links: [
     { label: '소개',     href: aboutHref() },
     { label: '투고 안내', href: aboutHref() },
-    { label: '판권 문의', href: aboutHref() },
+    { label: '판권 문의 Rights', href: enRightsHref() },
 
   ] },
   { title: '구매 Buy', links: [
-    { label: '퍼블리온 스마트스토어', href: SITE.store, external: true },
     { label: '교보문고', href: retailersFor()[0].href, external: true },
     { label: '예스24',  href: retailersFor()[1].href, external: true },
     { label: '알라딘',  href: retailersFor()[2].href, external: true },
   ] },
 ];
 
-function footerHTML() {
-  const cols = FOOTER_COLS.map((col) => `
+const EN_FOOTER_COLS = [
+  { title: 'Publion', links: [
+    { label: 'About',     href: enHomeHref() },
+    { label: 'Catalogue', href: enBooksHref() },
+    { label: 'Rights',    href: enRightsHref() },
+  ] },
+  { title: 'Korean site', links: [
+    { label: '한국어 홈', href: homeHref() },
+    { label: '도서 목록', href: booksHref('전체') },
+  ] },
+  { title: 'Follow', links: [
+    { label: 'Instagram', href: SITE.instagram, external: true },
+    { label: 'YouTube',   href: SITE.youtube,   external: true },
+  ] },
+];
+
+function footerHTML(view) {
+  const en = view && view.lang === 'en';
+  const cols = (en ? EN_FOOTER_COLS : FOOTER_COLS).map((col) => `
     <div>
       <div class="footer__coltitle">${esc(col.title)}</div>
       <div class="footer__links">
@@ -873,23 +968,27 @@ function footerHTML() {
           </svg>
           <div class="footer__wordmark">Publion</div>
         </div>
-        <p class="footer__contact">퍼블리온 · ${SITE.ceo} 대표<br>${SITE.tel}<br>${SITE.email}</p>
-        <div class="footer__social">
+        <p class="footer__contact">${en
+          ? `Publion &middot; Park Sun-young, Publisher<br>${SITE.email}`
+          : `퍼블리온 · ${SITE.ceo} 대표<br>${SITE.tel}<br>${SITE.email}`}</p>
+        ${en ? '' : `<div class="footer__social">
           ${SOCIAL.map((x) => `<a href="${x.href}" target="_blank" rel="noopener">${esc(x.label)}</a>`).join('')}
-        </div>
+        </div>`}
       </div>
       ${cols}
     </div>
     <div class="footer__biz">
-      <span>상호 ${esc(SITE.name)}</span>
+      ${en
+        ? `<span>Publion Publishing</span><span>Est. 2020</span><span>Namdong-gu, Incheon, Republic of Korea</span>`
+        : `<span>상호 ${esc(SITE.name)}</span>
       <span>대표 ${esc(SITE.ceo)}</span>
       <span>사업자등록번호 ${esc(SITE.bizNo)}</span>
-      <span>${esc(SITE.address)}</span>
+      <span>${esc(SITE.address)}</span>`}
     </div>
     <div class="footer__bottom">
       <span>© 2026 퍼블리온 Publion</span>
       <span>
-        <a href="${BASE}/privacy/">개인정보처리방침</a> ·
+        <a href="${BASE}/privacy/">${en ? 'Privacy' : '개인정보처리방침'}</a> ·
         <a href="${SITE.instagram}" target="_blank" rel="noopener">Instagram</a> ·
         <a href="${SITE.youtube}" target="_blank" rel="noopener">YouTube</a>
       </span>
@@ -904,19 +1003,42 @@ function footerHTML() {
  * 방문자 IP 를 보게 되므로 그대로 밝힙니다.
  * 수집을 시작하면(예: 뉴스레터 재개) 이 글도 함께 고쳐야 합니다. */
 function privacyHTML() {
+  /* 뉴스레터 폼이 연결되면 '수집 없음' 문안을 쓸 수 없습니다.
+     주소가 들어오는 순간 아래 문안이 함께 바뀌도록 묶어 둡니다.
+     그래야 방침과 실제 동작이 어긋나는 일이 생기지 않습니다. */
+  const nl = SITE.newsletterForm;
+  const svc = SITE.newsletterFormName || '외부 폼 서비스';
+
+  const lead = nl
+    ? '퍼블리온 홈페이지는 뉴스레터 구독을 신청하신 분의 이메일 주소만 받습니다. 그 밖에는 방문자의 개인정보를 수집하지 않습니다. 아래는 이 사이트가 실제로 하는 일을 그대로 적은 것입니다.'
+    : '퍼블리온 홈페이지는 방문자의 개인정보를 수집하지 않습니다. 아래는 이 사이트가 실제로 하는 일을 그대로 적은 것입니다.';
+
+  const collect = nl
+    ? `뉴스레터 구독을 신청하실 때 이메일 주소를 받습니다. 신청은 홈페이지가 아니라 ${svc}에서 이루어지고, 받은 주소도 ${svc}에 저장됩니다. 이 홈페이지 자체에는 회원가입, 로그인, 문의 양식이 없습니다.`
+    : '없습니다. 회원가입, 로그인, 문의 양식, 뉴스레터 구독 같은 입력 기능을 두지 않았습니다.';
+
   const items = [
-    { k: '수집하는 개인정보', v: '없습니다. 회원가입, 로그인, 문의 양식, 뉴스레터 구독 같은 입력 기능을 두지 않았습니다.' },
+    { k: '수집하는 개인정보', v: collect },
     { k: '쿠키', v: '쓰지 않습니다.' },
     { k: '방문 분석', v: '구글 애널리틱스를 비롯한 어떤 방문 분석 도구도 넣지 않았습니다.' },
     { k: '외부에서 받아오는 것', v: '글꼴은 구글 폰트, 영상 섬네일은 유튜브에서 받아옵니다. 이때 두 서버가 방문자의 IP 주소와 브라우저 정보를 보게 됩니다. 각 서비스의 방침이 따로 적용됩니다.' },
-    { k: '바깥으로 나가는 링크', v: '서점, 네이버 블로그, 스마트스토어, 유튜브, 인스타그램으로 가는 링크가 있습니다. 그곳에서는 그 회사의 방침이 적용됩니다.' },
+    { k: '바깥으로 나가는 링크', v: `서점, 네이버 블로그, 유튜브, 인스타그램${nl ? `, 뉴스레터 신청 폼(${svc})` : ''}으로 가는 링크가 있습니다. 그곳에서는 그 회사의 방침이 적용됩니다.` },
     { k: '브라우저에 남기는 것', v: '없습니다. 예전 뉴스레터 양식이 남긴 기록이 있다면 방문 시 자동으로 지웁니다.' },
   ];
+
+  if (nl) {
+    items.splice(1, 0, { k: '이용 목적', v: '받은 이메일 주소는 신간 소식과 뉴스레터를 보내는 데에만 씁니다. 다른 목적으로 쓰거나 다른 곳에 넘기지 않습니다.' });
+    if (SITE.newsletterRetention) {
+      items.splice(2, 0, { k: '보관 기간', v: `${SITE.newsletterRetention} 보관하고, 그 뒤에는 지웁니다.` });
+    }
+    items.splice(SITE.newsletterRetention ? 3 : 2, 0,
+      { k: '구독 취소', v: `${SITE.email} 로 알려주시면 명단에서 지웁니다. 뉴스레터 아래쪽의 수신 거부 링크로도 취소하실 수 있습니다.` });
+  }
   return `
   <main class="prose-page">
     <div class="t-crumb"><a href="${BASE}/">홈</a> / 개인정보처리방침</div>
     <h1 class="t-h1-page">개인정보처리방침 <span class="t-en">Privacy</span></h1>
-    <p class="prose-page__lead">퍼블리온 홈페이지는 방문자의 개인정보를 수집하지 않습니다. 아래는 이 사이트가 실제로 하는 일을 그대로 적은 것입니다.</p>
+    <p class="prose-page__lead">${esc(lead)}</p>
     <dl class="prose-page__list">
       ${items.map((x) => `
         <div class="prose-page__row">
@@ -924,11 +1046,180 @@ function privacyHTML() {
           <dd>${esc(x.v)}</dd>
         </div>`).join('')}
     </dl>
-    <p class="prose-page__foot">문의는 <a href="mailto:${SITE.email}">${esc(SITE.email)}</a> 로 보내주세요.<br>이 방침은 2026년 9월 2일 기준입니다. 수집 항목이 생기면 이 쪽을 먼저 고칩니다.</p>
+    <p class="prose-page__foot">문의는 <a href="mailto:${SITE.email}">${esc(SITE.email)}</a> 로 보내주세요.<br>이 방침은 ${nl ? '뉴스레터 구독을 시작한 날' : '2026년 9월 2일'} 기준입니다. 수집 항목이 생기면 이 쪽을 먼저 고칩니다.</p>
   </main>`;
 }
 
 /* ── 조립 ───────────────────────────────────────────────────── */
+
+/* ── 영문 화면 ───────────────────────────────────────────────
+   판권을 팔 수 있는 것은 국내 저자 원작뿐입니다. 번역서는 해외 판권이
+   원저작권자에게 있으므로 'Translation' 으로 구분해 표시하고,
+   판권 안내에서는 제외합니다. */
+
+const isOriginal = (b) => !/옮김/.test(b.trans || '');
+
+const EN_SUBJECTS = [
+  ['경제경영 Business',          'Business'],
+  ['자기계발 Self-development',  'Self-development'],
+  ['인문 Humanities',            'Humanities'],
+  ['문학 Literature',            'Literature'],
+  ["어린이 Children's",          "Children's"],
+];
+const enSubject = (s) => (EN_SUBJECTS.find((x) => x[0] === s) || [null, s])[1];
+
+/* 수상 이름 영문 대역.
+   기관의 공식 영문 표기가 아니라 뜻을 옮긴 것이라, 대표 확인 후 확정합니다.
+   확인 전까지 원문을 괄호로 함께 남겨 검증할 수 있게 둡니다. */
+const EN_AWARDS = [
+  ['교보문고 올해의책',                  'Kyobo Book Centre — Book of the Year'],
+  ['예스24 올해의책',                   'Yes24 — Book of the Year'],
+  ['알라딘 올해의책',                   'Aladin — Book of the Year'],
+  ['세종도서 교양부문 선정',              'Sejong Book Award — Non-fiction'],
+  ['문학나눔 도서 선정',                 'Munhaknanum Selection (Arts Council Korea)'],
+  ['진중문고 선정',                     'Armed Forces Library Selection'],
+  ['중소출판사 출판콘텐츠 창작지원사업 선정',   'KPIPA Publishing Content Grant'],
+];
+
+function enAward(award) {
+  return award.split(' · ').map((part) => {
+    const year = (part.match(/^(\d{4})\s*/) || [])[1] || '';
+    const name = part.replace(/^\d{4}\s*/, '');
+    const hit = EN_AWARDS.find((x) => x[0] === name);
+    return hit ? `${hit[1]}${year ? ', ' + year : ''}` : part;
+  }).join(' &middot; ');
+}
+
+const sortedBooks = () => BOOKS.slice().sort((a, b) => b.date.localeCompare(a.date));
+
+function enHomeHTML() {
+  const total = BOOKS.length;
+  const owned = BOOKS.filter(isOriginal).length;
+  const counts = EN_SUBJECTS
+    .map(([ko, en]) => [en, BOOKS.filter((b) => b.subject === ko).length])
+    .filter(([, n]) => n > 0);
+  const awarded = sortedBooks().filter((b) => b.award);
+
+  return `
+  <section class="en-hero">
+    <p class="en-kicker">Publion &middot; Incheon, Republic of Korea</p>
+    <h1 class="en-title">Korean books for<br>the next decade</h1>
+    <p class="en-lede">Publion is an independent publisher founded in 2020. We publish
+      business, self-development, humanities and literary titles by Korean authors,
+      and we are looking for publishing partners abroad.</p>
+    <a class="en-cta" href="${enRightsHref()}">Rights &amp; foreign editions</a>
+  </section>
+
+  <section class="en-section">
+    <h2 class="en-h2">What we publish</h2>
+    <div class="en-stats">
+      ${counts.map(([en, n]) => `
+        <div class="en-stat">
+          <div class="en-stat__n">${n}</div>
+          <div class="en-stat__k">${esc(en)}</div>
+        </div>`).join('')}
+    </div>
+    <p class="en-note">${total} titles published since 2020, of which
+      <strong>${owned}</strong> are original works by Korean authors with world
+      rights available. The remaining ${total - owned} are Korean translations of
+      foreign works.</p>
+  </section>
+
+  <section class="en-section">
+    <h2 class="en-h2">Recognition</h2>
+    <ul class="en-list">
+      ${awarded.map((b) => `
+        <li class="en-list__row">
+          <span class="en-list__t">${esc(b.title)}</span>
+          <span class="en-list__m">${esc(b.author)} &middot; ${enAward(b.award)}</span>
+        </li>`).join('')}
+    </ul>
+  </section>
+
+  <section class="en-section">
+    <h2 class="en-h2">Contact</h2>
+    <p class="en-note">Rights enquiries and catalogue requests:
+      <a href="mailto:${SITE.email}">${SITE.email}</a></p>
+  </section>`;
+}
+
+function enBooksHTML() {
+  const rows = sortedBooks();
+  return `
+  <section class="en-section en-section--top">
+    <p class="en-kicker">Catalogue</p>
+    <h1 class="en-h1">${rows.length} titles</h1>
+    <p class="en-lede en-lede--sm">Titles are listed in their original Korean.
+      English synopses and sample translations are prepared on request.
+      <strong>Rights available</strong> marks original works by Korean authors;
+      translations are licensed from their original publishers and are shown for
+      reference only.</p>
+
+    <div class="en-table" role="table" aria-label="Publion catalogue">
+      <div class="en-table__head" role="row">
+        <span role="columnheader">Title</span>
+        <span role="columnheader">Author</span>
+        <span role="columnheader">Category</span>
+        <span role="columnheader">Year</span>
+        <span role="columnheader">Rights</span>
+      </div>
+      ${rows.map((b) => `
+        <div class="en-table__row" role="row">
+          <span role="cell" class="en-table__t">${esc(b.title)}${b.award ? '<span class="en-award" title="Award-winning">&#9733;</span>' : ''}</span>
+          <span role="cell">${esc(b.author)}</span>
+          <span role="cell">${esc(enSubject(b.subject))}</span>
+          <span role="cell" class="en-num">${esc(b.year)}</span>
+          <span role="cell">${isOriginal(b)
+            ? '<span class="en-tag en-tag--on">Rights available</span>'
+            : '<span class="en-tag">Translation</span>'}</span>
+        </div>`).join('')}
+    </div>
+  </section>`;
+}
+
+function enRightsHTML() {
+  const owned = sortedBooks().filter(isOriginal);
+  const highlights = owned.filter((b) => b.award);
+  return `
+  <section class="en-section en-section--top">
+    <p class="en-kicker">Rights guide</p>
+    <h1 class="en-h1">Foreign rights</h1>
+    <p class="en-lede en-lede--sm">Publion holds world rights, excluding Korea, to
+      ${owned.length} original titles by Korean authors. We welcome enquiries from
+      publishers, agents and scouts.</p>
+  </section>
+
+  <section class="en-section">
+    <h2 class="en-h2">Award-winning titles</h2>
+    <ul class="en-list">
+      ${highlights.map((b) => `
+        <li class="en-list__row">
+          <span class="en-list__t">${esc(b.title)}</span>
+          <span class="en-list__m">${esc(b.author)} &middot; ${esc(enSubject(b.subject))} &middot; ${esc(b.year)}<br>${enAward(b.award)}</span>
+        </li>`).join('')}
+    </ul>
+    <p class="en-note"><a href="${enBooksHref()}">See the full catalogue &rarr;</a></p>
+  </section>
+
+  <section class="en-section">
+    <h2 class="en-h2">Materials on request</h2>
+    <ul class="en-bullets">
+      <li>English synopsis and author biography</li>
+      <li>Sample translation</li>
+      <li>Full Korean text and cover files</li>
+      <li>Sales record and press coverage in Korea</li>
+    </ul>
+    <p class="en-note">Materials are prepared per title on request. Please tell us
+      which title and which territory you are enquiring about.</p>
+  </section>
+
+  <section class="en-section">
+    <h2 class="en-h2">Contact</h2>
+    <p class="en-contact"><a href="mailto:${SITE.email}">${SITE.email}</a></p>
+    <p class="en-note">Publion Publishing &middot; Namdong-gu, Incheon, Republic of Korea<br>
+      Correspondence in English or Korean is welcome.</p>
+  </section>`;
+}
 
 export function bodyHTML(view) {
   switch (view.page) {
@@ -938,12 +1229,15 @@ export function bodyHTML(view) {
     case 'authors': return authorsHTML();
     case 'journal': return journalHTML();
     case 'privacy': return privacyHTML();
+    case 'en-home':   return enHomeHTML();
+    case 'en-books':  return enBooksHTML();
+    case 'en-rights': return enRightsHTML();
     default:        return homeHTML(view);
   }
 }
 
 export function pageHTML(view) {
-  return headerHTML(view) + bodyHTML(view) + footerHTML();
+  return headerHTML(view) + bodyHTML(view) + footerHTML(view);
 }
 
 /* 페이지별 제목·설명·정규주소. 미리 찍을 때와 브라우저에서 함께 씁니다. */
@@ -994,6 +1288,27 @@ export function meta(view) {
       title: '저자 Authors — 퍼블리온',
       description: `퍼블리온과 함께한 저자 ${authorList().length}명. 김용섭, 김초엽, 루퍼트 스파이라, 안예진 등.`,
       path: '/authors/',
+    };
+  }
+  if (view.page === 'en-home') {
+    return {
+      title: 'Publion — Korean books for the next decade',
+      description: `Publion is an independent Korean publisher founded in 2020. ${BOOKS.length} titles in business, self-development, humanities and literature. Foreign rights available.`,
+      path: '/en/',
+    };
+  }
+  if (view.page === 'en-books') {
+    return {
+      title: `Catalogue — Publion (${BOOKS.length} titles)`,
+      description: `The full Publion catalogue: ${BOOKS.length} Korean titles with author, category and year. Original works by Korean authors are marked as rights available.`,
+      path: '/en/books/',
+    };
+  }
+  if (view.page === 'en-rights') {
+    return {
+      title: 'Foreign rights — Publion',
+      description: 'Publion holds world rights excluding Korea to original titles by Korean authors. English synopses and sample translations on request.',
+      path: '/en/rights/',
     };
   }
   return {

@@ -91,16 +91,40 @@ function jsonLdFor(view) {
       image: SITE.origin + '/assets/img/covers/cover-' + b.id + '.jpg',
       description: INTROS[b.id] || b.sub || undefined,
       genre: b.subject.split(' ')[0],
-      offers: {
-        '@type': 'Offer', price: b.price, priceCurrency: 'KRW',
-        availability: 'https://schema.org/InStock', url: SITE.store,
-        seller: { '@id': SITE.origin + '/#org' },
-      },
+      /* offers 를 넣지 않습니다 (2026-09-02 대표 결정).
+         화면에서 가격 표기를 뺐으므로 구조화 데이터에도 넣지 않습니다.
+         Offer 는 price 없이는 성립하지 않으므로 블록 자체를 비웁니다.
+         구매처는 상세 페이지의 서점 링크(교보문고·예스24·알라딘)로만 알립니다.
+         스마트스토어는 주문 시 자체 포장이 발생해 구매 유도 대상에서 제외했습니다. */
     };
     if (b.sub) book.alternativeHeadline = b.sub;
     if (b.trans) book.translator = { '@type': 'Person', name: b.trans.replace(/\s*옮김$/, '') };
     if (b.award) book.award = b.award;
     graph.push(book);
+  }
+
+  if (view.page === 'en-home') {
+    graph.push({ '@type': 'AboutPage', url: SITE.origin + '/en/', name: 'Publion',
+                 inLanguage: 'en', mainEntity: { '@id': SITE.origin + '/#org' } });
+  }
+
+  if (view.page === 'en-books') {
+    graph.push({
+      '@type': 'CollectionPage', url: SITE.origin + '/en/books/', name: 'Catalogue',
+      inLanguage: 'en',
+      mainEntity: {
+        '@type': 'ItemList', numberOfItems: BOOKS.length,
+        itemListElement: BOOKS.slice().sort((a, b) => b.date.localeCompare(a.date)).map((b, i) => ({
+          '@type': 'ListItem', position: i + 1, name: b.title,
+        })),
+      },
+    });
+  }
+
+  if (view.page === 'en-rights') {
+    graph.push({ '@type': 'WebPage', url: SITE.origin + '/en/rights/',
+                 name: 'Foreign rights', inLanguage: 'en',
+                 publisher: { '@id': SITE.origin + '/#org' } });
   }
 
   if (view.page === 'about') {
@@ -131,23 +155,40 @@ function jsonLdFor(view) {
 
 /* ── HTML 껍데기 ────────────────────────────────────────────── */
 
+/* 한국어면 ↔ 영문면 짝. 검색엔진에 같은 내용의 다른 언어판임을 알립니다. */
+const LANG_PAIRS = [
+  ['/', '/en/'],
+  ['/books/', '/en/books/'],
+];
+
+function altLinks(path) {
+  const pair = LANG_PAIRS.find((p) => p[0] === path || p[1] === path);
+  if (!pair) return '';
+  const [ko, en] = pair;
+  return `
+<link rel="alternate" hreflang="ko" href="${SITE.origin}${ko}">
+<link rel="alternate" hreflang="en" href="${SITE.origin}${en}">
+<link rel="alternate" hreflang="x-default" href="${SITE.origin}${ko}">`;
+}
+
 function document_(view) {
   const m = meta(view);
   const canonical = SITE.origin + m.path;
   const image = SITE.origin + (m.image || '/assets/img/covers/cover-41.jpg');
+  const isEn = view.lang === 'en';
 
   return `<!DOCTYPE html>
-<html lang="ko">
+<html lang="${isEn ? 'en' : 'ko'}">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${esc(m.title)}</title>
 <meta name="description" content="${esc(m.description)}">
-<link rel="canonical" href="${esc(canonical)}">
+<link rel="canonical" href="${esc(canonical)}">${altLinks(m.path)}
 
 <meta property="og:type" content="${view.page === 'detail' ? 'book' : 'website'}">
 <meta property="og:site_name" content="퍼블리온 Publion">
-<meta property="og:locale" content="ko_KR">
+<meta property="og:locale" content="${isEn ? 'en_US' : 'ko_KR'}">
 <meta property="og:title" content="${esc(m.title)}">
 <meta property="og:description" content="${esc(m.description)}">
 <meta property="og:url" content="${esc(canonical)}">
@@ -162,7 +203,7 @@ function document_(view) {
 <script type="application/ld+json">${jsonLdFor(view)}</script>
 </head>
 <body>
-<script>window.__BASE__=${JSON.stringify(BASE)};</script>\n<a class="u-skip" href="#main-content">본문으로 건너뛰기</a>
+<script>window.__BASE__=${JSON.stringify(BASE)};</script>\n<a class="u-skip" href="#main-content">${isEn ? 'Skip to content' : '본문으로 건너뛰기'}</a>
 <div id="app" data-page="${esc(view.page)}"${view.page === 'detail' ? ` data-book="${view.bookId}"` : ''}${view.page === 'books' ? ` data-subject="${esc(view.subject)}" data-sort="${esc(view.sort)}"` : ''}>${pageHTML(view)}</div>
 <script type="module" src="${BASE}/assets/js/app.js"></script>
 </body>
@@ -186,6 +227,9 @@ const views = [
   { page: 'authors' },
   { page: 'journal' },
   { page: 'privacy' },
+  { page: 'en-home',   lang: 'en' },
+  { page: 'en-books',  lang: 'en' },
+  { page: 'en-rights', lang: 'en' },
   ...BOOKS.map((b) => ({ page: 'detail', bookId: b.id })),
 ];
 
