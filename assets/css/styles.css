@@ -204,22 +204,22 @@ button {
   color: var(--c-muted);
 }
 .header__left button:hover { color: var(--c-ink); }
-.header__brand { display: flex; align-items: center; gap: 14px; cursor: pointer; }
-.header__wordmark {
-  font-family: 'Archivo', sans-serif;
-  font-weight: 600;
-  font-size: 27px;
-  letter-spacing: .16em;
-  line-height: 1;
-  text-transform: uppercase;
+.header__brand { display: block; cursor: pointer; }
+.brand-logo-crop {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 399 / 150;
 }
-.header__ko {
-  font-family: var(--f-title);
-  font-size: 11px;
-  letter-spacing: .36em;
-  color: var(--c-muted);
-  margin-top: 6px;
+.brand-logo-crop img {
+  position: absolute;
+  width: 115.54%;
+  max-width: none;
+  height: auto;
+  left: -7.77%;
+  top: -103.33%;
 }
+.brand-logo-crop--header { width: 190px; }
 .header__right {
   display: flex;
   gap: 20px;
@@ -1009,14 +1009,9 @@ button {
   padding-bottom: 52px;
   border-bottom: 1px solid var(--c-rule-ink);
 }
-.footer__brand { display: flex; align-items: center; gap: 12px; }
-.footer__wordmark {
-  font-weight: 600;
-  font-size: 22px;
-  letter-spacing: .16em;
-  text-transform: uppercase;
-  color: var(--c-bg);
-}
+.footer__brand { display: block; }
+.brand-logo-crop--footer { width: 180px; }
+.brand-logo-crop--footer img { filter: invert(1); }
 .footer__contact { font-size: 13px; line-height: 1.9; margin: 24px 0 0; max-width: 320px; }
 .footer__social {
   display: flex;
@@ -1359,10 +1354,7 @@ button {
   .header__left  { justify-content: flex-start; }
   .header__right { justify-content: flex-end; }
   .header__right a { font-size: 11px; letter-spacing: .06em; }
-  .header__brand { gap: 10px; }
-  .header__brand svg { width: 26px; height: 20px; }
-  .header__wordmark { font-size: 20px; letter-spacing: .14em; }
-  .header__ko { font-size: 9px; letter-spacing: .3em; margin-top: 4px; }
+  .brand-logo-crop--header { width: 150px; }
 
   /* 내비 — 두 줄로 접히던 것을 한 줄 가로 스크롤로 바꿉니다. */
   .nav {
@@ -1502,7 +1494,7 @@ button {
 @media (max-width: 360px) {
   :root { --pad-x: 16px; }
   .grid-books, .grid-new, .grid-related { gap: 24px 12px; }
-  .header__wordmark { font-size: 18px; }
+  .brand-logo-crop--header { width: 132px; }
   .t-h1-page, .about__title, .hero__title { font-size: 27px; }
 }
 

@@ -146,8 +146,6 @@ const slot = (id, fit, placeholder, src, eager) => {
 const coverSlot = (b, placeholder, eager) =>
   slot(b.slotId, 'contain', placeholder || b.title, b.cover, eager);
 
-const LOGO_PATH = 'M2 3.5 L11 3.5 L17 9 L23 3.5 L32 3.5 L32 22.5 L23 22.5 L17 17 L11 22.5 L2 22.5 Z';
-
 export const SOCIAL = [
   { label: 'Instagram',    href: SITE.instagram },
   { label: 'Facebook',     href: SITE.facebook },
@@ -267,13 +265,9 @@ function headerHTML(view) {
     <div class="header__bar">
       <div class="header__left"><a href="${en ? enBooksHref() : booksHref('전체') + '#book-search'}">${en ? 'Catalogue' : '검색 Search'}</a></div>
       <a class="header__brand" href="${en ? enHomeHref() : BASE + '/'}" aria-label="${en ? 'Publion home' : '퍼블리온 홈'}">
-        <svg width="34" height="26" viewBox="0 0 34 26" fill="none" aria-hidden="true">
-          <path d="${LOGO_PATH}" fill="#111111"></path>
-        </svg>
-        <div>
-          <div class="header__wordmark">Publion</div>
-          <div class="header__ko">퍼 블 리 온</div>
-        </div>
+        <span class="brand-logo-crop brand-logo-crop--header" aria-hidden="true">
+          <img src="${BASE}/assets/img/publion-logo.jpeg" alt="" decoding="async">
+        </span>
       </a>
       <div class="header__right"></div>
     </div>
@@ -963,10 +957,9 @@ function footerHTML(view) {
     <div class="footer__top">
       <div>
         <div class="footer__brand">
-          <svg width="30" height="23" viewBox="0 0 34 26" fill="none" aria-hidden="true">
-            <path d="${LOGO_PATH}" fill="#FFFFFF"></path>
-          </svg>
-          <div class="footer__wordmark">Publion</div>
+          <span class="brand-logo-crop brand-logo-crop--footer">
+            <img src="${BASE}/assets/img/publion-logo.jpeg" alt="퍼블리온 Publion" loading="lazy" decoding="async">
+          </span>
         </div>
         <p class="footer__contact">${en
           ? `Publion &middot; Park Sun-young, Publisher<br>${SITE.email}`

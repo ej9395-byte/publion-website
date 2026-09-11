@@ -61,8 +61,8 @@ export const BOOKS = [
 export const SUBJECTS = ["경제경영 Business","자기계발 Self-development","인문 Humanities","문학 Literature","어린이 Children's"];
 
 export const HERO = [
-  {bookId:41, kicker:"신간 New Release", slotId:"hero-1", title:"인간이 유리하다",
-   desc:"AI가 대부분의 일을 대신하는 시대에, 인간에게만 남는 것은 무엇인가. 김용섭 소장의 새 트렌드 분석서.",pages:344,mm:"140×210mm"},
+  {bookId:42, kicker:"신간 New Release", slotId:"hero-1", title:"텃밭과 정원",
+   desc:"텃밭의 기록자에서 정원의 설계자로. 철학자 최진석이 말하는 나만의 신화를 세우는 추상의 힘.",pages:256,mm:"128×188mm"},
   {bookId:23, kicker:"퍼블리온 문학", slotId:"hero-2", title:"파견자들",
    desc:"2024 문학나눔 도서 · 예스24 올해의책 선정. 김초엽 장편소설."},
   {bookId:30, kicker:"인문", slotId:"hero-3", title:"문자의 역사",

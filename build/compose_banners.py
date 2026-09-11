@@ -122,7 +122,7 @@ def build(slot, W, H, ids, want_h, mode="row", gap_ratio=0.030,
 # 화면이 좁아질수록 좌우가 잘립니다. 그래서 캔버스 비율(2.5)을 실제 박스 비율에
 # 가깝게 잡고, 표지를 68% 지점에 두어 박스 비율 1.5 까지 잘리지 않게 했습니다.
 HERO_W, HERO_H, HERO_X = 2000, 800, 0.68
-build("hero-1", HERO_W, HERO_H, [41], 560, "single", x_center=HERO_X, blur=22, alpha=90)
+build("hero-1", HERO_W, HERO_H, [42], 560, "single", x_center=HERO_X, blur=22, alpha=90)
 build("hero-2", HERO_W, HERO_H, [23], 560, "single", x_center=HERO_X, blur=22, alpha=90)
 build("hero-3", HERO_W, HERO_H, [30], 560, "single", x_center=HERO_X, blur=22, alpha=90)
 
