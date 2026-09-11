@@ -6,6 +6,8 @@ publion/
 
 # 원본 자료
 *.pdf
+# 단, 사이트에서 내려받는 도서목록은 저장소에 둡니다.
+!assets/catalog/*.pdf
 
 .DS_Store
 node_modules/

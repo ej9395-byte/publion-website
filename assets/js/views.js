@@ -38,7 +38,7 @@ export const SITE = {
   // 컨설팅 문서의 팩스 032-232-6300 도 인천 지역번호로 이쪽과 맞습니다.
   // 시·군·구까지만 씁니다.
   address: '인천광역시 남동구',
-  catalogPdf: 'https://drive.google.com/file/d/14xDhg0Z7kjXStwnNtX0qU1RH-K25IBED/view',
+  catalogPdf: '/assets/catalog/publion-catalog-2026.pdf',
   // 뉴스레터 구독 폼 (외부 서비스).
   // 비어 있으면 뉴스레터 자리는 '준비 중'으로 남고,
   // 개인정보처리방침도 '수집 없음' 문안을 그대로 씁니다.
@@ -465,7 +465,7 @@ function homeHTML(view) {
         <h2 class="catalog__title">2026년 도서목록</h2>
         <p class="catalog__body">퍼블리온이 펴낸 ${BOOKS.length}종을 분야별로 정리한 목록입니다. 서점과 도서관, 단체 주문 담당자분께 보내드리는 자료를 그대로 공개합니다.</p>
       </div>
-      <a class="btn catalog__btn" href="${SITE.catalogPdf}" target="_blank" rel="noopener">도서목록 내려받기 PDF</a>
+      <a class="btn catalog__btn" href="${BASE}${SITE.catalogPdf}" target="_blank" rel="noopener">도서목록 내려받기 PDF</a>
     </section>
 
     <div id="newsletter-mount">${newsletterHTML(view)}</div>
