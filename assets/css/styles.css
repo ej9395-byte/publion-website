@@ -8,7 +8,7 @@
   /* 2. 색 */
   --c-bg:        #FFFFFF;  /* 바탕 */
   --c-ink:       #111111;  /* 먹 */
-  --c-accent:    #9E2B1F;  /* 강조 */
+  --c-accent:    #007751;  /* 강조 — 퍼블리온 고유색 (2026-09-12) */
   --c-body:      #3F3F3D;  /* 본문 */
   --c-muted:     #6B6B68;  /* 보조 */
   --c-faint:     #8C8C88;  /* 흐림 */
@@ -18,7 +18,7 @@
   --c-on-ink:    #B4B4AE;  /* 먹 위 보조 */
   --c-rule-ink:  #2A2A28;  /* 먹 위 괘선 */
   --c-line-ink:  #3A3A38;  /* 먹 위 입력 밑줄 */
-  --c-accent-lt: #D98B72;  /* 먹 위 강조 */
+  --c-accent-lt: #6FC9A1;  /* 먹 위 강조 — 고유색의 밝은 쪽 */
 
   /* 3. 서체
      제목용 한글은 명조에서 고딕으로 바꿨습니다 (2026-09-02).
@@ -1011,7 +1011,6 @@ button {
 }
 .footer__brand { display: block; }
 .brand-logo-crop--footer { width: 180px; }
-.brand-logo-crop--footer img { filter: invert(1); }
 .footer__contact { font-size: 13px; line-height: 1.9; margin: 24px 0 0; max-width: 320px; }
 .footer__social {
   display: flex;

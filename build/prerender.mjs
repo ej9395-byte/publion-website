@@ -174,7 +174,7 @@ function altLinks(path) {
 function document_(view) {
   const m = meta(view);
   const canonical = SITE.origin + m.path;
-  const image = SITE.origin + (m.image || '/assets/img/covers/cover-41.jpg');
+  const image = SITE.origin + (m.image || '/assets/img/brand/og-publion.jpg');
   const isEn = view.lang === 'en';
 
   return `<!DOCTYPE html>
@@ -194,6 +194,11 @@ function document_(view) {
 <meta property="og:url" content="${esc(canonical)}">
 <meta property="og:image" content="${esc(image)}">
 <meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="${BASE}/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="icon" type="image/png" href="${BASE}/assets/img/brand/icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="${BASE}/assets/img/brand/apple-touch-icon.png">
+<meta name="theme-color" content="#007751">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

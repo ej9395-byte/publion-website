@@ -266,7 +266,7 @@ function headerHTML(view) {
       <div class="header__left"><a href="${en ? enBooksHref() : booksHref('전체') + '#book-search'}">${en ? 'Catalogue' : '검색 Search'}</a></div>
       <a class="header__brand" href="${en ? enHomeHref() : BASE + '/'}" aria-label="${en ? 'Publion home' : '퍼블리온 홈'}">
         <span class="brand-logo-crop brand-logo-crop--header" aria-hidden="true">
-          <img src="${BASE}/assets/img/publion-logo.jpeg" alt="" decoding="async">
+          <img src="${BASE}/assets/img/publion-logo-green.png" alt="" decoding="async">
         </span>
       </a>
       <div class="header__right"></div>
@@ -958,7 +958,7 @@ function footerHTML(view) {
       <div>
         <div class="footer__brand">
           <span class="brand-logo-crop brand-logo-crop--footer">
-            <img src="${BASE}/assets/img/publion-logo.jpeg" alt="퍼블리온 Publion" loading="lazy" decoding="async">
+            <img src="${BASE}/assets/img/publion-logo-white.png" alt="퍼블리온 Publion" loading="lazy" decoding="async">
           </span>
         </div>
         <p class="footer__contact">${en
