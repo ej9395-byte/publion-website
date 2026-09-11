@@ -54,7 +54,8 @@ export const BOOKS = [
   {id:38,title:"가든 타임",sub:"단단한 삶을 위한 시간",author:"이소원",trans:"",subject:"인문 Humanities",price:23000,year:2026,ym:"2026년 2월",date:"2026.02.10",award:"",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587845",kyobo:"S000219195011",pages:332,mm:"148×210mm"},
   {id:39,title:"아이엠",sub:"존재에 대한 명상",author:"루퍼트 스파이라",trans:"김주환 옮김",subject:"인문 Humanities",price:16000,year:2026,ym:"2026년 4월",date:"2026.04.01",award:"",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587883",kyobo:"S000219523297",pages:144,mm:"110×175mm"},
   {id:40,title:"현금경영",sub:"33년 경영 현장의 CEO가 알려주는 현금 생존법",author:"김성호",trans:"",subject:"경제경영 Business",price:22000,year:2026,ym:"2026년 5월",date:"2026.05.01",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587906",kyobo:"S000220053056",pages:392,mm:"148×210mm"},
-  {id:41,title:"인간이 유리하다",sub:"AI 시대, 인간에게만 허락된 것",author:"김용섭",trans:"",subject:"경제경영 Business",price:23000,year:2026,ym:"2026년 7월",date:"2026.07.01",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587937",kyobo:"S000220588157",pages:344,mm:"140×210mm"}
+  {id:41,title:"인간이 유리하다",sub:"AI 시대, 인간에게만 허락된 것",author:"김용섭",trans:"",subject:"경제경영 Business",price:23000,year:2026,ym:"2026년 7월",date:"2026.07.01",award:"",tone:"#111111",ink:"#FFFFFF",isbn:"9791191587937",kyobo:"S000220588157",pages:344,mm:"140×210mm"},
+  {id:42,title:"텃밭과 정원",sub:"나만의 신화를 세우는 추상의 힘",author:"최진석",trans:"",subject:"인문 Humanities",price:20000,year:2026,ym:"2026년 9월",date:"2026.09.10",award:"",tone:"#D8DCD6",ink:"#111111",isbn:"9791191587968",kyobo:"S000221194257",pages:256,mm:"128×188mm"}
 ];
 
 export const SUBJECTS = ["경제경영 Business","자기계발 Self-development","인문 Humanities","문학 Literature","어린이 Children's"];
