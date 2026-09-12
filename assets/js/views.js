@@ -815,7 +815,19 @@ function aboutHTML() {
    topic 은 선택입니다. 비어 있으면 저자 페이지에 아무 표시도 나오지 않습니다.
    예: { name: '김용섭', topic: '트렌드·미래 전망' }
    문의는 대표 메일로 연결합니다. */
-export const SPEAKERS = [];
+export const SPEAKERS = [
+  { name: '김용섭' },
+  { name: '우미영' },
+  { name: '이소영' },
+  { name: '김성미' },
+  { name: '가혜숙' },
+  { name: '안예진' },
+  { name: '이재형' },
+  { name: '장은진' },
+  { name: '양영훈' },
+  { name: '이소원' },
+  { name: '김성호' },
+];
 
 const speakerOf = (name) => SPEAKERS.find((x) => x.name === name);
 
