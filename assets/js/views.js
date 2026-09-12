@@ -24,7 +24,7 @@ export const SITE = {
   youtube: 'https://www.youtube.com/channel/UCiAnjLlaS08ncxTel_Pd3EQ',
   instagram: 'https://instagram.com/publion_book',
   facebook: 'https://www.facebook.com/publionbooks',
-  email: 'publion2030@gmail.com',
+  email: 'info@publion.co.kr',
   tel: '010-3207-0033',
   ceo: '박선영',
   founded: '2020-02-26',          // 출판등록일
@@ -674,7 +674,7 @@ function detailHTML(view) {
   const raw = BOOKS.find((b) => b.id === view.bookId) || BOOKS[0];
   const book = decorate(raw);
   const intro = INTROS[raw.id] ||
-    '이 책의 소개글은 준비 중입니다. 먼저 궁금한 점이 있으시면 publion2030@gmail.com 으로 알려주세요.';
+    '이 책의 소개글은 준비 중입니다. 먼저 궁금한 점이 있으시면 info@publion.co.kr 으로 알려주세요.';
 
   const specs = [
     { k: '분야',     v: raw.subject },
