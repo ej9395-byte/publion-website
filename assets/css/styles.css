@@ -1484,8 +1484,9 @@ button {
   .t-h1-page, .about__title { font-size: 30px; }
   .hero__title { font-size: 30px; }
   .detail__title { font-size: 27px; }
-  .feature__title { font-size: 25px; }
-  .t-h2 { font-size: 24px; }
+  .t-h2 { font-size: 22px; letter-spacing: -.02em; }
+  .feature__title { font-size: 23px; letter-spacing: -.02em; }
+  .catalog__title { font-size: 23px; letter-spacing: -.02em; }
   .promo__title { font-size: 23px; letter-spacing: -.03em; line-height: 1.3; margin-bottom: 14px; }
   .journal__title { font-size: 18px; }
 }
@@ -1498,6 +1499,8 @@ button {
   .brand-logo-crop--header { width: 132px; }
   .t-h1-page, .about__title, .hero__title { font-size: 27px; }
   .promo__title { font-size: 21px; }
+  .t-h2 { font-size: 20px; }
+  .feature__title, .catalog__title { font-size: 21px; }
 }
 
 /* 모바일 다듬기 — 위 블록에서 남은 것 */
