@@ -306,7 +306,7 @@ export function heroHTML(heroIndex) {
     <div class="hero__wrap">
       <div class="hero__panel">
         <div class="hero__kicker">${esc(h.kicker)}</div>
-        <h1 class="hero__title">${esc(h.title)}</h1>
+        <h2 class="hero__title">${esc(h.title)}</h2>
         <p class="hero__desc">${esc(h.desc)}</p>
         <a class="btn hero__cta" href="${bookHref(h.bookId)}">자세히 보기 Discover</a>
       </div>
@@ -371,6 +371,11 @@ function homeHTML(view) {
 
   return `
   <main>
+    <!-- 홈의 대표 제목(h1)입니다. 예전에는 배너에 걸린 책 제목이 h1 이었는데,
+         배너를 바꿀 때마다 이 회사가 무엇을 하는 곳인지가 같이 바뀌었습니다.
+         화면에는 보이지 않고 검색·AI 수집기와 스크린리더만 읽습니다.
+         배너 회전에 딸려 다시 그려지지 않도록 #hero-mount 바깥에 둡니다. -->
+    <h1 class="u-sr-only">${esc(SITE.name)} — 경제경영·인문·문학 출판사</h1>
     <div id="hero-mount">${heroHTML(view.heroIndex || 0)}</div>
 
     <section class="section">
@@ -1318,7 +1323,7 @@ export function meta(view) {
   }
   return {
     title: '퍼블리온 Publion — 경제경영 · 인문 · 문학',
-    description: '퍼블리온은 새롭고, 필요하고, 읽는 즐거움이 담긴 책을 만듭니다. 2020년 설립 이후 41종을 펴냈습니다.',
+    description: '퍼블리온은 새롭고, 필요하고, 읽는 즐거움이 담긴 책을 만듭니다. 2020년 설립 이후 42종을 펴냈습니다.',
     path: '/',
   };
 }

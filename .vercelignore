@@ -1,0 +1,33 @@
+# 배포에서 제외 — 저장소에는 남기되 웹으로는 내보내지 않습니다.
+#
+# 2026-09-13 AEO 점검에서 확인: 이 파일들이 배포 루트에 있어
+# publion.co.kr/<경로> 로 누구나 열람할 수 있었습니다(전부 HTTP 200).
+# robots.txt 는 Allow: / 이고 sitemap 에도 없으니 색인 의도가 없던 것들입니다.
+
+# 디자인 원본 (Claude Design 캔버스 + 지원 스크립트)
+design-source/
+
+# 빌드 스크립트 — 산출물만 배포하면 됩니다
+build/
+
+# 내부 문서
+PRD.md
+README.md
+DEPLOY-PROMPT.md
+디자인시스템.md
+codex-prompt.txt
+AEO-점검-소견.md
+docs/
+코칭/
+
+# 도구 설정
+.claude/
+.moai/
+.gstack/
+
+# 원본 자료
+*.hwp
+*.hwpx
+*.xls
+*.xlsx
+*.docx

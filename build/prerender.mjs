@@ -36,6 +36,14 @@ const ORG = {
   url: SITE.origin + '/',
   email: SITE.email,
   telephone: '+82-2-3144-1191',
+  // 푸터에는 주소가 있는데 기계용 주장에는 빠져 있었습니다.
+  // SITE.address 는 '인천광역시 남동구' 처럼 시·도 + 시·군·구 두 마디입니다.
+  address: {
+    '@type': 'PostalAddress',
+    addressCountry: 'KR',
+    addressRegion: SITE.address.split(' ')[0],
+    addressLocality: SITE.address.split(' ').slice(1).join(' '),
+  },
   foundingDate: SITE.founded,
   founder: { '@type': 'Person', name: SITE.ceo },
   sameAs: [SITE.instagram, SITE.facebook, SITE.youtube, SITE.blog, SITE.tistory, SITE.store],
