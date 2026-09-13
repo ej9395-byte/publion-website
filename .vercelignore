@@ -7,8 +7,12 @@
 # 디자인 원본 (Claude Design 캔버스 + 지원 스크립트)
 design-source/
 
-# 빌드 스크립트 — 산출물만 배포하면 됩니다
-build/
+# build/ 는 제외하지 않습니다.
+# package.json 에 build 스크립트가 있고 vercel.json 에 buildCommand 가 없어
+# Vercel 이 자동으로 `node build/prerender.mjs` 를 실행합니다.
+# 제외하면 그 파일이 업로드되지 않아 빌드가 실패하고 이전 배포가 유지됩니다
+# (2026-09-13 실제로 겪음). 빌드 스크립트는 GitHub 에도 공개돼 있어
+# 노출 위험이 내부 문서와 다릅니다.
 
 # 내부 문서
 PRD.md
