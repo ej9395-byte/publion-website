@@ -802,8 +802,8 @@ function aboutHTML() {
       </div>
       <div>
         <h2 class="detail__sublabel">문의 Contact</h2>
-        <p>판권·강연·제휴 문의는 대표 직통으로 연락 바랍니다.</p>
-        <div class="about__strong">${SITE.ceo} 대표 · <a href="tel:0231441191">${SITE.tel}</a></div>
+        <p>판권·강연·제휴 문의는 아래로 연락 바랍니다.</p>
+        <div class="about__strong">대표전화 · <a href="tel:0231441191">${SITE.tel}</a></div>
         <div class="about__fine">팩스 032-232-6300<br>출판등록 2020년 2월 26일 ${SITE.regNo}</div>
       </div>
     </section>
