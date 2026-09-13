@@ -46,7 +46,8 @@ const ORG = {
   },
   foundingDate: SITE.founded,
   founder: { '@type': 'Person', name: SITE.ceo },
-  sameAs: [SITE.instagram, SITE.facebook, SITE.youtube, SITE.blog, SITE.tistory, SITE.store],
+  sameAs: [SITE.instagram, SITE.facebook, SITE.youtube, SITE.blog, SITE.tistory, SITE.store,
+           SITE.kyoboCasting, SITE.wadiz, SITE.publy],
 };
 
 const crumbs = (items) => ({
@@ -154,7 +155,12 @@ function jsonLdFor(view) {
       mainEntity: { '@type': 'ItemList', numberOfItems: authorList().length,
         itemListElement: authorList().map((a, i) => ({
           '@type': 'ListItem', position: i + 1,
-          item: { '@type': 'Person', name: a.name } })) },
+          // description 을 함께 실어 동명이인과 구분되게 합니다.
+          // 구조화 데이터가 AI 인용을 늘린다는 근거는 없습니다 — 화면 본문이 본체이고
+          // 이건 같은 사실을 기계가 읽는 형태로 한 번 더 두는 것입니다.
+          item: a.bio
+            ? { '@type': 'Person', name: a.name, description: a.bio }
+            : { '@type': 'Person', name: a.name } })) },
     });
   }
 

@@ -24,6 +24,11 @@ export const SITE = {
   youtube: 'https://www.youtube.com/channel/UCiAnjLlaS08ncxTel_Pd3EQ',
   instagram: 'https://instagram.com/publion_book',
   facebook: 'https://www.facebook.com/publionbooks',
+  // 아래 3곳은 2026-09-13 검색에서 실재를 확인하고 sameAs 에 넣었습니다.
+  // 링크 모음 서비스(인포크링크)는 중계 페이지라 넣지 않았습니다.
+  kyoboCasting: 'https://casting.kyobobook.co.kr/caster/publion',
+  wadiz: 'https://www.wadiz.kr/web/maker/detail/2560922',
+  publy: 'https://publy.co/profile/385276',
   email: 'info@publion.co.kr',
   tel: '02-3144-1191',
   ceo: '박선영',
@@ -71,6 +76,19 @@ export const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => (
 ));
 
 export const money = (n) => (n ? '₩' + n.toLocaleString('ko-KR') : '출간 예정');
+
+/* 언론·기관 추천 한 칸.
+ *
+ * 문자열이면 글자만, { label, href } 면 기사 원문으로 링크를 겁니다.
+ * 밖으로 나가는 링크를 다는 이유는 두 가지입니다 —
+ *   1. 읽는 사람이 "조선일보 2021" 을 실제로 확인할 수 있어야 합니다.
+ *   2. 인용되는 문서는 신뢰할 만한 사이트로 나가는 외부 링크 쪽으로 기웁니다
+ *      (arXiv:2512.09483, 55,936질의·1.41M링크 비교).
+ * 반환값은 HTML 이므로 호출부에서 다시 esc 하지 않습니다.
+ */
+export const pressItem = (p) => (typeof p === 'string'
+  ? esc(p)
+  : `<a class="spec__src" href="${esc(p.href)}" target="_blank" rel="noopener">${esc(p.label)}</a>`);
 export const byline = (b) => [b.author, b.trans].filter(Boolean).join(' · ');
 
 export const decorate = (b) => ({
@@ -691,7 +709,14 @@ function detailHTML(view) {
     { k: '수상·선정', v: raw.award || '—' },
   ];
   const press = PRESS[String(raw.id)] || [];
-  if (press.length) specs.push({ k: '미디어·기관 추천', v: press.join(' · ') });
+  if (press.length) {
+    specs.push({
+      k: '미디어·기관 추천',
+      v: press.map(pressItem).join(' · '),
+      // pressItem 이 이미 esc 를 마쳤으므로 이 칸만 그대로 내보냅니다.
+      html: true,
+    });
+  }
   const related = BOOKS.filter((b) => b.subject === raw.subject && b.id !== raw.id).slice(0, 4).map(decorate);
 
   return `
@@ -728,7 +753,7 @@ function detailHTML(view) {
       <div>
         <h2 class="detail__sublabel">사양 Specifications</h2>
         ${specs.map((row) => `
-          <div class="spec"><span class="spec__k">${esc(row.k)}</span><span>${esc(row.v)}</span></div>`).join('')}
+          <div class="spec"><span class="spec__k">${esc(row.k)}</span><span>${row.html ? row.v : esc(row.v)}</span></div>`).join('')}
       </div>
     </section>
 
@@ -842,8 +867,43 @@ export function authorList() {
   names.sort((x, y) => BOOKS.filter((b) => b.author === y).length - BOOKS.filter((b) => b.author === x).length);
   return names.map((name) => {
     const list = BOOKS.filter((b) => b.author === name);
-    return { name, role: list[0].subject, count: list.length, href: bookHref(list[0].id) };
+    return {
+      name, role: list[0].subject, count: list.length, href: bookHref(list[0].id),
+      bookId: list[0].id, bio: authorBioOf(list[0].id, name),
+    };
   });
+}
+
+/* 저자 소개문을 이름으로 찾습니다.
+ *
+ * AUTHOR_BIO 는 도서 id 로 묶여 있고 한 항목에 저자·역자·삽화가가 같이 들어갑니다.
+ *   "저 : 토드 허먼" / "(Todd Herman)" / 소개문 / 소개문(중복) / "역 : 전리오" / ...
+ * 역할 머리글로 블록을 가르고, '저' 블록에서 가장 긴 줄을 씁니다.
+ * 원문에 같은 문장이 두 번 들어 있는데 앞의 것이 '...' 로 잘려 있어 긴 쪽이 완전본입니다.
+ * 원어명 줄('(Todd Herman)')은 짧아서 자연히 걸러집니다.
+ */
+const BIO_HEAD = /^(저|역|그림|음악|사진|엮음|감수|옮김)\s*:\s*(.+)$/;
+
+export function authorBioOf(bookId, name) {
+  const raw = AUTHOR_BIO[String(bookId)];
+  if (!raw) return '';
+  let inAuthor = false;
+  let best = '';
+  raw.split('\n').map((x) => x.trim()).filter(Boolean).forEach((line) => {
+    const head = line.match(BIO_HEAD);
+    if (head) { inAuthor = head[1] === '저' && head[2].trim() === name; return; }
+    if (inAuthor && line.length > best.length) best = line;
+  });
+  return best;
+}
+
+/* 카드에 넣을 발췌. 문장 경계에서 끊고, 못 끊으면 글자수로 자릅니다. */
+export function bioExcerpt(bio, max = 92) {
+  if (!bio) return '';
+  if (bio.length <= max) return bio;
+  const cut = bio.slice(0, max);
+  const stop = Math.max(cut.lastIndexOf('. '), cut.lastIndexOf('다. '), cut.lastIndexOf('요. '));
+  return (stop > max * 0.5 ? cut.slice(0, stop + 1) : cut.trimEnd() + '…');
 }
 
 /* 저널 — 대표 블로그와 퍼블리온 블로그에 올린 글 전부.
@@ -893,6 +953,7 @@ function authorsHTML() {
       <div class="author__avatar" aria-hidden="true"></div>
       <div class="author__name">${esc(a.name)}${sp ? '<span class="author__talk">강연</span>' : ''}</div>
       <div class="author__role">${esc(a.role)}</div>
+      ${a.bio ? `<p class="author__bio">${esc(bioExcerpt(a.bio))}</p>` : ''}
       <div class="author__count">${a.count}종</div>
     </a>`;
   }).join('');
