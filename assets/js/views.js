@@ -25,7 +25,7 @@ export const SITE = {
   instagram: 'https://instagram.com/publion_book',
   facebook: 'https://www.facebook.com/publionbooks',
   email: 'info@publion.co.kr',
-  tel: '010-3207-0033',
+  tel: '02-3144-1191',
   ceo: '박선영',
   founded: '2020-02-26',          // 출판등록일
   regNo: '제2022-000096호',        // 출판등록번호
@@ -803,7 +803,7 @@ function aboutHTML() {
       <div>
         <h2 class="detail__sublabel">문의 Contact</h2>
         <p>판권·강연·제휴 문의는 대표 직통으로 연락 바랍니다.</p>
-        <div class="about__strong">${SITE.ceo} 대표 · <a href="tel:01032070033">${SITE.tel}</a></div>
+        <div class="about__strong">${SITE.ceo} 대표 · <a href="tel:0231441191">${SITE.tel}</a></div>
         <div class="about__fine">팩스 032-232-6300<br>출판등록 2020년 2월 26일 ${SITE.regNo}</div>
       </div>
     </section>

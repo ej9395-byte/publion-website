@@ -35,7 +35,7 @@ const ORG = {
   alternateName: SITE.nameEn,
   url: SITE.origin + '/',
   email: SITE.email,
-  telephone: '+82-10-3207-0033',
+  telephone: '+82-2-3144-1191',
   foundingDate: SITE.founded,
   founder: { '@type': 'Person', name: SITE.ceo },
   sameAs: [SITE.instagram, SITE.facebook, SITE.youtube, SITE.blog, SITE.tistory, SITE.store],
