@@ -9,6 +9,7 @@
 import { BOOKS, SUBJECTS, HERO, SERIES } from './data.js';
 import { INTROS } from './intros.js';
 import { POSTS, POSTS_BY_BOOK } from './posts.js';
+import { JOURNAL_POSTS } from './journal-posts.js';
 import { NOTES } from './notes.js';
 import { VIDEOS, PRESS, YOUTUBE_CHANNEL, COMPANY_PRESS } from './media.js';
 import { EXTERNAL_LINKS } from './external.js';
@@ -109,6 +110,12 @@ export const aboutHref = () => BASE + '/about/';
 export const authorsHref = () => BASE + '/authors/';
 export const journalHref = () => BASE + '/journal/';
 export const bookHref = (id) => `${BASE}/book/${id}/`;
+export const journalPostHref = (slug) => `${BASE}/journal/${slug}/`;
+
+/* 티스토리 원문 주소로 자사 글을 찾습니다. 목록의 '대표의 기록' 행을
+   자사 페이지로 돌리는 데 씁니다 — 없으면 지금처럼 블로그로 내보냅니다. */
+export const ownJournalPost = (href) =>
+  JOURNAL_POSTS.find((x) => x.origin.replace(/\/$/, '') === (href || '').replace(/\/$/, ''));
 
 /* 영문 섹션 — 해외 에이전시·출판사가 보는 화면입니다.
    AI·검색 크롤러가 자바스크립트를 실행하지 않으므로 한국어 화면과 똑같이
@@ -922,6 +929,46 @@ export function bioExcerpt(bio, max = 92) {
 
 /* 저널 — 대표 블로그와 퍼블리온 블로그에 올린 글 전부.
    누르면 해당 블로그로 이동합니다. */
+/* 저널 개별 글 — 전문을 자사 도메인에 싣습니다. */
+function journalPostHTML(slug) {
+  const post = JOURNAL_POSTS.find((x) => x.slug === String(slug));
+  if (!post) return `<main class="journal-post"><p>글을 찾을 수 없습니다.</p></main>`;
+  const idx = JOURNAL_POSTS.indexOf(post);
+  const prev = JOURNAL_POSTS[idx + 1];
+  const next = JOURNAL_POSTS[idx - 1];
+  return `
+  <main class="journal-post">
+    <nav class="t-crumb" aria-label="위치">
+      <a href="${BASE}/">홈</a> / <a href="${journalHref()}">저널</a> / 대표의 기록
+    </nav>
+
+    <header class="journal-post__head">
+      <div class="journal-post__kicker">대표의 기록 <span class="t-en">Publisher's note</span></div>
+      <h1 class="journal-post__title">${esc(post.title)}</h1>
+      <div class="journal-post__meta">
+        <time datetime="${esc(post.date.replace(/\./g, '-'))}">${esc(post.date)}</time>
+        <span>·</span>
+        <span>${esc(SITE.ceo)}</span>
+      </div>
+    </header>
+
+    <article class="journal-post__body">
+      ${post.paras.map((t) => `<p>${esc(t)}</p>`).join('')}
+    </article>
+
+    <footer class="journal-post__foot">
+      <p class="journal-post__origin">이 글은 대표 블로그
+        <a href="${esc(post.origin)}" target="_blank" rel="noopener">작은회사 경영수업</a>
+        에도 실려 있습니다.</p>
+      <nav class="journal-post__nav">
+        ${prev ? `<a class="link-underline" href="${journalPostHref(prev.slug)}">← ${esc(prev.title)}</a>` : '<span></span>'}
+        ${next ? `<a class="link-underline" href="${journalPostHref(next.slug)}">${esc(next.title)} →</a>` : '<span></span>'}
+      </nav>
+      <a class="link-underline" href="${journalHref()}">저널 전체 보기</a>
+    </footer>
+  </main>`;
+}
+
 function journalHTML() {
   const groups = [
     { source: '대표의 기록', lead: '박선영 대표가 쓰는 작은회사 경영수업입니다.', href: SITE.tistory },
@@ -946,13 +993,20 @@ function journalHTML() {
           <a class="link-underline" href="${g.href}" target="_blank" rel="noopener">블로그 가기 Visit</a>
         </div>
         <ul class="journal-list">
-          ${list.map((p) => `
+          ${list.map((p) => {
+            /* 자사 도메인에 전문이 있는 글이면 그쪽으로 보냅니다.
+               밖으로 내보내면 인용이 블로그 쪽으로 갑니다. */
+            const own = ownJournalPost(p.href);
+            const href = own ? journalPostHref(own.slug) : p.href;
+            const ext = own ? '' : ' target="_blank" rel="noopener"';
+            return `
             <li class="journal-list__row">
-              <a class="journal-list__link" href="${p.href}" target="_blank" rel="noopener">
+              <a class="journal-list__link" href="${href}"${ext}>
                 <span class="journal-list__date">${esc(p.date)}</span>
                 <span class="journal-list__title">${esc(p.title)}</span>
               </a>
-            </li>`).join('')}
+            </li>`;
+          }).join('')}
         </ul>
       </section>`;
     }).join('')}
@@ -1313,6 +1367,7 @@ export function bodyHTML(view) {
     case 'about':   return aboutHTML();
     case 'authors': return authorsHTML();
     case 'journal': return journalHTML();
+    case 'journal-post': return journalPostHTML(view.slug);
     case 'privacy': return privacyHTML();
     case 'en-home':   return enHomeHTML();
     case 'en-books':  return enBooksHTML();
@@ -1352,6 +1407,17 @@ export function meta(view) {
       title: '출판사 소개 About — 퍼블리온',
       description: '퍼블리온은 새롭고, 필요하고, 읽는 즐거움이 담긴 책을 만듭니다. 2020년 설립, 박선영 대표. 투고와 판권 문의 안내.',
       path: '/about/',
+    };
+  }
+  if (view.page === 'journal-post') {
+    const post = JOURNAL_POSTS.find((x) => x.slug === String(view.slug)) || JOURNAL_POSTS[0];
+    /* 요약문은 첫 문단에서 뽑습니다. 따로 쓴 요약이 없고, 첫 문단이 글의 도입이라
+       검색 결과에 그대로 보여도 말이 됩니다. */
+    const lead = post.paras.find((t) => t.length > 40) || post.paras[0] || '';
+    return {
+      title: `${post.title} — 퍼블리온`,
+      description: lead.slice(0, 155),
+      path: `/journal/${post.slug}/`,
     };
   }
   if (view.page === 'journal') {

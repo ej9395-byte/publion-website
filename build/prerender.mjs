@@ -16,6 +16,7 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const { BOOKS, SUBJECTS } = await import(join(ROOT, 'assets/js/data.js'));
 const V = await import(join(ROOT, 'assets/js/views.js'));
 const { INTROS } = await import(join(ROOT, 'assets/js/intros.js'));
+const { JOURNAL_POSTS } = await import(join(ROOT, 'assets/js/journal-posts.js'));
 
 const { SITE, esc, meta, pageHTML, authorList } = V;
 const BUILT = new Date().toISOString().slice(0, 10);
@@ -147,6 +148,30 @@ function jsonLdFor(view) {
     graph.push({ '@type': 'CollectionPage', url: SITE.origin + '/journal/', name: '저널 Journal',
                  inLanguage: 'ko-KR', publisher: { '@id': SITE.origin + '/#org' } });
   }
+
+  if (view.page === 'journal-post') {
+    const post = JOURNAL_POSTS.find((x) => x.slug === String(view.slug));
+    graph.push(crumbs([
+      { name: '홈', path: '/' }, { name: '저널', path: '/journal/' },
+      { name: post.title, path: '/journal/' + post.slug + '/' },
+    ]));
+    const lead = post.paras.find((t) => t.length > 40) || post.paras[0] || '';
+    graph.push({
+      '@type': 'BlogPosting',
+      '@id': SITE.origin + '/journal/' + post.slug + '/#post',
+      url: SITE.origin + '/journal/' + post.slug + '/',
+      headline: post.title,
+      datePublished: post.date.replace(/\./g, '-'),
+      inLanguage: 'ko-KR',
+      author: { '@type': 'Person', name: SITE.ceo },
+      publisher: { '@id': SITE.origin + '/#org' },
+      description: lead.slice(0, 200),
+      wordCount: post.paras.join(' ').length,
+      /* 같은 글이 대표 블로그에도 있습니다. 원본은 이쪽이고(대표 결정 2026-09-13)
+         블로그 주소는 sameAs 로 관계만 밝힙니다 — canonical 은 이 페이지 자신입니다. */
+      sameAs: [post.origin],
+    });
+  }
   if (view.page === 'authors') {
     graph.push(crumbs([{ name: '홈', path: '/' }, { name: '저자', path: '/authors/' }]));
     graph.push({
@@ -250,6 +275,7 @@ const views = [
   { page: 'en-books',  lang: 'en' },
   { page: 'en-rights', lang: 'en' },
   ...BOOKS.map((b) => ({ page: 'detail', bookId: b.id })),
+  ...JOURNAL_POSTS.map((x) => ({ page: 'journal-post', slug: x.slug })),
 ];
 
 const written = [];
