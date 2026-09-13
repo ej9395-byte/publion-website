@@ -393,7 +393,7 @@ input::placeholder{color:#8C8C88}
         <div>
           <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:18px">투고 안내 Submissions</div>
           <p style="font-size:16px;line-height:1.85;color:#3F3F3D;margin:0 0 20px">기획안, 목차, 원고 일부를 이메일로 보내주세요. 검토 후 회신드립니다.</p>
-          <div style="font-family:'Noto Serif KR',serif;font-size:20px">publion2030@gmail.com</div>
+          <div style="font-family:'Noto Serif KR',serif;font-size:20px">info@publion.co.kr</div>
         </div>
         <div>
           <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:18px">문의 Contact</div>
@@ -455,7 +455,7 @@ input::placeholder{color:#8C8C88}
           <svg width="30" height="23" viewBox="0 0 34 26" fill="none"><path d="M2 3.5 L11 3.5 L17 9 L23 3.5 L32 3.5 L32 22.5 L23 22.5 L17 17 L11 22.5 L2 22.5 Z" fill="#FFFFFF"></path></svg>
           <div style="font-weight:600;font-size:22px;letter-spacing:.16em;text-transform:uppercase;color:#FFFFFF">Publion</div>
         </div>
-        <p style="font-size:13px;line-height:1.9;margin:24px 0 0;max-width:320px">퍼블리온 · 박선영 대표<br>02-3144-1191<br>publion2030@gmail.com</p>
+        <p style="font-size:13px;line-height:1.9;margin:24px 0 0;max-width:320px">퍼블리온 · 박선영 대표<br>02-3144-1191<br>info@publion.co.kr</p>
         <div style="display:flex;flex-wrap:wrap;gap:16px;margin-top:22px;font-size:12px;letter-spacing:.08em">
           <sc-for list="{{ social }}" as="x" hint-placeholder-count="5">
             <a href="{{ x.href }}" target="_blank" rel="noopener" style="color:#B4B4AE;border-bottom:1px solid #3A3A38;padding-bottom:2px;text-decoration:none" style-hover="color:#FFFFFF">{{ x.label }}</a>
@@ -990,7 +990,7 @@ class Component extends DCLogic {
         blurb: book.sub || "",
         slotId: "cover-" + book.id,
         cover: "./assets/img/covers/cover-" + book.id + ".jpg",
-        body: INTROS[book.id] || "이 책의 소개글은 준비 중입니다. 궁금한 점은 publion2030@gmail.com 으로 알려주세요."
+        body: INTROS[book.id] || "이 책의 소개글은 준비 중입니다. 궁금한 점은 info@publion.co.kr 으로 알려주세요."
       }),
       specs: [
         {k:"분야", v:book.subject},
