@@ -21,6 +21,10 @@ DEPLOY-PROMPT.md
 디자인시스템.md
 codex-prompt.txt
 AEO-점검-소견.md
+# 진행상황.md 는 .gitignore 로도 막혀 있지만 여기에도 적어 둡니다.
+# 실물은 ~/workspace/컨설팅/고객사/퍼블리온/ 에 있고 여기 있는 것은 심볼릭 링크입니다.
+# 누가 .gitignore 를 풀더라도 배포로는 새지 않게 두 겹으로 막습니다.
+진행상황.md
 docs/
 코칭/
 
