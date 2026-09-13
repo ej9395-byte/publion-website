@@ -10,7 +10,7 @@ import { BOOKS, SUBJECTS, HERO, SERIES } from './data.js';
 import { INTROS } from './intros.js';
 import { POSTS, POSTS_BY_BOOK } from './posts.js';
 import { NOTES } from './notes.js';
-import { VIDEOS, PRESS, YOUTUBE_CHANNEL } from './media.js';
+import { VIDEOS, PRESS, YOUTUBE_CHANNEL, COMPANY_PRESS } from './media.js';
 import { EXTERNAL_LINKS } from './external.js';
 import { TOC, AUTHOR_BIO } from './contents.js';
 
@@ -822,6 +822,20 @@ function aboutHTML() {
             <div class="pillar__text">${esc(p.text)}</div>
           </div>`).join('')}
       </div>
+    </section>
+
+    <section class="about__press">
+      <h2 class="t-label t-label--accent" style="letter-spacing:.18em">언론에서 In the press</h2>
+      <p class="about__press-lead">퍼블리온과 퍼블리온의 책을 다룬 기사입니다.
+        제목을 누르면 매체 원문으로 갑니다.</p>
+      <ul class="press-list">
+        ${COMPANY_PRESS.map((n) => `
+          <li class="press-row">
+            <span class="press-row__outlet">${esc(n.outlet)}</span>
+            <a class="press-row__title" href="${esc(n.href)}" target="_blank" rel="noopener">${esc(n.title)}</a>
+            ${n.date ? `<span class="press-row__date">${esc(n.date)}</span>` : ''}
+          </li>`).join('')}
+      </ul>
     </section>
 
     <section class="about__contact">

@@ -463,3 +463,43 @@ export const PRESS = {
     "한겨레신문 2025"
   ]
 };
+
+/* 회사 차원 언론 보도
+ *
+ * 도서별 PRESS 와 다릅니다 — 그쪽은 책 한 권의 서평이고 이쪽은 "퍼블리온이라는
+ * 출판사"를 다룬 글, 또는 회사를 대표해 내보일 만한 보도입니다.
+ *
+ * 2026-09-13 에 네이버 뉴스·웹문서에서 상호로 조회해 고른 것이고,
+ * 열 한 건 모두 **원문 주소가 실제로 열리는지 직접 확인**했습니다(전부 HTTP 200).
+ * 자사 채널(블로그·유튜브)은 넣지 않습니다 — 남이 쓴 글만 셉니다.
+ *
+ * 링크는 네이버 뉴스 주소가 아니라 **매체 원문**으로 겁니다.
+ * 네이버 쪽은 기간이 지나면 사라지고, 신뢰를 받쳐 주는 것은 매체 도메인입니다.
+ *
+ * [확인 필요] 진흥원 인터뷰는 웹문서 검색에서 찾은 것이라 게재일을 모릅니다.
+ * 날짜 칸이 비면 화면에도 날짜가 나오지 않습니다.
+ */
+export const COMPANY_PRESS = [
+  { outlet: '한국경제',   date: '2026.08', title: '리더의 질문법 外 [이주의책]',
+    href: 'https://magazine.hankyung.com/business/article/202608104303b' },
+  { outlet: '뉴시스',     date: '2026.07', title: '[신간] 흑자에 속지 마라, 현금부자가 살아남는다',
+    href: 'https://www.newsis.com/view/NISX20260714_0003708491' },
+  { outlet: '세계일보',   date: '2026.07', title: '“현금을 목숨처럼”…33년 경영 CEO의 생존법은',
+    href: 'https://www.segye.com/newsView/20260713513337' },
+  { outlet: '오마이뉴스', date: '2025.11', title: '여성 임원 비율 54% 이 회사, 매출 5조 원 목전',
+    href: 'https://www.ohmynews.com/NWS_Web/View/at_pg.aspx?CNTN_CD=A0003184892' },
+  { outlet: '톱클래스',   date: '2025.09', title: '최인아책방X톱클래스 — 퍼블리온 박선영 대표',
+    href: 'http://topclass.chosun.com/news/articleView.html?idxno=35312' },
+  { outlet: '조선일보',   date: '2025.08', title: '[그림이 있는 도서관] 감정은 흔들려도 나는 나야',
+    href: 'https://www.chosun.com/culture-life/book/2025/08/30/EP5Y3CQYGZFDJMZJKF2KX37JYE/' },
+  { outlet: '동아일보',   date: '2024.11', title: '[새로 나왔어요] 생각의 역사 外',
+    href: 'https://www.donga.com/news/Culture/article/all/20241129/130537466/2' },
+  { outlet: '연합뉴스',   date: '2024.11', title: '[신간] 인간 문명의 네 가지 법칙 · 문자의 역사',
+    href: 'https://www.yna.co.kr/view/AKR20241127104400005' },
+  { outlet: '한겨레',     date: '2024.08', title: '8월 16일 문학 새 책',
+    href: 'https://www.hani.co.kr/arti/culture/book/1153914.html' },
+  { outlet: '매일경제',   date: '2024.06', title: '“답답해서 직접 뛰었더니 대박”…서점이 만든 책 잘 팔리네',
+    href: 'https://www.mk.co.kr/article/11049096' },
+  { outlet: '한국출판문화산업진흥원', date: '', title: '작지만 강한 출판사를 만나다 — 퍼블리온 박선영 대표',
+    href: 'http://nzine.kpipa.or.kr/sub/inside.php?ptype=view&idx=625' },
+];
