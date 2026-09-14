@@ -239,9 +239,7 @@ function document_(view) {
 <link rel="apple-touch-icon" href="${BASE}/assets/img/brand/apple-touch-icon.png">
 <meta name="theme-color" content="#007751">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="/assets/fonts/geist/geist.css" rel="stylesheet">
 <link href="/assets/fonts/pretendard/pretendard.css" rel="stylesheet">
 <link rel="stylesheet" href="${BASE}/assets/css/styles.css">
 
