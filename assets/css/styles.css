@@ -24,11 +24,13 @@
      제목용 한글은 명조에서 고딕으로 바꿨습니다 (2026-09-02).
      변수 이름은 역할을 그대로 드러내도록 --f-title 로 두었습니다.
      2026-09-14: 영문을 Archivo 에서 Geist 로 바꿨습니다. Geist 에는
-     한글 글리프가 없으므로 한글은 OS 기본 고딕으로 내려갑니다
-     (맥 Apple SD Gothic Neo · 윈도우 맑은 고딕). 한글 웹폰트는
-     싣지 않습니다 — 의도된 구성입니다. */
-  --f-title: 'Geist', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-  --f-sans:  'Geist', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+     한글 글리프가 없어 한글은 뒤의 Noto Sans KR 이 받습니다.
+     잠깐 한글 웹폰트를 빼고 OS 기본 고딕에 맡겼다가, 운영체제마다
+     한글 인상이 달라지는 것을 되돌렸습니다. 순서가 곧 역할입니다 —
+     영문은 Geist, 한글은 Noto Sans KR, 그 뒤는 웹폰트가 못 뜰 때의
+     보험입니다. */
+  --f-title: 'Geist', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --f-sans:  'Geist', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
 
   /* 4. 레이아웃 */
   --pad-x: 32px;
