@@ -23,9 +23,12 @@
   /* 3. 서체
      제목용 한글은 명조에서 고딕으로 바꿨습니다 (2026-09-02).
      변수 이름은 역할을 그대로 드러내도록 --f-title 로 두었습니다.
-     영문 라벨·본문은 그대로 Archivo 를 씁니다. */
-  --f-title: 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-  --f-sans:  'Archivo', 'Noto Sans KR', 'Apple SD Gothic Neo', system-ui, sans-serif;
+     2026-09-14: 영문을 Archivo 에서 Geist 로 바꿨습니다. Geist 에는
+     한글 글리프가 없으므로 한글은 OS 기본 고딕으로 내려갑니다
+     (맥 Apple SD Gothic Neo · 윈도우 맑은 고딕). 한글 웹폰트는
+     싣지 않습니다 — 의도된 구성입니다. */
+  --f-title: 'Geist', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --f-sans:  'Geist', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
 
   /* 4. 레이아웃 */
   --pad-x: 32px;
@@ -93,7 +96,7 @@ button {
 .t-label--muted  { color: var(--c-muted); }
 
 .t-en {                          /* 영문 부제 이탤릭 */
-  font-family: 'Archivo', sans-serif;
+  font-family: 'Geist', sans-serif;
   font-style: italic;
   font-synthesis-style: none;   /* 한글에 가짜 기울임이 붙지 않게 */
   font-weight: 400;
@@ -151,7 +154,7 @@ button {
 /* 버튼: 기본은 검정 바탕 흰 글씨, hover에 강조색 (SOP 6장) */
 .btn {
   display: inline-block;
-  font-family: 'Archivo', sans-serif;
+  font-family: 'Geist', sans-serif;
   background: var(--c-ink);
   color: var(--c-bg);
   border: 0;
@@ -731,7 +734,7 @@ button {
   font-weight: 600;
 }
 .book__en {
-  font-family: 'Archivo', sans-serif;
+  font-family: 'Geist', sans-serif;
   font-style: italic;
   font-synthesis-style: none;   /* 한글에 가짜 기울임이 붙지 않게 */
   font-size: 14px;
@@ -800,7 +803,7 @@ button {
   margin: 0 0 10px;
 }
 .detail__en {
-  font-family: 'Archivo', sans-serif;
+  font-family: 'Geist', sans-serif;
   font-style: italic;
   font-synthesis-style: none;   /* 한글에 가짜 기울임이 붙지 않게 */
   font-size: 22px;
@@ -908,7 +911,7 @@ button {
   text-wrap: pretty;
 }
 .about__sub {
-  font-family: 'Archivo', sans-serif;
+  font-family: 'Geist', sans-serif;
   font-size: 22px;
   font-style: italic;
   font-synthesis-style: none;   /* 한글에 가짜 기울임이 붙지 않게 */
