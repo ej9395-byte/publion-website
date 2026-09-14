@@ -9,11 +9,11 @@
 <x-dc>
 <helmet>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@300;400;600&family=Archivo:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
 <style>
 *{box-sizing:border-box}
-body{margin:0;background:#FFFFFF;color:#111111;font-family:'Archivo','Noto Serif KR',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;background:#FFFFFF;color:#111111;font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:#111111;text-decoration:none}
 a:hover{color:#9E2B1F}
 input::placeholder{color:#8C8C88}
@@ -42,8 +42,8 @@ input::placeholder{color:#8C8C88}
       <div style="display:flex;align-items:center;gap:14px;cursor:pointer" onClick="{{ goHome }}">
         <svg width="34" height="26" viewBox="0 0 34 26" fill="none"><path d="M2 3.5 L11 3.5 L17 9 L23 3.5 L32 3.5 L32 22.5 L23 22.5 L17 17 L11 22.5 L2 22.5 Z" fill="#111111"></path></svg>
         <div>
-          <div style="font-family:'Archivo',sans-serif;font-weight:600;font-size:27px;letter-spacing:.16em;line-height:1;text-transform:uppercase">Publion</div>
-          <div style="font-family:'Noto Serif KR',serif;font-size:11px;letter-spacing:.36em;color:#6B6B68;margin-top:6px">퍼 블 리 온</div>
+          <div style="font-family:'Geist',sans-serif;font-weight:600;font-size:27px;letter-spacing:.16em;line-height:1;text-transform:uppercase">Publion</div>
+          <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:11px;letter-spacing:.36em;color:#6B6B68;margin-top:6px">퍼 블 리 온</div>
         </div>
       </div>
       <div style="display:flex;gap:20px;justify-content:flex-end;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#6B6B68">
@@ -64,7 +64,7 @@ input::placeholder{color:#8C8C88}
               <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#9E2B1F;margin-bottom:16px">{{ col.title }}</div>
               <div style="display:flex;flex-direction:column;gap:11px">
                 <sc-for list="{{ col.links }}" as="link" hint-placeholder-count="5">
-                  <div style="font-family:'Noto Serif KR',serif;font-size:16px;cursor:pointer;line-height:1.35" style-hover="color:#9E2B1F" onClick="{{ link.go }}">{{ link.label }}</div>
+                  <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:16px;cursor:pointer;line-height:1.35" style-hover="color:#9E2B1F" onClick="{{ link.go }}">{{ link.label }}</div>
                 </sc-for>
               </div>
             </div>
@@ -76,7 +76,7 @@ input::placeholder{color:#8C8C88}
                   <image-slot id="{{ card.slotId }}" shape="rect" fit="{{ card.fit }}" src="{{ card.src }}" placeholder="{{ card.title }}"></image-slot>
                 </div>
                 <div style="font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:6px">{{ card.kicker }}</div>
-                <div style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:600;line-height:1.35">{{ card.title }}</div>
+                <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:17px;font-weight:600;line-height:1.35">{{ card.title }}</div>
               </div>
             </sc-for>
           </div>
@@ -94,9 +94,9 @@ input::placeholder{color:#8C8C88}
         <div style="position:relative;height:100%;display:flex;align-items:center;pointer-events:none">
           <div style="max-width:620px;margin-left:64px;background:rgba(255,255,255,.94);padding:52px 56px">
             <div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#9E2B1F;margin-bottom:22px">{{ hero.kicker }}</div>
-            <h1 style="font-family:'Noto Serif KR',serif;font-size:52px;font-weight:600;line-height:1.22;margin:0 0 18px;letter-spacing:-.02em;text-wrap:pretty">{{ hero.title }}</h1>
+            <h1 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:52px;font-weight:600;line-height:1.22;margin:0 0 18px;letter-spacing:-.02em;text-wrap:pretty">{{ hero.title }}</h1>
             <p style="font-size:16px;line-height:1.8;color:#3F3F3D;margin:0 0 32px;max-width:460px;text-wrap:pretty">{{ hero.desc }}</p>
-            <button style="pointer-events:auto;font-family:'Archivo',sans-serif;background:#111111;color:#FFFFFF;border:0;padding:16px 34px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer" style-hover="background:#9E2B1F" onClick="{{ hero.open }}">자세히 보기 Discover</button>
+            <button style="pointer-events:auto;font-family:'Geist',sans-serif;background:#111111;color:#FFFFFF;border:0;padding:16px 34px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer" style-hover="background:#9E2B1F" onClick="{{ hero.open }}">자세히 보기 Discover</button>
           </div>
         </div>
         <div style="position:absolute;left:64px;bottom:34px;display:flex;gap:10px;align-items:center">
@@ -112,7 +112,7 @@ input::placeholder{color:#8C8C88}
 
       <section style="padding:78px 32px;border-bottom:1px solid #E2E2DE">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:38px">
-          <h2 style="font-family:'Noto Serif KR',serif;font-size:30px;font-weight:600;margin:0">신간 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">New Releases</span></h2>
+          <h2 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:30px;font-weight:600;margin:0">신간 <span style="font-family:'Geist';font-style:italic;font-synthesis-style:none;font-weight:400;color:#6B6B68">New Releases</span></h2>
           <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid #111111;padding-bottom:3px" onClick="{{ goBooks }}">전체 보기 Shop all</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:28px">
@@ -121,7 +121,7 @@ input::placeholder{color:#8C8C88}
               <div style="position:relative;aspect-ratio:3/4;margin-bottom:16px;border:1px solid #E2E2DE;background:#EEEEEC">
                 <image-slot id="{{ b.slotId }}" shape="rect" fit="contain" src="{{ b.cover }}" placeholder="{{ b.title }}"></image-slot>
               </div>
-              <div style="font-family:'Noto Serif KR',serif;font-size:17px;line-height:1.4;font-weight:600">{{ b.title }}</div>
+              <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:17px;line-height:1.4;font-weight:600">{{ b.title }}</div>
               <div style="font-size:12px;color:#6B6B68;margin-top:6px">{{ b.byline }}</div>
               <div style="font-size:12px;margin-top:8px">{{ b.priceLabel }}</div>
             </div>
@@ -132,7 +132,7 @@ input::placeholder{color:#8C8C88}
       <section style="display:grid;grid-template-columns:minmax(380px,1fr) 1.35fr;border-bottom:1px solid #E2E2DE">
         <div style="min-width:0;background:#111111;color:#FFFFFF;padding:80px 56px;display:flex;flex-direction:column;justify-content:center">
           <div style="font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#C4C4BE;margin-bottom:22px">저널 · Feature</div>
-          <h2 style="font-family:'Noto Serif KR',serif;font-size:34px;font-weight:600;line-height:1.35;margin:0 0 20px;text-wrap:pretty">김초엽 신작 장편소설 『파견자들』 출간 비하인드</h2>
+          <h2 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:34px;font-weight:600;line-height:1.35;margin:0 0 20px;text-wrap:pretty">김초엽 신작 장편소설 『파견자들』 출간 비하인드</h2>
           <p style="font-size:15px;line-height:1.85;color:#B4B4AE;margin:0 0 32px;text-wrap:pretty">2024 문학나눔 선정도서. 원고가 책이 되기까지의 과정을 편집부가 기록했습니다.</p>
           <a href="https://blog.naver.com/publion" target="_blank" rel="noopener" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#FFFFFF;border-bottom:1px solid #FFFFFF;padding-bottom:4px;align-self:flex-start;text-decoration:none">읽기 Read</a>
         </div>
@@ -143,7 +143,7 @@ input::placeholder{color:#8C8C88}
 
       <section style="padding:78px 32px;border-bottom:1px solid #E2E2DE">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:38px">
-          <h2 style="font-family:'Noto Serif KR',serif;font-size:30px;font-weight:600;margin:0">분야별 탐색 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Explore our Subjects</span></h2>
+          <h2 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:30px;font-weight:600;margin:0">분야별 탐색 <span style="font-family:'Geist';font-style:italic;font-synthesis-style:none;font-weight:400;color:#6B6B68">Explore our Subjects</span></h2>
           <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid #111111;padding-bottom:3px" onClick="{{ goBooks }}">전체 보기 Browse all</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:20px">
@@ -154,7 +154,7 @@ input::placeholder{color:#8C8C88}
               </div>
               <div style="display:flex;justify-content:space-between;align-items:baseline">
                 <div>
-                  <div style="font-family:'Noto Serif KR',serif;font-size:21px;font-weight:600">{{ s.ko }}</div>
+                  <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:21px;font-weight:600">{{ s.ko }}</div>
                   <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#6B6B68;margin-top:6px">{{ s.en }}</div>
                 </div>
                 <div style="font-size:12px;color:#9E2B1F">{{ s.count }}</div>
@@ -165,14 +165,14 @@ input::placeholder{color:#8C8C88}
       </section>
 
       <section style="padding:78px 32px;border-bottom:1px solid #E2E2DE;background:#F4F4F2">
-        <h2 style="font-family:'Noto Serif KR',serif;font-size:30px;font-weight:600;margin:0 0 38px">시리즈 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Explore our Series</span></h2>
+        <h2 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:30px;font-weight:600;margin:0 0 38px">시리즈 <span style="font-family:'Geist';font-style:italic;font-synthesis-style:none;font-weight:400;color:#6B6B68">Explore our Series</span></h2>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:28px">
           <sc-for list="{{ series }}" as="x" hint-placeholder-count="3">
             <div style="cursor:pointer" onClick="{{ x.open }}">
               <div style="position:relative;aspect-ratio:4/5;background:#EEEEEC;border:1px solid #E2E2DE;margin-bottom:16px">
                 <image-slot id="{{ x.slotId }}" shape="rect" fit="cover" src="{{ x.banner }}" placeholder="{{ x.name }}"></image-slot>
               </div>
-              <div style="font-family:'Noto Serif KR',serif;font-size:21px;font-weight:600">{{ x.name }}</div>
+              <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:21px;font-weight:600">{{ x.name }}</div>
               <div style="font-size:13px;color:#6B6B68;margin-top:8px;line-height:1.7">{{ x.note }}</div>
             </div>
           </sc-for>
@@ -184,12 +184,12 @@ input::placeholder{color:#8C8C88}
           <image-slot id="promo-literature" shape="rect" fit="cover" src="./assets/img/banners/promo-literature.jpg" placeholder="문학 프로모션 이미지"></image-slot>
         </div>
         <div style="min-width:0;padding:76px 56px;display:flex;flex-direction:column;justify-content:center">
-          <h2 style="font-family:'Noto Serif KR',serif;font-size:32px;font-weight:600;margin:0 0 18px;line-height:1.35">퍼블리온 문학</h2>
+          <h2 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:32px;font-weight:600;margin:0 0 18px;line-height:1.35">퍼블리온 문학</h2>
           <p style="font-size:16px;line-height:1.85;color:#3F3F3D;margin:0 0 30px;max-width:440px;text-wrap:pretty">2023년 김초엽 『파견자들』을 시작으로, 한국 소설과 해외 소설을 함께 소개합니다.</p>
           <span style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid #111111;padding-bottom:4px;align-self:flex-start" onClick="{{ goLiterature }}">둘러보기 Explore</span>
         </div>
         <div style="min-width:0;padding:76px 56px;display:flex;flex-direction:column;justify-content:center;border-top:1px solid #E2E2DE">
-          <h2 style="font-family:'Noto Serif KR',serif;font-size:32px;font-weight:600;margin:0 0 18px;line-height:1.35">퍼블리온 스토어</h2>
+          <h2 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:32px;font-weight:600;margin:0 0 18px;line-height:1.35">퍼블리온 스토어</h2>
           <p style="font-size:16px;line-height:1.85;color:#3F3F3D;margin:0 0 30px;max-width:440px;text-wrap:pretty">『독서의 기록 다이어리』를 비롯한 퍼블리온 굿즈와 도서를 스마트스토어에서 만나실 수 있습니다.</p>
           <a href="https://smartstore.naver.com/publion" target="_blank" rel="noopener" style="font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#111111;border-bottom:1px solid #111111;padding-bottom:4px;align-self:flex-start;text-decoration:none">스토어 가기 Shop</a>
         </div>
@@ -200,7 +200,7 @@ input::placeholder{color:#8C8C88}
 
       <section style="padding:78px 32px;border-bottom:1px solid #E2E2DE">
         <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:38px">
-          <h2 style="font-family:'Noto Serif KR',serif;font-size:30px;font-weight:600;margin:0">저널 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">News &amp; Features</span></h2>
+          <h2 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:30px;font-weight:600;margin:0">저널 <span style="font-family:'Geist';font-style:italic;font-synthesis-style:none;font-weight:400;color:#6B6B68">News &amp; Features</span></h2>
           <span style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-bottom:1px solid #111111;padding-bottom:3px" onClick="{{ goJournal }}">전체 보기 View all</span>
         </div>
         <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px">
@@ -209,7 +209,7 @@ input::placeholder{color:#8C8C88}
               <div style="position:relative;aspect-ratio:16/10;background:#EEEEEC;border:1px solid #E2E2DE;margin-bottom:18px">
                 <image-slot id="{{ j.slotId }}" shape="rect" fit="cover" src="./assets/img/banners/{{ j.slotId }}.jpg" placeholder="{{ j.kicker }}"></image-slot>
               </div>
-              <h3 style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:600;margin:0 0 10px;line-height:1.45;text-wrap:pretty">{{ j.title }}</h3>
+              <h3 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:20px;font-weight:600;margin:0 0 10px;line-height:1.45;text-wrap:pretty">{{ j.title }}</h3>
               <p style="font-size:14px;line-height:1.75;color:#6B6B68;margin:0 0 16px">{{ j.excerpt }}</p>
               <div style="display:flex;gap:14px;align-items:center;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9E2B1F">
                 <span>{{ j.kicker }}</span>
@@ -222,21 +222,21 @@ input::placeholder{color:#8C8C88}
 
       <section style="display:grid;grid-template-columns:1fr auto;gap:48px;align-items:center;padding:56px 32px;border-bottom:1px solid #E2E2DE;background:#F4F4F2">
         <div>
-          <h2 style="font-family:'Noto Serif KR',serif;font-size:26px;font-weight:600;margin:0 0 12px">2026년 도서목록</h2>
+          <h2 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:26px;font-weight:600;margin:0 0 12px">2026년 도서목록</h2>
           <p style="font-size:15px;line-height:1.85;color:#3F3F3D;margin:0;max-width:620px;text-wrap:pretty">퍼블리온이 펴낸 {{ titleCount }}을 분야별로 정리한 목록입니다. 서점과 도서관, 단체 주문 담당자분께 보내드리는 자료를 그대로 공개합니다.</p>
         </div>
-        <a href="{{ catalogPdf }}" target="_blank" rel="noopener" style="font-family:'Archivo',sans-serif;background:#111111;color:#FFFFFF;padding:16px 34px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;white-space:nowrap" style-hover="background:#9E2B1F">도서목록 내려받기 PDF</a>
+        <a href="{{ catalogPdf }}" target="_blank" rel="noopener" style="font-family:'Geist',sans-serif;background:#111111;color:#FFFFFF;padding:16px 34px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;text-decoration:none;white-space:nowrap" style-hover="background:#9E2B1F">도서목록 내려받기 PDF</a>
       </section>
 
       <section style="background:#111111;color:#FFFFFF;padding:76px 32px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
         <div>
-          <h2 style="font-family:'Noto Serif KR',serif;font-size:30px;font-weight:600;margin:0 0 16px">뉴스레터 구독</h2>
+          <h2 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:30px;font-weight:600;margin:0 0 16px">뉴스레터 구독</h2>
           <p style="font-size:15px;line-height:1.85;color:#B4B4AE;margin:0;max-width:460px;text-wrap:pretty">매달 신간 소식과 저자의 글, 편집자가 고른 문장을 보내드립니다.</p>
         </div>
         <div>
           <div style="display:flex;border-bottom:1px solid #3A3A38">
-            <input placeholder="이메일 주소 Email address" value="{{ email }}" onChange="{{ onEmail }}" onKeyDown="{{ onEmailKey }}" style="flex:1;background:transparent;border:0;outline:none;color:#FFFFFF;font-family:'Archivo',sans-serif;font-size:15px;padding:14px 0">
-            <button style="background:transparent;border:0;color:#FFFFFF;font-family:'Archivo',sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;padding:14px 0" style-hover="color:#D98B72" onClick="{{ subscribe }}">구독 Subscribe</button>
+            <input placeholder="이메일 주소 Email address" value="{{ email }}" onChange="{{ onEmail }}" onKeyDown="{{ onEmailKey }}" style="flex:1;background:transparent;border:0;outline:none;color:#FFFFFF;font-family:'Geist',sans-serif;font-size:15px;padding:14px 0">
+            <button style="background:transparent;border:0;color:#FFFFFF;font-family:'Geist',sans-serif;font-size:12px;letter-spacing:.16em;text-transform:uppercase;cursor:pointer;padding:14px 0" style-hover="color:#D98B72" onClick="{{ subscribe }}">구독 Subscribe</button>
           </div>
           <div style="display:flex;justify-content:space-between;align-items:center;gap:16px;margin-top:14px;font-size:12px;line-height:1.7">
             <span style="color:{{ subMsgColor }}">{{ subMsg }}</span>
@@ -250,7 +250,7 @@ input::placeholder{color:#8C8C88}
   <sc-if value="{{ isBooks }}" hint-placeholder-val="{{ false }}">
     <main style="padding:52px 32px 84px">
       <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6B6B68;margin-bottom:16px">홈 / 도서</div>
-      <h1 style="font-family:'Noto Serif KR',serif;font-size:52px;font-weight:600;margin:0 0 8px">도서 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Books</span></h1>
+      <h1 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:52px;font-weight:600;margin:0 0 8px">도서 <span style="font-family:'Geist';font-style:italic;font-synthesis-style:none;font-weight:400;color:#6B6B68">Books</span></h1>
       <div style="font-size:14px;color:#6B6B68;margin-bottom:32px">{{ resultLabel }}</div>
       <div style="display:flex;justify-content:space-between;align-items:center;gap:24px;border-top:1px solid #E2E2DE;border-bottom:1px solid #E2E2DE;padding:15px 0;margin-bottom:44px;position:sticky;top:112px;background:#FFFFFF;z-index:20">
         <div style="display:flex;gap:9px;flex-wrap:wrap">
@@ -272,8 +272,8 @@ input::placeholder{color:#8C8C88}
               <image-slot id="{{ b.slotId }}" shape="rect" fit="contain" src="{{ b.cover }}" placeholder="{{ b.title }}"></image-slot>
             </div>
             <div style="font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#9E2B1F;margin-bottom:7px">{{ b.subject }}</div>
-            <div style="font-family:'Noto Serif KR',serif;font-size:19px;line-height:1.4;font-weight:600">{{ b.title }}</div>
-            <div style="font-family:'Archivo';font-style:italic;font-size:14px;color:#6B6B68;margin-top:4px">{{ b.en }}</div>
+            <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:19px;line-height:1.4;font-weight:600">{{ b.title }}</div>
+            <div style="font-family:'Geist';font-style:italic;font-synthesis-style:none;font-size:14px;color:#6B6B68;margin-top:4px">{{ b.en }}</div>
             <div style="font-size:13px;color:#6B6B68;margin-top:8px">{{ b.byline }}</div>
             <div style="font-size:13px;margin-top:6px">{{ b.priceLabel }}</div>
             <sc-if value="{{ b.award }}" hint-placeholder-val="{{ false }}">
@@ -296,11 +296,11 @@ input::placeholder{color:#8C8C88}
         </div>
         <div style="padding:76px 32px 76px 64px;display:flex;flex-direction:column;justify-content:center;max-width:660px">
           <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:20px">{{ book.subject }}</div>
-          <h1 style="font-family:'Noto Serif KR',serif;font-size:46px;font-weight:600;line-height:1.2;margin:0 0 10px">{{ book.title }}</h1>
-          <div style="font-family:'Archivo';font-style:italic;font-size:22px;color:#6B6B68;margin-bottom:18px">{{ book.en }}</div>
+          <h1 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:46px;font-weight:600;line-height:1.2;margin:0 0 10px">{{ book.title }}</h1>
+          <div style="font-family:'Geist';font-style:italic;font-synthesis-style:none;font-size:22px;color:#6B6B68;margin-bottom:18px">{{ book.en }}</div>
           <div style="font-size:14px;color:#3F3F3D;margin-bottom:28px">{{ book.byline }}</div>
           <p style="font-size:16px;line-height:1.85;color:#3F3F3D;margin:0 0 32px;text-wrap:pretty">{{ book.blurb }}</p>
-          <div style="font-family:'Noto Serif KR',serif;font-size:28px;margin-bottom:22px">{{ book.priceLabel }}</div>
+          <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:28px;margin-bottom:22px">{{ book.priceLabel }}</div>
           <a href="https://smartstore.naver.com/publion" target="_blank" rel="noopener" style="display:inline-block;background:#111111;color:#FFFFFF;padding:17px 34px;font-size:12px;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;align-self:flex-start" style-hover="background:#9E2B1F;color:#FFFFFF">스마트스토어에서 구매</a>
         </div>
       </section>
@@ -310,7 +310,7 @@ input::placeholder{color:#8C8C88}
           <p style="font-size:16px;line-height:1.9;color:#3F3F3D;margin:0;text-wrap:pretty">{{ book.body }}</p>
 
           <div style="margin-top:38px;padding-top:30px;border-top:1px solid #E2E2DE">
-            <h3 style="font-family:'Noto Serif KR',serif;font-size:20px;font-weight:600;margin:0 0 18px">구매하기 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Where to buy</span></h3>
+            <h3 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:20px;font-weight:600;margin:0 0 18px">구매하기 <span style="font-family:'Geist';font-style:italic;font-synthesis-style:none;font-weight:400;color:#6B6B68">Where to buy</span></h3>
             <div style="display:flex;flex-direction:column;gap:9px">
               <sc-for list="{{ buyLinks }}" as="x" hint-placeholder-count="4">
                 <a href="{{ x.href }}" target="_blank" rel="noopener" style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:15px 20px;border:1px solid #E2E2DE;text-decoration:none;color:#111111" style-hover="border-color:#111111">
@@ -333,12 +333,12 @@ input::placeholder{color:#8C8C88}
       </section>
       <sc-if value="{{ hasStories }}" hint-placeholder-val="{{ true }}">
         <section style="padding:56px 32px;border-bottom:1px solid #E2E2DE;background:#F4F4F2">
-          <h2 style="font-family:'Noto Serif KR',serif;font-size:24px;font-weight:600;margin:0 0 22px">이 책의 이야기 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Behind the book</span></h2>
+          <h2 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:24px;font-weight:600;margin:0 0 22px">이 책의 이야기 <span style="font-family:'Geist';font-style:italic;font-synthesis-style:none;font-weight:400;color:#6B6B68">Behind the book</span></h2>
           <div style="border-top:1px solid #E2E2DE">
             <sc-for list="{{ stories }}" as="p" hint-placeholder-count="3">
               <a href="{{ p.href }}" target="_blank" rel="noopener" style="display:grid;grid-template-columns:108px 1fr auto;gap:20px;align-items:baseline;padding:16px 0;border-bottom:1px solid #E2E2DE;text-decoration:none;color:#111111" style-hover="color:#9E2B1F">
                 <span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#9E2B1F;white-space:nowrap">{{ p.source }}</span>
-                <span style="font-family:'Noto Serif KR',serif;font-size:17px;line-height:1.5">{{ p.title }}</span>
+                <span style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:17px;line-height:1.5">{{ p.title }}</span>
                 <span style="font-size:12px;color:#8C8C88;white-space:nowrap">{{ p.date }}</span>
               </a>
             </sc-for>
@@ -347,14 +347,14 @@ input::placeholder{color:#8C8C88}
       </sc-if>
 
       <section style="padding:70px 32px 88px">
-        <h2 style="font-family:'Noto Serif KR',serif;font-size:28px;font-weight:600;margin:0 0 32px">함께 보면 좋은 책 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Related titles</span></h2>
+        <h2 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:28px;font-weight:600;margin:0 0 32px">함께 보면 좋은 책 <span style="font-family:'Geist';font-style:italic;font-synthesis-style:none;font-weight:400;color:#6B6B68">Related titles</span></h2>
         <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:28px">
           <sc-for list="{{ related }}" as="b" hint-placeholder-count="4">
             <div style="cursor:pointer" onClick="{{ b.open }}">
               <div style="position:relative;aspect-ratio:3/4;margin-bottom:14px;border:1px solid rgba(17,17,17,.1);background:#EEEEEC">
                 <image-slot id="{{ b.slotId }}" shape="rect" fit="contain" src="{{ b.cover }}" placeholder="{{ b.title }}"></image-slot>
               </div>
-              <div style="font-family:'Noto Serif KR',serif;font-size:17px;font-weight:600">{{ b.title }}</div>
+              <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:17px;font-weight:600">{{ b.title }}</div>
               <div style="font-size:12px;color:#6B6B68;margin-top:5px">{{ b.priceLabel }}</div>
             </div>
           </sc-for>
@@ -367,13 +367,13 @@ input::placeholder{color:#8C8C88}
     <main>
       <section style="padding:86px 32px 66px;border-bottom:1px solid #E2E2DE;max-width:1000px">
         <div style="font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#9E2B1F;margin-bottom:24px">출판사 소개 · About</div>
-        <h1 style="font-family:'Noto Serif KR',serif;font-size:52px;font-weight:600;line-height:1.3;margin:0 0 28px;text-wrap:pretty">퍼블리온은 새롭고, 필요하고,<br>읽는 즐거움이 담긴 책을 만듭니다.</h1>
-        <p style="font-family:'Archivo';font-size:22px;font-style:italic;line-height:1.6;color:#3F3F3D;margin:0;text-wrap:pretty">Publion would like to create novel, necessary, and enjoyable books.</p>
+        <h1 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:52px;font-weight:600;line-height:1.3;margin:0 0 28px;text-wrap:pretty">퍼블리온은 새롭고, 필요하고,<br>읽는 즐거움이 담긴 책을 만듭니다.</h1>
+        <p style="font-family:'Geist';font-size:22px;font-style:italic;font-synthesis-style:none;line-height:1.6;color:#3F3F3D;margin:0;text-wrap:pretty">Publion would like to create novel, necessary, and enjoyable books.</p>
       </section>
       <section style="display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid #E2E2DE">
         <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
           <div style="padding:46px 32px;border-right:1px solid #E2E2DE">
-            <div style="font-family:'Noto Serif KR',serif;font-size:42px;line-height:1;font-weight:600">{{ s.n }}</div>
+            <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:42px;line-height:1;font-weight:600">{{ s.n }}</div>
             <div style="font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#6B6B68;margin-top:12px">{{ s.label }}</div>
           </div>
         </sc-for>
@@ -383,7 +383,7 @@ input::placeholder{color:#8C8C88}
         <div>
           <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="3">
             <div style="padding:26px 0;border-bottom:1px solid #E2E2DE">
-              <div style="font-family:'Noto Serif KR',serif;font-size:22px;font-weight:600;margin-bottom:10px">{{ p.title }}</div>
+              <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:22px;font-weight:600;margin-bottom:10px">{{ p.title }}</div>
               <div style="font-size:15px;line-height:1.8;color:#3F3F3D">{{ p.text }}</div>
             </div>
           </sc-for>
@@ -393,12 +393,12 @@ input::placeholder{color:#8C8C88}
         <div>
           <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:18px">투고 안내 Submissions</div>
           <p style="font-size:16px;line-height:1.85;color:#3F3F3D;margin:0 0 20px">기획안, 목차, 원고 일부를 이메일로 보내주세요. 검토 후 회신드립니다.</p>
-          <div style="font-family:'Noto Serif KR',serif;font-size:20px">info@publion.co.kr</div>
+          <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:20px">info@publion.co.kr</div>
         </div>
         <div>
           <div style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#9E2B1F;margin-bottom:18px">문의 Contact</div>
           <p style="font-size:16px;line-height:1.85;color:#3F3F3D;margin:0 0 20px">판권·강연·제휴 문의는 아래로 연락 바랍니다.</p>
-          <div style="font-family:'Noto Serif KR',serif;font-size:20px">대표전화 · 02-3144-1191</div>
+          <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:20px">대표전화 · 02-3144-1191</div>
           <div style="font-size:13px;line-height:1.9;color:#6B6B68;margin-top:18px">팩스 032-232-6300<br>출판등록 2020년 2월 26일 제2022-000096호</div>
         </div>
       </section>
@@ -408,12 +408,12 @@ input::placeholder{color:#8C8C88}
   <sc-if value="{{ isAuthors }}" hint-placeholder-val="{{ false }}">
     <main style="padding:52px 32px 88px">
       <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6B6B68;margin-bottom:16px">홈 / 저자</div>
-      <h1 style="font-family:'Noto Serif KR',serif;font-size:52px;font-weight:600;margin:0 0 36px">저자 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Authors</span></h1>
+      <h1 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:52px;font-weight:600;margin:0 0 36px">저자 <span style="font-family:'Geist';font-style:italic;font-synthesis-style:none;font-weight:400;color:#6B6B68">Authors</span></h1>
       <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#E2E2DE;border:1px solid #E2E2DE">
         <sc-for list="{{ authors }}" as="a" hint-placeholder-count="6">
           <div style="background:#FFFFFF;padding:32px;cursor:pointer" style-hover="background:#F4F4F2" onClick="{{ a.open }}">
             <div style="width:80px;height:80px;border-radius:50%;background:#EBEBE8;margin-bottom:22px"></div>
-            <div style="font-family:'Noto Serif KR',serif;font-size:23px;font-weight:600;line-height:1.3">{{ a.ko }}</div>
+            <div style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:23px;font-weight:600;line-height:1.3">{{ a.ko }}</div>
             <div style="font-size:13px;color:#6B6B68;margin-top:12px;line-height:1.7">{{ a.role }}</div>
             <div style="font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#9E2B1F;margin-top:14px">{{ a.count }}</div>
           </div>
@@ -425,14 +425,14 @@ input::placeholder{color:#8C8C88}
   <sc-if value="{{ isJournal }}" hint-placeholder-val="{{ false }}">
     <main style="padding:52px 32px 88px">
       <div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#6B6B68;margin-bottom:16px">홈 / 저널</div>
-      <h1 style="font-family:'Noto Serif KR',serif;font-size:52px;font-weight:600;margin:0 0 8px">저널 <span style="font-family:'Archivo';font-style:italic;font-weight:400;color:#6B6B68">Journal</span></h1>
+      <h1 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:52px;font-weight:600;margin:0 0 8px">저널 <span style="font-family:'Geist';font-style:italic;font-synthesis-style:none;font-weight:400;color:#6B6B68">Journal</span></h1>
       <p style="font-size:15px;line-height:1.8;color:#6B6B68;margin:0 0 44px;max-width:620px">퍼블리온이 블로그에 올린 글 {{ postCount }}편입니다. 제목을 누르면 해당 글로 이동합니다.</p>
 
       <sc-for list="{{ journalGroups }}" as="g" hint-placeholder-count="2">
         <section style="margin-bottom:56px">
           <div style="display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding-bottom:18px;border-bottom:1px solid #111111">
             <div>
-              <h2 style="font-family:'Noto Serif KR',serif;font-size:26px;font-weight:600;margin:0">{{ g.source }}</h2>
+              <h2 style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:26px;font-weight:600;margin:0">{{ g.source }}</h2>
               <p style="font-size:14px;color:#6B6B68;margin:8px 0 0">{{ g.lead }}</p>
             </div>
             <a href="{{ g.href }}" target="_blank" rel="noopener" style="font-size:12px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid #111111;padding-bottom:3px;color:#111111;text-decoration:none;white-space:nowrap">블로그 가기 Visit</a>
@@ -440,7 +440,7 @@ input::placeholder{color:#8C8C88}
           <sc-for list="{{ g.list }}" as="p" hint-placeholder-count="6">
             <a href="{{ p.href }}" target="_blank" rel="noopener" style="display:grid;grid-template-columns:92px 1fr;gap:20px;align-items:baseline;padding:17px 0;border-bottom:1px solid #E2E2DE;text-decoration:none;color:#111111" style-hover="color:#9E2B1F">
               <span style="font-size:12px;letter-spacing:.1em;color:#8C8C88;white-space:nowrap">{{ p.date }}</span>
-              <span style="font-family:'Noto Serif KR',serif;font-size:18px;line-height:1.5;text-wrap:pretty">{{ p.title }}</span>
+              <span style="font-family:'Geist','Apple SD Gothic Neo','Malgun Gothic',sans-serif;font-size:18px;line-height:1.5;text-wrap:pretty">{{ p.title }}</span>
             </a>
           </sc-for>
         </section>
