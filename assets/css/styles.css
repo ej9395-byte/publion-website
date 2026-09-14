@@ -23,14 +23,19 @@
   /* 3. 서체
      제목용 한글은 명조에서 고딕으로 바꿨습니다 (2026-09-02).
      변수 이름은 역할을 그대로 드러내도록 --f-title 로 두었습니다.
-     2026-09-14: 영문을 Archivo 에서 Geist 로 바꿨습니다. Geist 에는
-     한글 글리프가 없어 한글은 뒤의 Noto Sans KR 이 받습니다.
-     잠깐 한글 웹폰트를 빼고 OS 기본 고딕에 맡겼다가, 운영체제마다
-     한글 인상이 달라지는 것을 되돌렸습니다. 순서가 곧 역할입니다 —
-     영문은 Geist, 한글은 Noto Sans KR, 그 뒤는 웹폰트가 못 뜰 때의
-     보험입니다. */
-  --f-title: 'Geist', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
-  --f-sans:  'Geist', 'Noto Sans KR', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
+     2026-09-14: 영문을 Archivo 에서 Geist 로, 한글을 Noto Sans KR 에서
+     Pretendard 로 바꿨습니다. 순서가 곧 역할입니다 — Geist 에 한글
+     글리프가 없어 영문만 Geist 가 받고 한글은 통과해 Pretendard 가
+     받습니다. 'Pretendard Variable' 이 먼저인 것은 웹폰트가 그 이름으로
+     선언되기 때문이고, 뒤의 'Pretendard' 는 로컬 설치본용입니다.
+     그 뒤 둘은 CDN 이 못 뜰 때의 보험입니다.
+
+     Pretendard 는 구글 폰트에 없어 jsDelivr 에서 받습니다
+     (v1.3.9 가변 동적 서브셋, SIL OFL 1.1). 링크는 build/prerender.mjs.
+     한글 웹폰트를 빼면 운영체제마다 인상이 갈립니다 — 한 번 빼봤다가
+     같은 날 되돌렸습니다. */
+  --f-title: 'Geist', 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+  --f-sans:  'Geist', 'Pretendard Variable', 'Pretendard', 'Apple SD Gothic Neo', 'Malgun Gothic', system-ui, sans-serif;
 
   /* 4. 레이아웃 */
   --pad-x: 32px;
